@@ -2,13 +2,13 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Wed Dec 10 09:29:14 2003
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Fri Apr 02 13:40:48 2004
-## Update Count    : 53
+## Last Modified On: Wed Aug 04 10:51:19 2004
+## Update Count    : 102
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 
-require(methods)
-require(dynamicGraph)
+#require(methods)
+#require(dynamicGraph)
 
 
 dealVariableDescription <- function(object) {
@@ -38,27 +38,17 @@ dealEdges <- function(object)
       return(cbind(From,To))
   }
 
+.load.dynamicgraph <- function() {
+  require(methods)
 
-if (!isGeneric("dynamic.Graph")) {
-  if (is.function("dynamic.Graph")) 
+  if (!isGeneric("dynamic.Graph")) {
+  if (is.function("dynamic.Graph"))
     fun <- dynamic.Graph
-  else fun <- function(object, ...) standardGeneric("dynamic.Graph")
+  else
+    fun <- function(object, ...)
+  standardGeneric("dynamic.Graph")
   setGeneric("dynamic.Graph", fun)
 }
-
-#if (!isGeneric("dynamic.Graph")) {
-#  if (is.function("dynamic.Graph"))
-#    fun <- dynamic.Graph
-#  else
-#    fun <- function(object, factors = NULL, blocks = NULL,
-#                    title = "dynamicDealGraph", 
-#                    drawblocks = TRUE, right.to.left = FALSE, 
-#                    nested.blocks = FALSE, background = "white", 
-#                    edgecolor = "black",  # Color set here!!
-#                    width = 400, height = 400, ...)
-#  standardGeneric("dynamic.Graph")
-#  setGeneric("dynamic.Graph", fun)
-#}
 
 setMethod("dynamic.Graph", signature(object = "networkclass"), 
           function(object, ...) {
@@ -70,6 +60,8 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
 #                   edgecolor = "black",  # Color set here!!
 #                   width = 400, height = 400, ...)
 #  {
+            .load.deal.dynamic()
+            
     VariableDescription <- dealVariableDescription(object = object)
     Edges <- dealEdges(object = object)
 
@@ -81,148 +73,207 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
                       UserMenus = Menus)
                       
 })
-
-
-setClass("DealTestClass", 
-         representation(bayesfactor = "numeric"))
-
-newDealTestObject <- function(test) {
-    result <- new("DealTestClass",
-                  bayesfactor = test)
-    return(result)
 }
+.load.deal.dynamic <- function() {
+  require(methods)
+  require(dynamicGraph)
+  
+  setClass("DealTestClass", 
+           representation(bayesfactor = "numeric"))
+  
+#newDealTestObject <- function(test) {
+#    result <- new("DealTestClass",
+#                  bayesfactor = test)
+#    return(result)
+#}
 
-if (!isGeneric("label") && !isGeneric("label", where = 4)) {
-  if (is.function("label"))
-    fun <- label
-  else
-    fun <- function(object) standardGeneric("label")
-  setGeneric("label", fun)
-}
-
-setMethod("label", "DealTestClass", function(object)
-          format(object@bayesfactor, digits = 4))
-
-if (!isGeneric("width") && !isGeneric("width", where = 4)) {
-  if (is.function("width"))
-    fun <- width
-  else
-    fun <- function(object) standardGeneric("width")
-  setGeneric("width", fun)
-}
-
-setMethod("width", "DealTestClass", function(object)
-           (10-round(2 + 5 * (1 - min(1,object@bayesfactor)))))
-
-
-if (!isGeneric("testEdge")) {
-    if (is.function("testEdge"))
-        fun <- testEdge
+  if (!isGeneric("label") && !isGeneric("label", where = 4)) {
+    if (is.function("label"))
+      fun <- label
     else
-        fun <- function(object, action, name.1, name.2, ...)
-            standardGeneric("testEdge")
+      fun <- function(object) standardGeneric("label")
+    setGeneric("label", fun)
+  }
+  
+  setMethod("label", "DealTestClass", function(object)
+            format(object@bayesfactor, digits = 4))
+  
+  if (!isGeneric("width") && !isGeneric("width", where = 4)) {
+    if (is.function("width"))
+      fun <- width
+    else
+      fun <- function(object) standardGeneric("width")
+    setGeneric("width", fun)
+  }
+  
+  setMethod("width", "DealTestClass", function(object)
+            (10-round(2 + 5 * (1 - min(1,object@bayesfactor)))))
+
+  
+  if (!isGeneric("testEdge")) {
+    if (is.function("testEdge"))
+      fun <- testEdge
+    else
+      fun <- function(object, action, name.1, name.2, ...)
+        standardGeneric("testEdge")
     setGeneric("testEdge", fun)
-}
-
-
-setMethod("testEdge", signature(object = "networkclass"),
-          function(object, action, name.1, name.2, ...)
- {
+  }
+  
+  
+  setMethod("testEdge", signature(object = "networkclass"),
+            function(object, action, name.1, name.2, ...)
+            {
 #    message(paste("SHOULD return a test object with the edge from",
 #                  name.1, "to", name.2, "deleted from the argument object"))
-    args <- list(...)
-
-    modelCurrent <- object
-    nw <- recovernetwork(object)
-
-    currentscore <- modelCurrent@score
-
-    i <- (1:nw$n)[names(nw$nodes)==name.1]
-    j <- (1:nw$n)[names(nw$nodes)==name.2]
-
-#    cat("Trying to remove","i=",i,"(",name.1,"),j=",j,"(",name.2,")\n")
-
-    nw2 <- remover(nw,i,j,object@data,object@prior)$nw
-
-    if (!is.null(nw2)) 
-        test <- exp(nw$score - nw2$score)
-    else {
-        cat("Failed.\n")
-        cat("Trying to remove","i=",i,"(",name.1,"),j=",j,"(",name.2,")\n")
-        test <- 0
-    }
+              args <- list(...)
+              env <- args$Arguments
+              result <- NULL
+              
+              modelCurrent <- object
+              nw <- recovernetwork(object)
+              
+              currentscore <- modelCurrent@score
+              
+              i <- (1:nw$n)[names(nw$nodes)==name.1]
+              j <- (1:nw$n)[names(nw$nodes)==name.2]
+              
+              ##    cat("Trying to remove","i=",i,"(",name.1,"),j=",j,"(",name.2,")\n")
+              
+              nw2 <- remover(nw,i,j,object@data,object@prior)$nw
+              
+              if (!is.null(nw2)) 
+                test <- exp(nw$score - nw2$score)
+              else {
+                cat("Failed.\n")
+                cat("Trying to remove","i=",i,"(",name.1,"),j=",j,"(",name.2,")\n")
+                test <- 0
+              }
 #    cat("BayesFactor: ",test,"\n")
-    return(newDealTestObject(test))
- })
+#    return(newDealTestObject(test))
+              return(new("DealTestClass", bayesfactor=test))
+            })
 
 
-if (!isGeneric("modifyModel")) {
-  if (is.function("modifyModel"))
-    fun <- modifyModel
-  else
-    fun <- function(object, action, name, name.1, name.2, ...)
-                    standardGeneric("modifyModel")
-  setGeneric("modifyModel", fun)
-}
+  if (!isGeneric("modifyModel")) {
+    if (is.function("modifyModel"))
+      fun <- modifyModel
+    else
+      fun <- function(object, action, name, name.1, name.2, ...)
+        standardGeneric("modifyModel")
+    setGeneric("modifyModel", fun)
+  }
+  
+  setMethod("modifyModel", signature(object = "networkclass"),
+            function(object, action, name, name.1, name.2, ...)
+            {
+              args <- list(...)
+              env <- args$Arguments
+              result <- NULL
 
-setMethod("modifyModel", signature(object = "networkclass"),
-          function(object, action, name, name.1, name.2, ...)
- {
-     args <- list(...)
-    FactorVertices <- NULL
-    FactorEdges <- NULL
+              two.to.pairs <- function(from, to) {
+                edge.list <- vector("list", length(to))
+                for (j in seq(along = to)) edge.list[[j]] <- c(from[j], 
+                                to[j])
+                return(edge.list)
+              }
     
-    nw <- recovernetwork(object)
-
-    i <- (1:object@n)[names(object@nodes)==name.1]
-    j <- (1:object@n)[names(object@nodes)==name.2]
-    
-    if (action == "dropEdge") {
-#       message(paste("Should return an object with the edge from",
+              
+              FactorVertices <- NULL
+              FactorEdges <- NULL
+              
+              nw <- recovernetwork(object)
+              
+              i <- (1:object@n)[names(object@nodes)==name.1]
+              j <- (1:object@n)[names(object@nodes)==name.2]
+              
+              if (action == "dropEdge") {
+                ##       message(paste("Should return an object with the edge from",
 #                     name.1, "to", name.2, "deleted from the argument object"))
-       nw2 <- remover(nw,i,j,object@data,object@prior)$nw
-       if (!is.null(nw2)) {
-           new.object <- newnetwork(nw2,object@data,object@prior)
-       }
-       else {
-           cat("Failure\n")
-           cat("Tried to drop edge i,j\n")
-           new.object <- newnetwork(nw,object@data,object@prior)
-       }
- 
-   } else if (action == "addEdge") {
+                nw2 <- remover(nw,i,j,object@data,object@prior)$nw
+                if (!is.null(nw2)) {
+                  new.object <- newnetwork(nw2,object@data,object@prior)
+                  result <- list(object = new.object)
+                }
+                else {
+                  cat("Failure:")
+                  cat("Tried to drop edge ",i,",",j,".\n")
+#                  new.object <- newnetwork(nw,object@data,object@prior)
+#                    Edges <- dealEdges(object = new.object)
+#                    ArgEdges <-   
+#                      returnEdgeList(edge.list=two.to.pairs(Edges[,1],Edges[,2]),
+#                                     vertices=env$vertexList,
+#                                     oriented=TRUE
+#                                     )
+#                    env$edgeList <- ArgEdges
+                    ## virker ej:
+#                  env$redrawGraphWindow(graphWindow=env$graphWindow,object=new.object,edgeList=ArgEdges,Arguments=env)
+                  ##  env$redrawGraphWindow(graphWindow=NULL,object=new.object,edgeList=ArgEdges,Arguments=env)                    
+                }
+                
+              } else if (action == "addEdge") {
 #       message(paste("Should return an object with the edge from",
 #                     name.1, "to", name.2, "added to the argument object"))
-       nw2 <- insert(nw,i,j,object@data,object@prior)$nw
-       if (!is.null(nw2)) {
-           new.object <- newnetwork(nw2,object@data,object@prior)
-       }
-       else {
-              cat("failure.\n")
-              cat("Tried to add edge i=",i,",j=",j,"\n")
-              new.object <- newnetwork(nw,object@data,object@prior)
-       }
-    } else if (action == "dropVertex")  {
-       message(paste("Should return an object with the vertex", name,
-                     "deleted from the argument object"))
+                nw2 <- insert(nw,i,j,object@data,object@prior)$nw
+                if (!is.null(nw2)) {
+                  if (!cycletest(nw2)) {
+                    new.object <-
+    newnetwork(nw2,object@data,object@prior)
+                  result <- list(object = new.object)
+                  }
+                  else {
+                    cat("Failure:")
+                    cat("Cycle created.\n")
+#                    new.object <-
+#                      newnetwork(nw,object@data,object@prior)
+##                    Edges <- dealEdges(object = new.object)
+##                    ArgEdges <-   
+##                      returnEdgeList(edge.list=two.to.pairs(Edges[,1],Edges[,2]),
+##                                     vertices=env$vertexList,
+##                                     oriented=TRUE
+##                                    )
+#                    env$edgeList <- ArgEdges
+                    ## virker ej:
+##                     env$redrawGraphWindow(graphWindow=env$graphWindow,object=new.object,edgeList=ArgEdges,Arguments=env)
+                    ## env$redrawGraphWindow(graphWindow=NULL,object=new.object,edgeList=ArgEdges,Arguments=env)                    
+                  }
+                }
+                else {
+                  cat("Failure:")
+                  cat("Tried to add edge i=",i,",j=",j,".\n")
+#                  new.object <- newnetwork(nw,object@data,object@prior)
+#                    Edges <- dealEdges(object = new.object)
+#                    ArgEdges <-   
+#                      returnEdgeList(edge.list=two.to.pairs(Edges[,1],Edges[,2]),
+#                                     vertices=env$vertexList,
+#                                     oriented=TRUE
+#                                     )
+#                    env$edgeList <- ArgEdges
+                    ## virker ej:
+                  ## env$redrawGraphWindow(graphWindow=env$graphWindow,object=new.object,edgeList=ArgEdges,Arguments=env)
+#                    env$redrawGraphWindow(graphWindow=NULL,object=new.object,edgeList=ArgEdges,Arguments=env)                    
+                }
+              } else if (action == "dropVertex")  {
+                message(paste("Should return an object with the vertex", name,
+                              "deleted from the argument object"))
 
-       cat("Sorry..",action,"not implemented\n")
-       new.object <- object
-    } else if (action == "addVertex") {
-       message(paste("Should return an object with the vertex", name, 
-                     args$index, "added to the argument object"))
-       cat("Sorry..",action,"not implemented\n")
-       new.object <- object
-   }
-    
-    result <- list(object = new.object,
-                   FactorVertices = FactorVertices,
-                   FactorEdges = FactorEdges)
-    return(result)
-}
-          )
+                cat("Sorry..",action,"not implemented\n")
+                new.object <- object
+              } else if (action == "addVertex") {
+                message(paste("Should return an object with the vertex", name, 
+                              args$index, "added to the argument object"))
+                cat("Sorry..",action,"not implemented\n")
+                new.object <- object
+              }
+              
+#              result <- list(object = new.object,
+#                             FactorVertices = FactorVertices,
+#                             FactorEdges = FactorEdges)
 
-
+              return(result)
+            }
+            )
+}  
+  
 
 DealLabelAllEdges <- function(object, slave = FALSE, 
                 ...) {

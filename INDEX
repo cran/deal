@@ -1,5 +1,4 @@
 autosearch              Greedy search
-deal-internal           deal internal functions
 drawnetwork             Graphical interface for editing networks
 genlatex                From a network family, generate LaTeX output
 insert                  Insert/remove an arrow in network
@@ -9,18 +8,18 @@ learn                   Estimation of parameters in the local
                         probability distributions
 makesimprob             Make a suggestion for simulation probabilities
 maketrylist             Creates the full trylist
+modelstring             Tools for manipulating networks
 network                 Bayesian network data structure
 networkfamily           Generates and learns all networks for a set of
                         variables.
-Network tools           Tools for manipulating networks
 node                    Representation of nodes
 numbermixed             The number of possible networks
 nwfsort                 Sorts a list of networks
-unique.networkfamily    Makes a network family unique.
 perturb                 Perturbs a network
 prob                    Local probability distributions
 rats                    Weightloss of rats
 readnet                 Reads/saves .net file
-rnetwork                Simulation of data sets with a given dependency
-                        structure
+rnetwork                Simulation of data sets with a given
+                        dependency structure
 score                   Network score
+unique.networkfamily    Makes a network family unique.

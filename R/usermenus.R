@@ -23,5 +23,19 @@
      },
            update.vertices = TRUE,
            update.edges = TRUE
-     )
-)
+     ),
+         MainUser =
+         list(label = "Savenet",
+              command = function(object, ...)
+          {
+            Args <- list(...)$Arguments
+            ReturnVal <- modalDialog("Filename dialog", 
+                                     "Enter filename", "default.net", graphWindow = Args$graphWindow)
+                    print(ReturnVal)
+            
+            savenet(recovernetwork(object),file(ReturnVal))
+          },
+              update.vertices = TRUE,
+              update.edges = TRUE
+              )
+         )

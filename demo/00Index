@@ -4,3 +4,7 @@ rats			Analyses rats dataset and demonstrate the
 simulation		Simulates data and analyses them
 regression		Simple example of Bayesian regression
 dd			Demonstrates "dynamic deal"
+reinis			Demonstrates "dynamic deal"
+cocoreinis		Demonstrates "dynamic CoCo"
+mathmark		Demonstrates "dynamic deal"
+cocomathmark		Demonstrates "dynamic CoCo"

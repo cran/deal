@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Thu Sep 26 15:19:02 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Jan 07 14:12:25 2004
-## Update Count    : 95
+## Last Modified On: Tue Aug 03 10:55:08 2004
+## Update Count    : 96
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -29,7 +29,7 @@ savenet <- function(nw,con=file("default.net")) {
 
     open(con,"w")
     cat("%Created by deal,",date(),"\n",file=con) # create empty file
-    cat("%deal is Copyright (C) 2002-2003  Susanne Gammelgaard Bøttcher, Claus Dethlefsen\n",file=con)
+    cat("%deal is Copyright (C) 2002-2004  Susanne Gammelgaard Bøttcher, Claus Dethlefsen\n",file=con)
     cat(rep("%",60),"\n\n",sep="",file=con)
     ## ########################################
     ## Global information

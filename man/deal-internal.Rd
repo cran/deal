@@ -3,14 +3,15 @@
 % Author          : Claus Dethlefsen
 % Created On      : Wed Jan 07 10:32:46 2004
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue Apr 27 09:20:00 2004
-% Update Count    : 26
+% Last Modified On: Wed Jul 28 09:53:38 2004
+% Update Count    : 28
 % Status          : Unknown, Use with caution!
 % 
 \name{deal-internal}
 
 \alias{printline}
 \alias{post}
+\alias{reinis}
 \alias{post0}
 \alias{postc}
 \alias{postc0c}

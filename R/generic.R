@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Apr 27 09:18:38 2004
-## Update Count    : 97
+## Last Modified On: Mon Aug 02 11:59:22 2004
+## Update Count    : 103
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -46,15 +46,31 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
     built<- packageDescription("deal", lib = lib, field="Built")
     URL  <- packageDescription("deal", lib = lib, field="URL")
     cat(paste("deal, version", ver,  "is now loaded\n"))
-    cat("Copyright (C) 2002-2003, Susanne G. Bøttcher and Claus Dethlefsen\n")
+    cat("Copyright (C) 2002-2004, Susanne G. Bøttcher and Claus Dethlefsen\n")
     cat("Maintained by",maint,"\n")
     cat("Webpage:",URL,"\n")
     cat("\nBuilt:",built,"\n")
     cat("-------------------------------------------------------------\n")
     cat("\n")
 
+    require(methods)
+    .load.deal.networkclass()
+    .load.dynamicgraph()
   return(invisible(0))
 }
+
+.onAttach <- function (lib, pkg) 
+{
+    require(methods)
+    .load.deal.networkclass()
+  }
+
+.onLoad <- function (lib, pkg) 
+{
+    require(methods)
+    .load.deal.networkclass()
+}
+
 
 .Last.lib <- function(lib) {
   cat("Thank you for using deal\n")

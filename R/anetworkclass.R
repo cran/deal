@@ -2,42 +2,45 @@
 ##
 ##
 
-require(methods)
+.load.deal.networkclass <- function() {
 
-setClass("networkclass", representation(
-                                        n = "integer",
-                                        nodes = "list",
-                                        continuous = "integer",
-                                        discrete = "integer",
-                                        nd = "integer",
-                                        nc = "integer",
-                                        banlist = "matrix",
-                                        score = "numeric",
-                                        data = "data.frame",
-                                        prior = "list"
-                                        )
-         )
-
+  require(methods)
+  setClassUnion("integerOrNULL", c("NULL","integer"))
+  
+  setClass("networkclass", representation(
+                                          n = "integer",
+                                          nodes = "list",
+                                          continuous = "integerOrNULL",
+                                          discrete = "integerOrNULL",
+                                          nd = "integer",
+                                          nc = "integer",
+                                          banlist = "matrix",
+                                          score = "numeric",
+                                          data = "data.frame",
+                                          prior = "list"
+                                          )
+           )
+}
 newnetwork <- function(nw,data,prior) {
 
-if(!is.null(nw$banlist))
+  if(!is.null(nw$banlist))
     ban <- nw$banlist
-else
+  else
     ban <- matrix(nrow=0,ncol=2)
-
-result <- new("networkclass",
-                  n = nw$n,
-                  nodes = nw$nodes,
-                  continuous = nw$continuous,
-                  discrete = nw$discrete,
-                  nd = nw$nd,
-                  nc = nw$nc,
-                  banlist = ban,
-                  score = nw$score,
-                  data = data,
-                  prior = prior
-                  )
-    return(result)
+  
+  result <- new("networkclass",
+                n = nw$n,
+                nodes = nw$nodes,
+                continuous = nw$continuous,
+                discrete = nw$discrete,
+                nd = nw$nd,
+                nc = nw$nc,
+                banlist = ban,
+                score = nw$score,
+                data = data,
+                prior = prior
+                )
+  return(result)
 }
 
 recovernetwork <- function(object) {
@@ -89,7 +92,7 @@ Autosearch <- function(object,...) {
                        title = "Result from Search",
                        transformation = NULL,  
                        background = "white",
-                       vertexColor = "black", w = 10, width = 400,  
+                       vertexColor = "black", width = 400,  
                                     height = 400)                                     
     result <- list(object=object.new)
     return(result)
