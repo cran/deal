@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Jan 09 10:55:44 2004
-% Update Count    : 41
+% Last Modified On: Wed Jan 14 08:27:43 2004
+% Update Count    : 42
 % Status          : Unknown, Use with caution!
 % 
 
@@ -29,7 +29,7 @@ networkfamily(data,nw=network(data), prior=jointprior(nw),
               trylist=vector("list",size(nw)), timetrace=TRUE) 
 
 \method{print}{networkfamily}(x,...)
-\method{plot}{networkfamily}(x,layout=<<see below>>,
+\method{plot}{networkfamily}(x,layout=,
         cexscale=5,arrowlength=0.1,sscale=7,...) 
 }
 

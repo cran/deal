@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:48 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue Jan 06 14:02:11 2004
-% Update Count    : 19
+% Last Modified On: Wed Jan 14 08:27:33 2004
+% Update Count    : 20
 % Status          : Unknown, Use with caution!
 % 
 
@@ -26,17 +26,17 @@ makesimprob(nw,
                         s2=function(idx,cf) {
                           cf <- as.vector(cf)
                           xs <- (1:length(cf))
-                          log(xs%*%cf+1)
+                          log(xs\%*\%cf+1)
                         },
                         m0=function(idx,cf) {
                           cf <- as.vector(cf)
                           xs <- (1:length(cf))^2
-                          .69*(xs%*%cf)
+                          .69*(xs\%*\%cf)
                           },
                         m1=function(idx,cf) {
                           cf <- as.vector(cf)
                           xs <- (1:length(cf))*10
-                          idx*(cf%*%xs)
+                          idx*(cf\%*\%xs)
                           })
 }
 
