@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:31 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Jul 28 11:03:08 2003
-% Update Count    : 68
+% Last Modified On: Wed Sep 03 14:05:40 2003
+% Update Count    : 70
 % Status          : Unknown, Use with caution!
 % 
 
@@ -15,7 +15,7 @@
 \alias{print.node}
 \alias{prob}
 \alias{nodes}
-\alias{"nodes<-"}
+\alias{nodes<-}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 

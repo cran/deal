@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Jul 28 10:05:16 2003
-% Update Count    : 71
+% Last Modified On: Wed Sep 03 14:05:42 2003
+% Update Count    : 73
 % Status          : Unknown, Use with caution!
 % 
 
@@ -14,7 +14,7 @@
 \alias{prob.network}
 \alias{print.network}
 \alias{banlist}
-\alias{"banlist<-"}
+\alias{banlist<-}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 

@@ -14,7 +14,7 @@
     \item{FEV}{Forced ejection volume}
     \item{Kol}{Cholesterol}
     \item{Hyp}{Hypertension (no/yes)}
-    \item{BMI}{Body Mass Index}
+    \item{logBMI}{Logarithm of Body Mass Index}
     \item{Smok}{Smoking (no/yes)}
     \item{Alc}{Alcohol consumption (seldom/frequently)}
     \item{Work}{Working (yes/no)}
