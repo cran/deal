@@ -1,0 +1,35 @@
+addarrow                Adding/Turning/Removing arrows
+addarrows               Add arrows to/from node
+addrandomarrow          Adding/Turning/Removing random arrows
+autosearch              Autosearch
+conditional             Calculate conditional distribution
+cycletest               Test if network contains a cycle
+drawnetwork             Graphical interface for manipulation of
+                        networks
+elementin               Is a network element in a list of networks?
+findex                  Translation between indices in a multiway array
+genlatex                From a networkfamily, generate LaTeX output
+heuristic               Heuristic greedy search with random restart
+insert                  Insert/remove an arrow in network
+jointprior              Setup a joint prior distribution for the
+                        parameters
+learn                   Learning networks and nodes
+line                    Prints a line of symbols
+localmaster             Local master
+makesimprob             Make a suggestion for simulation probabilities
+maketrylist             Create the full trylist
+network                 Bayesian network data structure
+networkfamily           Collection of networks
+node                    Nodes
+numbermixed             The number of distinct networks
+nwequal                 Test if the graphs of two networks are equal
+nwfsort                 Sort a list of networks
+nwfunique               Thin a list of networks
+perturb                 Perturb a network
+post                    Calculation of parameter posteriors for
+                        continuous node
+rats                    Weightloss of rats
+simulation              Simulation of datasets with a given
+                        (in)dependency structure
+splash                  Show a splash screen
+timeslice               Prepare time series data for analysis with Deal

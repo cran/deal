@@ -1,0 +1,32 @@
+1.0-19: Final fixes for CRAN release
+1.0-18: adapting to R 1.6.0 (F=FALSE,T=TRUE,index for demo)
+1.0-17: autosearch option saveall introduced to reduce memory problems.
+	Fixed bug in jointcont
+1.0-16: manual changed
+1.0-15: deleted marginal
+1.0-14: moved fmt,mymultinomial,listsum,mymod,roundup to be local functions.
+1.0-13: timeslice changed to output smalldf, documentation
+1.0-12: documentation
+1.0-11: deleted manualsearch, popup. zip-files generated automatically.
+1.0-10: documentation
+1.0-9: documentation
+1.0-8: documentation, bug in fmt, manualsearch. Passes Rcmd check.
+1.0-7: documentation
+1.0-6: documentation, changes+bugs file included in distribution
+1.0-5: documentation, bug in heuristic for restart=0.
+1.0-4: package name changed to DEAL
+1.0-3: fixed nwfscore, smalldf introduced for timeslice (many fcns)
+1.0-2: cycleremove speedup, cycleremove in autosearch, bug i heuristic.
+1.0-1: nwfunique, bug i print.networkfamily, demo(simulation)
+1.0-0: Release
+0.1-16: fixed bug in drawnetwork, banlist implemented
+0.1-15: demo(ar1), vif (prob.node), demo(regression), more memory fidle
+0.1-14: optimized memory use in postc.c
+0.1-13: timeslice
+0.1-12: fixed memory bug. Cleaned up C-code.
+0.1-10: cont. nodes with mixed parents -- speed up with C
+0.1-9: cont. nodes with mixed parents -- speed up with R
+0.1-8: cont. nodes with only discrete parents -- speed up
+0.1-7: experiments with C (cont nodes without parents)
+0.1-6: demo(rats)
+0.1-5: Bug in udisclik fixed

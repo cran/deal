@@ -1,0 +1,7 @@
+rats			Analyses rats dataset and demonstrate the
+			functionality of DEAL
+ar1			Example of using DEAL to analyse time series
+			data (Autoregression)
+simulation		Simulates data and analyses them
+regression		Simple example of Bayesian regression
+
