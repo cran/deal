@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Jan 14 12:24:13 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Jul 23 11:37:33 2003
-## Update Count    : 550
+## Last Modified On: Mon Jan 12 14:32:52 2004
+## Update Count    : 551
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,8 +25,8 @@
 ######################################################################
 
 learn <- function(nw, df, prior=jointprior(nw),
-                  nodelist=1:nw$n,trylist=
-                  vector("list",nw$n),
+                  nodelist=1:size(nw),trylist=
+                  vector("list",size(nw)),
                   timetrace=FALSE
                   ) {
     ## nw: network to be learned (condprior must be present in the nodes)

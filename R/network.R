@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:20:16 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Jul 28 10:05:38 2003
-## Update Count    : 310
+## Last Modified On: Fri Jan 09 10:00:47 2004
+## Update Count    : 319
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -84,7 +84,7 @@ network <- function(df,specifygraph=FALSE,inspectprob=FALSE,
     }
     
     if (doprob) 
-        nw <- prob.network(x=nw,df=df)
+        nw <- prob(x=nw,df=df)
     
     if (inspectprob) nw <- inspectprob(nw)
     
@@ -179,9 +179,26 @@ plot.network <- function(x,arrowlength=.25,
     
 }
 
-prob.network <- function(x,df) {
+score <- function(x,...) {
+    UseMethod("score")
+}
+
+score.network <- function(x,...) {
+    return(x$score)
+}
+
+score.node <- function(x,...) {
+    return(x$loglik)
+}
+
+
+prob <- function(x,df,...) {
+    UseMethod("prob")
+}
+
+prob.network <- function(x,df,...) {
     ## calculate initial probability
-    x$nodes <- lapply(x$nodes,prob.node,x,df)
+    x$nodes <- lapply(x$nodes,prob,df,x)
     x
 }
 
@@ -189,3 +206,13 @@ prob.network <- function(x,df) {
 banlist <- function(x) { x$banlist }
 
 "banlist<-" <- function(x,value) {x$banlist <- value;x}
+
+getnetwork <- function(x) x$nw
+
+gettrylist <- function(x) x$trylist
+
+gettable <- function(x) x$table
+
+size <- function(x) x$n
+
+

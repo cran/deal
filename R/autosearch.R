@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Jan 11 10:54:00 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Aug 25 11:34:11 2003
-## Update Count    : 296
+## Last Modified On: Mon Jan 12 14:39:28 2004
+## Update Count    : 305
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,10 +24,10 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-autosearch <- function(initnw,data,prior=jointprior(network(data)),
-                       maxiter=50,trylist= vector("list",initnw$n),
-                       trace=TRUE,timetrace=TRUE,
-                       showban=FALSE,saveall=FALSE,removecycles=FALSE) {
+autosearch <- function(initnw,data,prior=jointprior(network(data)),maxiter=50,
+           trylist= vector("list",size(initnw)),trace=TRUE,
+           timetrace=TRUE,showban=FALSE,removecycles=FALSE)
+{
     ## Greedy search
     
     ## initnw: initial network with conditionals calculated
@@ -57,7 +57,7 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
     
     nw <- initnw
 
-    model <- modelstreng(initnw)
+    model <- modelstring(initnw)
     score <- initnw$score
     
     slut <- FALSE
@@ -120,7 +120,7 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
                         tcho <- tcho+s6-s5
                     }
         
-        model <- c(model,unlist(lapply(thisnwl,modelstreng)))
+        model <- c(model,unlist(lapply(thisnwl,modelstring)))
         score <- c(score,unlist(lapply(thisnwl,function(x) x$score)))
         
         
@@ -129,7 +129,7 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
             nw <- nwcand
             if (trace) {plot(nw,showban=showban)
                     }
-            cat("(",it,") ",hiscore," ",modelstreng(nw),"\n",sep="")
+            cat("(",it,") ",hiscore," ",modelstring(nw),"\n",sep="")
         }
         else
         {
@@ -145,12 +145,12 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
         
     }
     
-    tabel <- cbind(model,score)
-    tabel <- tabel[sort.list(tabel[,2]),]
-    list(nw=learn(nw,data,prior)$nw,tabel=tabel,trylist=trylist)
+    table <- cbind(model,score)
+    table <- table[sort.list(table[,2]),]
+    list(nw=learn(nw,data,prior)$nw,table=table,trylist=trylist)
 }
 
-modelstreng <- function(x) {
+modelstring <- function(x) {
     res <- ""
     g <- function(x) x$name
     for (j in 1:x$n) {
@@ -173,14 +173,15 @@ makenw <- function(tb,template) {
     nwfsort(res)
 }
 
-as.network <- function(x,template) {
-    ## x: vector of (modelstreng and score)
-    ## from 'modelstreng' (output from modelstreng), create a network
+as.network <- function(nwstring,template) {
+    x <- nwstring
+    ## x: vector of (modelstring and score)
+    ## from 'modelstring' (output from modelstring), create a network
     ## structure (not learned!)
     ## template is a network with the same nodes
     ## Thus, the function inserts the parent-relations that are
     ## described in mstr.
-    ## as.network(modelstreng(x),x) is the identity
+    ## as.network(modelstring(x),x) is the identity
     ## function. Beware though, that the output network needs to be
     ## learned so that the parameters are correct.
 
@@ -214,7 +215,7 @@ as.network <- function(x,template) {
 }
 
 
-addarrow <- function(nw,df,prior,trylist=vector("list",nw$n)) {
+addarrow <- function(nw,df,prior,trylist=vector("list",size(nw))) {
     ## Create all networks with one extra arrow
     ## return list of networks (nwl) (Possibly NULL)
     ## trylist: a list of networks wherefrom some learning may be reused
@@ -243,7 +244,7 @@ addarrow <- function(nw,df,prior,trylist=vector("list",nw$n)) {
 
 
 
-removearrow <- function(nw,df,prior,trylist=vector("list",nw$n)) {
+removearrow <- function(nw,df,prior,trylist=vector("list",size(nw))) {
     ## create all networks with one arrow less
     ## return list of networks (possibly NULL)
     ## trylist: a list of networks wherefrom some learning may be reused
@@ -268,7 +269,7 @@ removearrow <- function(nw,df,prior,trylist=vector("list",nw$n)) {
     list(nw=nwl,trylist=trylist)
 }
 
-turnarrow <- function(nw,df,prior,trylist=vector("list",nw$n)) {
+turnarrow <- function(nw,df,prior,trylist=vector("list",size(nw))) {
     ## create all networks with one arrow turned
     ## return list of networks (possibly NULL)
     ## trylist: a list of networks wherefrom some learning may be reused

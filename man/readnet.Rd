@@ -8,12 +8,12 @@ Reads/saves a Bayesian network specification in the \code{.net} language (see
 \url{http://developer.hugin.com/documentation/net/}).
 }
 \usage{
-readnet(filename)
-savenet(nw, filename = "default.net")
+readnet(con=file("default.net"))
+savenet(nw, con=file("default.net"))
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{filename}{a string, which contains the file name to be read.}
+  \item{con}{a connection.}
   \item{nw}{an object of class \code{\link{network}}.}
 }
 \details{
@@ -27,19 +27,19 @@ savenet(nw, filename = "default.net")
 \value{
   \code{readnet} creates an object of class \code{\link{network}} with
   the nodes specified as 
-  in the \code{.net} file. The network 
+  in the \code{.net} connection. The network 
   has not been learned and the nodes do not have \code{prob} properties
   (see \code{\link{prob.network}}).
 
-  \code{savenet} creates a file.
-}
-\references{
-  Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.auc.dk/novo/deal}.
+  \code{savenet} writes the object to the connection.
 }
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
   Claus Dethlefsen \email{dethlef@math.auc.dk}.
+}
+\references{
+  Further information about \bold{deal} can be found at:\cr
+  \url{http://www.math.auc.dk/novo/deal}.
 }
 
 \note{The call to \code{readnet(savenet(network))} is \emph{not} the identity
@@ -51,9 +51,9 @@ savenet(nw, filename = "default.net")
 \examples{
 data(rats)
 nw <- network(rats)
-\dontrun{savenet(nw,"default.net")}
-\dontrun{nw2 <- readnet("default.net")}
-\dontrun{nw2 <- prob.network(nw2,rats)}
+\dontrun{savenet(nw,file("default.net"))}
+\dontrun{nw2 <- readnet(file("default.net"))}
+\dontrun{nw2 <- prob(nw2,rats)}
 
 }
 \keyword{ iplot }% at least one, from doc/KEYWORDS

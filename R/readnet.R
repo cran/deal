@@ -1,13 +1,14 @@
-readnet <- function(filename) {
+readnet <- function(con=file("default.net")) {
     ## read from .net file and create a network object.
     ## note: not all info from the .net file is used, so information
     ## may be lost (!) if overwriting the .net file with savenet(nw)
     ## The function is not foolproof if the .net files do not have the
     ## same structure as the deal generated .net files or the hugin
     ## net files we have seen after manipulating a Deal net file.
-    fn <- filename
-    zz <- file(fn,"r")
-    l <- readLines(zz)
+#    fn <- filename
+#    zz <- file(fn,"r")
+    open(con,"r")
+    l <- readLines(con)
     lno <- length(l)
 
     lcount <- 0
@@ -111,6 +112,6 @@ readnet <- function(filename) {
     nw$nc <- length(nw$continuous)
     class(nw) <- "network"
 
-    close(zz)
+    close(con)
     nw
 }

@@ -3,15 +3,13 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Jul 24 16:35:22 2003
-% Update Count    : 53
+% Last Modified On: Thu Jan 08 15:36:27 2004
+% Update Count    : 59
 % Status          : Unknown, Use with caution!
 % 
 
 \name{jointprior}
 \alias{jointprior}
-\alias{jointdisc}
-\alias{jointcont}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
@@ -24,8 +22,6 @@ deduced.}
 
 \usage{
 jointprior(nw,N=NA,phiprior="bottcher",timetrace=FALSE) 
-jointdisc(nw,timetrace=FALSE)
-jointcont(nw,timetrace=FALSE)
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -33,7 +29,7 @@ jointcont(nw,timetrace=FALSE)
   \item{nw}{an object of class \code{\link{network}}. Each node must
     have a \code{prob} property to describe the local probability
     distribution. The \code{prob} property
-    is created using \code{\link{prob.network}}, which is called by the
+    is created using \code{\link{prob}} method for network objects, which is called by the
     \code{\link{network}} function.}
   \item{N}{an integer, which gives the size of the imaginary data base. If
     this is too small, 
@@ -75,8 +71,6 @@ deriving local parameter priors.
   \deqn{\phi_i = \nu_i(\rho_i -2)\Sigma_i/(\nu_i+1)}{phi[i] = nu[i](rho[i] -2)Sigma[i]/(nu[i]+1) }
   if \code{phiprior="heckerman"}, see Heckerman, Geiger and Chickering (1995).
 
-  The procedures \code{jointcont} and \code{jointdisc} are intended for
-  internal use only.
 }
 
 \value{
@@ -89,7 +83,7 @@ deriving local parameter priors.
   \item{jointphi}{a list of numeric matrices used in the local master procedure for continuous variables.}
 }
 
-\seealso{\code{\link{network}}, \code{\link{prob.network}}
+\seealso{\code{\link{network}}, \code{\link{prob}}
   }
 
   \references{
@@ -120,9 +114,9 @@ data(rats)
 rats.nw    <- network(rats)
 rats.prior <- jointprior(rats.nw,12)
 
-\dontrun{savenet(rats.nw,"rats.net")}
-\dontrun{rats.nw <- readnet("rats.net")}
-\dontrun{rats.nw <- prob.network(rats.nw,rats)}
+\dontrun{savenet(rats.nw,file("rats.net"))}
+\dontrun{rats.nw <- readnet(file("rats.net"))}
+\dontrun{rats.nw <- prob(rats.nw,rats)}
 \dontrun{rats.prior <- jointprior(rats.nw,12)}
 
 }

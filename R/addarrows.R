@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:02:07 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Jul 22 11:35:12 2003
-## Update Count    : 194
+## Last Modified On: Mon Jan 12 14:45:43 2004
+## Update Count    : 197
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,7 +25,7 @@
 ######################################################################
 
 
-addarrows <- function(nw, node, data, prior,trylist=vector("list",nw$n)) {
+addarrows <- function(nw, node, data, prior,trylist=vector("list",size(nw))) {
     ## Create all possible networks with arrows to/from node from/to
     ## nodes with smaller index.
     ##
@@ -61,7 +61,7 @@ addarrows <- function(nw, node, data, prior,trylist=vector("list",nw$n)) {
 
 
 insert <- function(nw,j,i,df,prior,nocalc=FALSE,
-                   trylist=vector("list",nw$n)) {
+                   trylist=vector("list",size(nw))) {
     ## insert one arrow from node j to node i in network nw
     ## df: dataframe
     ## prior: jointprior
@@ -121,7 +121,7 @@ insert <- function(nw,j,i,df,prior,nocalc=FALSE,
 }
 
 remover <- function(nw,j,i,df,prior,nocalc=FALSE,
-                    trylist=vector("list",nw$n)) {
+                    trylist=vector("list",size(nw))) {
     ## remove one arrow from node j to node i in network nw
     ## df: dataframe
     ## prior: jointprior

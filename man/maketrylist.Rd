@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:52 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Jul 23 19:19:13 2003
-% Update Count    : 17
+% Last Modified On: Wed Jan 07 08:58:09 2004
+% Update Count    : 20
 % Status          : Unknown, Use with caution!
 % 
 
@@ -34,7 +34,8 @@ maketrylist(initnw,data,prior=jointprior(network(data)),timetrace=FALSE)
     information on the screen.} 
 }
 
-\details{This procedure is not intended to be used! For each node in the
+\details{This procedure is included for illustrative purposes. For each
+  node in the 
   network, all possible parent 
   configurations are created and learned. The result is called a
   trylist. To create the full trylist is very time-consuming,
@@ -77,10 +78,10 @@ maketrylist(initnw,data,prior=jointprior(network(data)),timetrace=FALSE)
 data(rats)
 rats.nw <- network(rats)
 rats.pr <- jointprior(rats.nw,12)
-rats.nw <- learn(rats.nw,rats,rats.pr)$nw
+rats.nw <- getnetwork(learn(rats.nw,rats,rats.pr))
 rats.tr <- maketrylist(rats.nw,rats,rats.pr)
 
-rats.hi <- heuristic(rats.nw,rats,rats.pr,trylist=rats.tr)$nw
+rats.hi <- getnetwork(heuristic(rats.nw,rats,rats.pr,trylist=rats.tr))
 }
 
 \keyword{models}

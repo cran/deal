@@ -1,37 +1,25 @@
-addarrow                Adding/Turning/Removing arrows
-addarrows               Add arrows to/from node
-addrandomarrow          Adding/Turning/Removing random arrows
 autosearch              Greedy search
-conditional             Calculate conditional distribution
-cycletest               Test if network contains a cycle
 drawnetwork             Graphical interface for editing networks
-elementin               Is a network element in a list of networks?
-findex                  Translation between indices in a multiway
-                        array
 genlatex                From a network family, generate LaTeX output
 insert                  Insert/remove an arrow in network
 jointprior              Calculates the joint prior distribution
 ksl                     Health and social characteristics
 learn                   Estimation of parameters in the local
                         probability distributions
-line                    Prints a line of symbols
-localmaster             Local master
 makesimprob             Make a suggestion for simulation probabilities
 maketrylist             Creates the full trylist
 network                 Bayesian network data structure
 networkfamily           Generates and learns all networks for a set of
                         variables.
+Network tools           Tools for manipulating networks
 node                    Representation of nodes
 numbermixed             The number of possible networks
-nwequal                 Test if the graphs of two networks are equal
 nwfsort                 Sorts a list of networks
 unique.networkfamily    Makes a network family unique.
 perturb                 Perturbs a network
-post                    Calculation of parameter posteriors for
-                        continuous node
-postdist                Calculate point estimate of posterior
-                        parameters and create probability distribution
+prob                    Local probability distributions
 rats                    Weightloss of rats
 readnet                 Reads/saves .net file
-simulation              Simulation of data sets with a given
+rnetwork                Simulation of data sets with a given
                         dependency structure
+score                   Network score

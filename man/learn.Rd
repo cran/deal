@@ -3,15 +3,13 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Jul 24 15:55:07 2003
-% Update Count    : 75
+% Last Modified On: Fri Jan 09 10:50:49 2004
+% Update Count    : 82
 % Status          : Unknown, Use with caution!
 % 
 
 \name{learn}
 \alias{learn}
-\alias{learnnode}
-\alias{udisclik}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
@@ -24,12 +22,9 @@ distributions}
 
 \usage{
 learn (nw, df, prior=jointprior(nw),
-               nodelist=1:nw$n,
-               trylist=vector("list",nw$n),
+               nodelist=1:size(nw),
+               trylist=vector("list",size(nw)),
                timetrace=FALSE) 
-learnnode(node,nw,df,prior=jointprior(nw),timetrace=FALSE)
-
-udisclik(node,nw,df)
 
 }
 
@@ -45,7 +40,6 @@ udisclik(node,nw,df)
     see \code{\link{maketrylist}}.} 
   \item{timetrace}{a logical. If \code{TRUE}, prints some timing
     information on the screen.} 
-  \item{node}{an object of class \code{\link{node}}.}
 }
 
 \details{
@@ -86,18 +80,16 @@ udisclik(node,nw,df)
   score. Thus, e.g.\ \code{\link{drawnetwork}} keeps the network updated
   when the graph is altered.
 
-  The procedures \code{learnnode} and \code{udisclik} are intended for
-  internal use.
 }
 
 \seealso{\code{\link{networkfamily}},
 \code{\link{jointprior}},
 \code{\link{maketrylist}},
-\code{\link{network}},
-\code{\link{post}}
+\code{\link{network}}
 }
 
-\value{A list with two elements,
+\value{A list with two elements that may be accessed using
+  \code{\link{getnetwork}} and \code{\link{gettrylist}}. The elements are
   \item{nw}{an object of class \code{\link{network}}, with the
     \code{condposterior} properties updated for 
     the nodes. Also, the property \code{score} is updated and contains
@@ -125,8 +117,8 @@ data(rats)
 fit       <- network(rats)
 fit.prior <- jointprior(fit,12)
 fit.learn <- learn(fit,rats,fit.prior,timetrace=TRUE)
-fit.nw    <- fit.learn$nw
-fit.learn2<- learn(fit,rats,fit.prior,trylist=fit.learn$trylist,timetrace=TRUE)
+fit.nw    <- getnetwork(fit.learn)
+fit.learn2<- learn(fit,rats,fit.prior,trylist=gettrylist(fit.learn),timetrace=TRUE)
 }
 
 \keyword{iplot}

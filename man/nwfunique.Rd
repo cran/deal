@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:51 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Jul 24 14:02:47 2003
-% Update Count    : 14
+% Last Modified On: Wed Jan 07 09:18:38 2004
+% Update Count    : 15
 % Status          : Unknown, Use with caution!
 % 
 
@@ -55,6 +55,6 @@
 \examples{
 data(rats)
 rats.nwf <- networkfamily(rats)
-rats.nwf2<- unique(rats.nwf$nw,equi=TRUE)
+rats.nwf2<- unique(getnetwork(rats.nwf),equi=TRUE)
 }
 \keyword{iplot}

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Mar 15 10:39:45 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Nov 03 21:02:50 2002
-## Update Count    : 15
+## Last Modified On: Wed Jan 07 08:57:33 2004
+## Update Count    : 16
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -39,5 +39,5 @@ names(mypoly)[2] <- "x^2"
 
 fit       <- network(mypoly)
 fit.prior <- jointprior(fit)
-res       <- nwfsort(networkfamily(mypoly,fit,fit.prior)$nw  )
+res       <- nwfsort( getnetwork(networkfamily(mypoly,fit,fit.prior))  )
 

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:54 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Jul 24 14:48:02 2003
-% Update Count    : 22
+% Last Modified On: Fri Jan 09 10:59:49 2004
+% Update Count    : 26
 % Status          : Unknown, Use with caution!
 % 
 
@@ -19,7 +19,7 @@
 }
 
 \usage{
-perturb(nw,data,prior,degree=nw$n,trylist=vector("list",nw$n),
+perturb(nw,data,prior,degree=size(nw),trylist=vector("list",size(nw)),
         nocalc=FALSE,timetrace=TRUE) 
 }
 
@@ -34,7 +34,7 @@ perturb(nw,data,prior,degree=nw$n,trylist=vector("list",nw$n),
     insert/remove/turn an arrow.}
   \item{trylist}{a list used internally for reusing learning of nodes,
     see \code{\link{maketrylist}}.} 
-  \item{nocalc}{a logical. If \code{TRUE} no learning procedure is called, see eg. \code{\link{simulation}}.}
+  \item{nocalc}{a logical. If \code{TRUE} no learning procedure is called, see eg. \code{\link{rnetwork}}.}
   \item{timetrace}{a logical. If \code{TRUE}, prints some timing
     information on the screen.} 
 }
@@ -45,7 +45,8 @@ perturb(nw,data,prior,degree=nw$n,trylist=vector("list",nw$n),
   choose randomly among all possibilities of that action. If there are
   no possibilites, the unchanged network is returned.}
 
-\value{A list with two elements,
+\value{A list with two elements that may be accessed using
+  \code{\link{getnetwork}} and \code{\link{gettrylist}}. The elements are
   \item{nw}{an object of class \code{\link{network}} with the generated network.}
   \item{trylist}{an updated list used internally for reusing learning
     of nodes, see \code{\link{maketrylist}}.}
@@ -71,12 +72,12 @@ set.seed(200)
 data(rats)
 fit       <- network(rats)
 fit.prior <- jointprior(fit)
-fit       <- learn(fit,rats,fit.prior)$nw
-fit.new   <- perturb(fit,rats,fit.prior,degree=10)$nw
+fit       <- getnetwork(learn(fit,rats,fit.prior))
+fit.new   <- getnetwork(perturb(fit,rats,fit.prior,degree=10))
 
 data(ksl)
 ksl.nw    <- network(ksl)
-ksl.rand  <- perturb(ksl.nw,nocalc=TRUE,degree=10)$nw 
+ksl.rand  <- getnetwork(perturb(ksl.nw,nocalc=TRUE,degree=10))
 plot(ksl.rand)
 }
 

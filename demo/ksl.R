@@ -14,18 +14,18 @@ mybanlist <- matrix(c(5,5,6,6,7,7,9,
 banlist(ksl.nw) <- mybanlist                  
 
 ## learn the initial network
-ksl.nw <- learn(ksl.nw,ksl,ksl.prior)$nw
+ksl.nw <- getnetwork(learn(ksl.nw,ksl,ksl.prior))
 
 ## Do structural search 
 ksl.search <- autosearch(ksl.nw,ksl,ksl.prior,
                       trace=TRUE)
  
 ## perturb 'thebest' and rerun search twice.
-ksl.heuristic <- heuristic(ksl.search$nw,ksl,
+ksl.heuristic <- heuristic(getnetwork(ksl.search),ksl,
                          ksl.prior,
                          restart=2,degree=10,
-                         trace=TRUE,trylist=ksl.search$trylist)
+                         trace=TRUE,trylist=gettrylist(ksl.search))
 
-thebest2 <- ksl.heuristic$nw
+thebest2 <- getnetwork(ksl.heuristic)
 
-savenet(thebest2, "ksl.net")
+savenet(thebest2, file("ksl.net"))

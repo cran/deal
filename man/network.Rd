@@ -3,18 +3,15 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Sep 03 14:05:42 2003
-% Update Count    : 73
+% Last Modified On: Fri Jan 09 12:38:41 2004
+% Update Count    : 84
 % Status          : Unknown, Use with caution!
 % 
 
 \name{network}
 \alias{network}
 \alias{plot.network}
-\alias{prob.network}
 \alias{print.network}
-\alias{banlist}
-\alias{banlist<-}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
@@ -35,10 +32,6 @@ network(df,specifygraph=FALSE,inspectprob=FALSE,
                         sscale=7,showban=TRUE,yr=c(0,350),xr=yr,
                         unitscale=20,cexscale=8,...)
 
-prob.network (x,df)
-
-banlist(x)
-"banlist<-"(x,value)
 
 }
 
@@ -55,7 +48,7 @@ banlist(x)
     distribution by clicking on the nodes.}
   \item{doprob}{a logical. If \code{TRUE}, do not calculate a
     probability distribution. Used 
-    for example in \code{\link{simulation}}. }
+    for example in \code{\link{rnetwork}}. }
   \item{x}{an object of class \code{\link{network}}.}
   \item{filename}{a string or \code{NA}. If not \code{NA}, output is
     printed to a file.} 
@@ -73,14 +66,12 @@ banlist(x)
   \item{notext}{a logical. If \code{TRUE}, no text is displayed in the nodes on the plot.}
   \item{showban}{a logical. If \code{TRUE}, banned arrows are shown in red.}
   \item{\dots}{additional plot arguments, passed to \code{\link{plot.node}}.}
-  \item{value}{a numeric matrix with two columns. Each row contains the
-    indices \code{i -> j} of arrows that may not be allowed in the
-    directed acyclic graph.}
 }
 
 
 \value{
-  An object of class \code{network}, which is a list with the following
+  The \code{netork} creator function returns an object of class
+  \code{network}, which is a list with the following 
   elements (properties),
   \item{nodes}{a list of objects of class \code{node}. If
     \code{doprob} is \code{TRUE}, the nodes are given the 
@@ -100,7 +91,7 @@ banlist(x)
 
 \seealso{\code{\link{networkfamily}},
   \code{\link{node}},
-  \code{\link{simulation}},
+  \code{\link{rnetwork}},
   \code{\link{learn}},
   \code{\link{drawnetwork}},
   \code{\link{jointprior}},
@@ -136,21 +127,21 @@ mydata  <- data.frame(sex,age,yield,weight)
 mynw    <- network(mydata)
 
 # adjust prior probability distribution
-mynw$nodes$sex$prob[1:2]   <- c(0.4,0.6)
-mynw$nodes$age$prob[1:2]   <- c(0.6,0.4)
-mynw$nodes$yield$prob[1:2] <- c(2,0)
-mynw$nodes$weight$prob[1:2]<- c(1,0)
+localprob(mynw,"sex")   <- c(0.4,0.6)
+localprob(mynw,"age")   <- c(0.6,0.4)
+localprob(mynw,"yield") <- c(2,0)
+localprob(mynw,"weight")<- c(1,0)
 
 print(mynw)
 plot(mynw)
 
 prior <- jointprior(mynw)
-mynw  <- learn(mynw,mydata,prior)$nw
-thebest <- autosearch(mynw,mydata,prior)$nw
+mynw  <- getnetwork(learn(mynw,mydata,prior))
+thebest <- getnetwork(autosearch(mynw,mydata,prior))
 
 print(mynw,condposterior=TRUE)
 
-\dontrun{savenet(mynw,"yield.net")}
+\dontrun{savenet(mynw,file("yield.net"))}
 }
 
 \keyword{models}

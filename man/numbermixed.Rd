@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:38 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Jul 24 09:35:59 2003
-% Update Count    : 7
+% Last Modified On: Fri Jan 09 10:38:13 2004
+% Update Count    : 8
 % Status          : Unknown, Use with caution!
 % 
 
@@ -43,7 +43,8 @@ numbermixed(nd,nc)
 }
 
 \references{
-  Bøttcher, S.G. (2003). Learning Conditional Gaussian Networks.
+  Bøttcher, S.G. (2003). Learning Conditional Gaussian
+  Networks. \url{http://www.math.auc.dk/~alma}. Aalborg University, 2003.
 
   Robinson, R.W. (1977). Counting unlabeled acyclic digraphs, {\em Lecture
   Notes in Mathematics}, 622: Combinatorial Mathematics.

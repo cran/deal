@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Mar 11 15:22:48 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Jul 28 10:10:44 2003
-## Update Count    : 45
+## Last Modified On: Fri Jan 09 10:13:53 2004
+## Update Count    : 50
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -43,11 +43,11 @@ rats  <- network(rats.df,specifygraph=TRUE,inspectprob=TRUE)
 rats.orig <- rats
 rats.prior <- jointprior(rats,12)
 
-rats <- learn(rats,rats.df,rats.prior)$nw
-rats.empty <- learn(network(rats.df),rats.df,rats.prior)$nw
+rats <- getnetwork(learn(rats,rats.df,rats.prior))
+rats.empty <- getnetwork(learn(network(rats.df),rats.df,rats.prior))
 banlist(rats.empty) <- banlist(rats)
 ## transfer node positions
-for (i in 1:rats$n) rats.empty$nodes[[i]]$position <- rats$nodes[[i]]$position
+for (i in 1:size(rats)) nodes(rats.empty)[[i]]$position <- nodes(rats)[[i]]$position
 
 line()
 cat("Now, draw your favorite network. Notice how the\n",
@@ -55,7 +55,7 @@ cat("Now, draw your favorite network. Notice how the\n",
     "and see how the search tries to find the network\n",
     "with highest score. The search algorithm is greedy\n",
     "search with random restart.\n")
-newrat  <- drawnetwork(rats.empty,rats.df,rats.prior)$nw
+newrat  <- getnetwork(drawnetwork(rats.empty,rats.df,rats.prior))
 
 
 hiscorelist <- heuristic(newrat,rats.df,rats.prior,restart=10,degree=7,trace=TRUE)
@@ -64,17 +64,17 @@ op <- par(ask=TRUE)
 cat("Now, we have tried out several networks\n")
 cat("Ready to see the Hiscorelist?\n")
 
-print(hiscorelist$nw)
-plot(hiscorelist$nw)
+print(getnetwork(hiscorelist))
+plot(getnetwork(hiscorelist))
 
 par(op)
 banlist(rats.empty) <- banlist(newrat)
-for (i in 1:rats$n) rats.empty$nodes[[i]]$position <- newrat$nodes[[i]]$position
+for (i in 1:size(rats)) nodes(rats.empty)[[i]]$position <- nodes(newrat)[[i]]$position
 allrats <- networkfamily(rats.df,rats.empty,rats.prior)
 op <- par(ask=TRUE)
 cat("We have now generated all",numbermixed(2,2),"networks\n")
 
-print(allrats$nw)
-plot(nwfsort(allrats$nw))
+print(getnetwork(allrats))
+plot(nwfsort(getnetwork(allrats)))
 
 par(op)

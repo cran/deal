@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 30 22:05:59 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Jul 22 15:58:25 2003
-## Update Count    : 291
+## Last Modified On: Mon Jan 12 14:31:50 2004
+## Update Count    : 292
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -28,7 +28,7 @@
 drawnetwork <- function(nw,
                         df,
                         prior,
-                        trylist=vector("list",nw$n),
+                        trylist=vector("list",size(nw)),
                         unitscale=20,
                         cexscale=8,
                         arrowlength=.25,

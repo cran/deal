@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sun Jul 27 16:15:29 2003
-% Update Count    : 37
+% Last Modified On: Fri Jan 09 10:55:44 2004
+% Update Count    : 41
 % Status          : Unknown, Use with caution!
 % 
 
@@ -21,11 +21,12 @@
 possible for a given set of variables. These may be
   plotted or printed. Also, functions for
 sorting according to the network score (see \code{\link{nwfsort}}) and for 
-making a network family unique (see \code{\link{unique.networkfamily}}) are available.  }
+making a network family unique (see the \code{unique} method for
+\code{networkfamily} objects) are available.  }
 
 \usage{
 networkfamily(data,nw=network(data), prior=jointprior(nw),
-              trylist=vector("list",nw$n), timetrace=TRUE) 
+              trylist=vector("list",size(nw)), timetrace=TRUE) 
 
 \method{print}{networkfamily}(x,...)
 \method{plot}{networkfamily}(x,layout=<<see below>>,
@@ -51,7 +52,8 @@ networkfamily(data,nw=network(data), prior=jointprior(nw),
   \item{arrowlength}{a numeric, which gives the length of the arrow heads.}
   \item{sscale}{a numeric. The nodes are initially placed on a circle
     with radius \code{sscale}.} 
-  \item{...}{additional plot arguments passed to \code{\link{plot.network}}.}
+  \item{...}{additional plot arguments passed to the plot method for network
+    objects.}
 }
 
 \details{
@@ -101,7 +103,7 @@ networkfamily(data,nw=network(data), prior=jointprior(nw),
 
 \examples{
 data(rats)
-allrats <- networkfamily(rats)$nw
+allrats <- getnetwork(networkfamily(rats))
 plot(allrats)
 print(allrats)
 }

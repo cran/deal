@@ -3,13 +3,13 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:04:28 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Jul 25 14:32:06 2003
-% Update Count    : 20
+% Last Modified On: Tue Jan 06 14:03:28 2004
+% Update Count    : 21
 % Status          : Unknown, Use with caution!
 % 
 
-\name{simulation}
-\alias{simulation}
+\name{rnetwork}
+\alias{rnetwork}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
@@ -17,11 +17,11 @@
 
 \description{
   Given a network with nodes having the \code{simprob} property,
-  \code{simulation} simulates
+  \code{rnetwork} simulates
 a data set.  }
 
 \usage{
-simulation(nw, n=24, file="") 
+rnetwork(nw, n=24, file="") 
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -71,7 +71,7 @@ nw <- network(df,doprob=FALSE) # doprob must be FALSE
 nw <- makesimprob(nw)          # create simprob properties
 
 set.seed(944) 
-sim <- simulation(nw,n=100)    # create simulated data frame
+sim <- rnetwork(nw,n=100)    # create simulated data frame
 }
 
 \keyword{models}

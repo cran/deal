@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Jan 13 11:23:16 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Aug 25 11:30:45 2003
-## Update Count    : 141
+## Last Modified On: Mon Jan 12 14:29:04 2004
+## Update Count    : 147
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -26,9 +26,9 @@
 
 heuristic <-
   function(initnw,data,prior=jointprior(network(data)),
-           maxiter=100,restart=10,degree=initnw$n,
-           trylist= vector("list",initnw$n),trace=TRUE,
-           timetrace=TRUE,saveall=FALSE,removecycles=FALSE)
+          maxiter=100,restart=10,degree=size(initnw),
+          trylist= vector("list",size(initnw)),trace=TRUE,
+          timetrace=TRUE,removecycles=FALSE)
 {
     ## Heuristic search with random restart
     ## initnw: an initial network (already learned)
@@ -50,13 +50,12 @@ heuristic <-
                       data,prior,
                       maxiter,
                       trylist,
-                      trace=trace,timetrace=TRUE,saveall=saveall,
+                      trace=trace,timetrace=TRUE,
                       removecycles=removecycles)
     
     nw <- nwl$nw
     trylist <- nwl$trylist
-#    nwl <- nwfunique(nwfsort(nwl$nwl))
-    tabel <- nwl$tabel
+    table <- nwl$table
     
     if (timetrace) {
         s2 <- proc.time()[3]
@@ -72,14 +71,13 @@ heuristic <-
             trylist <- nw$trylist
 
             nw <- nw$nw
-            ms <- modelstreng(nw)
+            ms <- modelstring(nw)
             if (timetrace) {
                 s4 <- proc.time()[3]
                 spert <- spert + s4-s3
             }
-            if (!is.na(match(ms,tabel[,1]))) next
-#            if (elementin(nw,nwl)) next
-            tabel <- rbind(tabel,cbind(ms,nw$score))
+            if (!is.na(match(ms,table[,1]))) next
+            table <- rbind(table,cbind(ms,nw$score))
             if (trace) {
                 plot(nw)
                 title("New network")
@@ -88,33 +86,26 @@ heuristic <-
             if (timetrace)
                 s5 <- proc.time()[3]
             newnwl <- autosearch(nw,data,prior,maxiter,
-                                 trylist=trylist,trace=trace,timetrace=TRUE,saveall=saveall,removecycles=removecycles)
+                                 trylist=trylist,trace=trace,timetrace=TRUE,removecycles=removecycles)
             trylist <- newnwl$trylist
-#            newnwl <- newnwl$nwl
-            tabel <- rbind(tabel,newnwl$tabel)
-#            nw <- newnwl$nw
+            table <- rbind(table,newnwl$table)
             if (timetrace) {
                 s6 <- proc.time()[3]
                 sauto <- sauto + s6-s5
             }
-#            nwl <- c(nwl,newnwl)
             if (timetrace) s7 <- proc.time()[3]
-#            nwl <- nwfunique(nwfsort(nwl),timetrace=FALSE,equi=FALSE)
-            tabel <- tabel[!duplicated(tabel[,1]),]
-            tabel <- tabel[sort.list(tabel[,2]),]
+            table <- table[!duplicated(table[,1]),]
+            table <- table[sort.list(table[,2]),]
             if (timetrace) {
                 s8 <- proc.time()[3]
                 suniq <- suniq + s8 - s7
             }
         } ## for i
-        ##    nwl <- nwfsort(nwl)
     } ## if restart
-#    class(nwl) <- "networkfamily"
     if (initnw$n<15) antal <- paste(numbermixed(initnw$nc,initnw$nd))
     else antal <- "many"
     
-    cat("Tried",nrow(tabel),"out of approx.",antal,"networks\n")
-#    cat("Tried",length(nwl),"out of",antal,"networks\n")
+    cat("Tried",nrow(table),"out of approx.",antal,"networks\n")
     if (timetrace) {
         t2 <- proc.time()
         cat((t2-t1)[1],"]\n")
@@ -122,8 +113,7 @@ heuristic <-
     }
 
 
-    thebest <- as.network(tabel[1,],initnw)
+    thebest <- as.network(table[1,],initnw)
     thebest <- learn(thebest,data,prior)$nw
-    list(nw=thebest,tabel=tabel,trylist=trylist)
-    #list(nw=nwl,trylist=trylist)
+    list(nw=thebest,table=table,trylist=trylist)
 }

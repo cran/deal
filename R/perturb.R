@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Jan 13 10:16:01 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Jul 24 14:49:56 2003
-## Update Count    : 100
+## Last Modified On: Mon Jan 12 14:51:19 2004
+## Update Count    : 105
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,7 +24,7 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-perturb <- function(nw,data,prior,degree=nw$n,trylist=vector("list",nw$n),nocalc=FALSE,timetrace=TRUE) {
+perturb <- function(nw,data,prior,degree=size(nw),trylist=vector("list",size(nw)),nocalc=FALSE,timetrace=TRUE) {
   ## change nw by randomly adding, deleting or turning arrows.
   ## In 'degree' steps, one of the three actions is taken. Note that
   ## adding, deleting or turning may not be possible due to an empty
@@ -56,7 +56,7 @@ perturb <- function(nw,data,prior,degree=nw$n,trylist=vector("list",nw$n),nocalc
   list(nw=nw,trylist=trylist)
 }
 
-addrandomarrow <- function(nw,data,prior,trylist=vector("list",nw$n),nocalc=FALSE,timetrace=FALSE) {
+addrandomarrow <- function(nw,data,prior,trylist=vector("list",size(nw)),nocalc=FALSE,timetrace=FALSE) {
   ## add an arrow at random. Continue until one arrow is added or the
   ## graph is complete.
   if (timetrace) {t1 <- proc.time();cat("[addrandomarrow ")}
@@ -101,7 +101,7 @@ addrandomarrow <- function(nw,data,prior,trylist=vector("list",nw$n),nocalc=FALS
   list(nw=nw,trylist=trylist)
 }
 
-turnrandomarrow <- function(nw,data,prior,trylist=vector("list",nw$n),nocalc=FALSE,timetrace=FALSE) {
+turnrandomarrow <- function(nw,data,prior,trylist=vector("list",size(nw)),nocalc=FALSE,timetrace=FALSE) {
   ## continue until an arrow is turned or it is not possible
 
   if (timetrace) {t1 <- proc.time();cat("[turnrandomarrow ")}
@@ -162,7 +162,7 @@ turnrandomarrow <- function(nw,data,prior,trylist=vector("list",nw$n),nocalc=FAL
   list(nw=nw,trylist=trylist)
 }
 
-deleterandomarrow <- function(nw,data,prior,trylist=vector("list",nw$n),nocalc=FALSE,timetrace=FALSE) {
+deleterandomarrow <- function(nw,data,prior,trylist=vector("list",size(nw)),nocalc=FALSE,timetrace=timetrace) {
   ## delete an arrow at random. Return nw, if the graph is empty.
 
   if (timetrace) {t1 <- proc.time();cat("[deleterandomarrow ")}

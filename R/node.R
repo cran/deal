@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:18:50 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Jul 28 11:01:58 2003
-## Update Count    : 401
+## Last Modified On: Wed Jan 07 14:50:10 2004
+## Update Count    : 409
 ## Status          : OK
 ###############################################################################
 ##
@@ -26,6 +26,16 @@
 
 nodes <- function(nw) nw$nodes
 "nodes<-" <- function(nw,value) {nw$nodes<-value;nw}
+
+localprob <- function(nw) lapply(nodes(nw),function(node) node$prob)
+"localprob<-" <- function(nw,name,value) {
+    names(value) <- names(nodes(nw)[[name]]$prob)
+    nodes(nw)[[name]]$prob <- value
+    nw
+}
+
+localprior <- function(node) node$condprior
+localposterior <- function(node) node$condposterior
 
 node <- function(idx,parents,type="discrete",name=paste(idx),
                  levels=2,levelnames=paste(1:levels), position=c(0,0)) {
@@ -104,7 +114,7 @@ plot.node <- function(x,cexscale=10,notext=FALSE,...) {
 }
 
 
-prob.node <- function(x,nw,df) {
+prob.node <- function(x,df,nw,...) {
     
     data <- df
     node <- x # for compatibility reasons.

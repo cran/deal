@@ -3,14 +3,13 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:44 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Jul 25 14:35:47 2003
-% Update Count    : 38
+% Last Modified On: Fri Jan 09 10:48:16 2004
+% Update Count    : 45
 % Status          : Unknown, Use with caution!
 % 
 
 \name{drawnetwork}
 \alias{drawnetwork}
-\alias{inspectprob}
 
 
 %- Also NEED an `\alias' for EACH other topic documented here.
@@ -21,13 +20,11 @@
 }
 
 \usage{
-drawnetwork(nw,df,prior,trylist=vector("list",nw$n),
+drawnetwork(nw,df,prior,trylist=vector("list",size(nw)),
             unitscale=20,cexscale=8,
             arrowlength=.25,nocalc=FALSE,
             yr=c(0,350),xr=yr,...)
 
-inspectprob(nw,unitscale=20,cexscale=8,
-            arrowlength=.25,xr=c(0,350),yr=xr,...) 
 
 }
 
@@ -40,16 +37,19 @@ inspectprob(nw,unitscale=20,cexscale=8,
     \code{\link{jointprior}}.} 
   \item{trylist}{a list used internally for reusing learning of nodes,
     see \code{\link{maketrylist}}.} 
-  \item{cexscale}{a numeric passed to
-    \code{\link{plot.network}}. Measures the scaled size of text and symbols.}
+  \item{cexscale}{a numeric passed to the plot method for network
+    objects. Measures the scaled size of text and symbols.} 
   \item{arrowlength}{a numeric passed to
-    \code{\link{plot.network}}. Measures the length of the edges of the arrowheads.}
-  \item{nocalc}{a logical. If \code{TRUE}, no learning procedure is called, see eg. \code{\link{simulation}}.}
+     the plot method for network
+    objects. Measures the length of the edges of the arrowheads.}
+  \item{nocalc}{a logical. If \code{TRUE}, no learning procedure is called, see eg. \code{\link{rnetwork}}.}
   \item{unitscale}{a numeric passed to
-    \code{\link{plot.network}}. Scale parameter for chopping off arrow heads.}
+     the plot method for network
+    objects. Scale parameter for chopping off arrow heads.}
   \item{xr}{a numeric vector with two components containing the range on x-axis.}
   \item{yr}{a numeric vector with two components containing the range on y-axis.}
-  \item{...}{additional plot arguments, passed to \code{\link{plot.network}}.}
+  \item{...}{additional plot arguments, passed to  the plot method for network
+    objects.}
 }
 
 \details{
@@ -66,12 +66,10 @@ where the indices are the column number in the data frame.
 Note that the network score changes as the network is re-learned
 whenever a change is made (unless \code{nocalc} is \code{TRUE}).
 
-\code{inspectprob} draws the network and makes it possible to inspect
-the \code{prob} properties of the nodes by clicking on them. The result
-is shown in the output window.
 }
 
-\value{A list with two elements,
+\value{A list with two elements that may be accessed using
+  \code{\link{getnetwork}} and \code{\link{gettrylist}}. The elements are
   \item{nw}{an object of class \code{\link{network}} with the final network.}
   \item{trylist}{an updated list used internally for reusing learning
     of nodes, see \code{\link{maketrylist}}.}
@@ -95,9 +93,9 @@ is shown in the output window.
 data(rats)
 rats.nw    <- network(rats)
 rats.prior <- jointprior(rats.nw,12)
-rats.nw    <- learn(rats.nw,rats,rats.prior)$nw
+rats.nw    <- getnetwork(learn(rats.nw,rats,rats.prior))
 
-\dontrun{newrat  <- drawnetwork(rats.nw,rats,rats.prior)$nw}
+\dontrun{newrat  <- getnetwork(drawnetwork(rats.nw,rats,rats.prior))}
 }
 
 \keyword{models}

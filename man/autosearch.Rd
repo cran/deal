@@ -3,17 +3,15 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:29 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Aug 25 11:31:28 2003
-% Update Count    : 69
+% Last Modified On: Fri Jan 09 10:41:43 2004
+% Update Count    : 81
 % Status          : Unknown, Use with caution!
 % 
 
 \name{autosearch}
 \alias{autosearch}
 \alias{heuristic}
-\alias{makenw}
-\alias{as.network}
-\alias{modelstreng}
+\alias{gettable}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
@@ -25,17 +23,14 @@
 
 \usage{
 autosearch(initnw,data,prior=jointprior(network(data)),maxiter=50,
-           trylist= vector("list",initnw$n),trace=TRUE,
-           timetrace=TRUE,showban=FALSE,saveall=FALSE,removecycles=FALSE) 
+           trylist= vector("list",size(initnw)),trace=TRUE,
+           timetrace=TRUE,showban=FALSE,removecycles=FALSE) 
 
 heuristic(initnw,data,prior=jointprior(network(data)),
-          maxiter=100,restart=10,degree=initnw$n,
-          trylist= vector("list",initnw$n),trace=TRUE,
-          timetrace=TRUE,saveall=FALSE,removecycles=FALSE)
-
-modelstreng(x)
-makenw(tb,template)
-as.network(x,template)
+          maxiter=100,restart=10,degree=size(initnw),
+          trylist= vector("list",size(initnw)),trace=TRUE,
+          timetrace=TRUE,removecycles=FALSE)
+gettable(x)
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -59,20 +54,14 @@ as.network(x,template)
     during search.} 
   \item{timetrace}{a logical. If \code{TRUE}, prints some timing
     information on the screen.} 
-  \item{showban}{a logical passed to \code{\link{plot.network}}. If
+  \item{showban}{a logical passed to  the plot method for network
+    objects. If
     \code{FALSE}, the banned arrows are not shown in the plots (if
     \code{trace} is \code{TRUE}).}
-  \item{saveall}{obsolete.}
   \item{removecycles}{a logical. If \code{TRUE}, all networks explored in the
     search is returned, except for networks containing a cycle. If \code{FALSE}, all networks are returned, including
     cyclic networks.}
-  \item{x}{an object of class \code{\link{network}} to be translated
-    into a string.} 
-  \item{tb}{a table output from \code{\link{autosearch}} or
-    \code{\link{heuristic}} in the list property \code{tabel}. Can be
-    translated into a \code{\link{networkfamily}}.}
-  \item{template}{an object of class \code{\link{network}} with the same
-    nodes as the networks described in the table \code{tb}.}
+  \item{x}{an output object from a search.}
 }
 
 \details{
@@ -86,16 +75,18 @@ as.network(x,template)
   network with the highest network score is returned, along with a list
   containing all tried networks (depending on the value of \code{removecycles}).
 
-  \code{heuristics} restarts by perturbing \code{initnw}
+  \code{heuristic} restarts by perturbing \code{initnw}
   \code{degree} times and calling 
   \code{autosearch} again. The number
   of restarts is given by the option \code{restart}.
 }
 
-\value{A list with three elements,
+\value{\code{autosearch} and \code{heuristic} returns a list with three
+  elements, that may be accessed using \code{\link{getnetwork}},
+  \code{\link{gettable}} and \code{\link{gettrylist}}. The elements are
   \item{nw}{an object of class \code{\link{network}}, which gives the
   network with the highest score.}
-  \item{tabel}{a table with all tried
+  \item{table}{a table with all tried
     networks. If removecycles is \code{FALSE}, the networks may contain
     cycles. The table contains two columns: \code{model} with a 
     string representation of the model and \code{score} with the
@@ -127,17 +118,17 @@ as.network(x,template)
 data(rats)
 fit       <- network(rats)
 fit.prior <- jointprior(fit,12)
-fit       <- learn(fit,rats,fit.prior)$nw
-fit       <- insert(fit,2,1,rats,fit.prior)$nw
-fit       <- insert(fit,1,3,rats,fit.prior)$nw
+fit       <- getnetwork(learn(fit,rats,fit.prior))
+fit       <- getnetwork(insert(fit,2,1,rats,fit.prior))
+fit       <- getnetwork(insert(fit,1,3,rats,fit.prior))
 hisc      <- autosearch(fit,rats,fit.prior,trace=FALSE)
 hisc      <- autosearch(fit,rats,fit.prior,trace=FALSE,removecycles=TRUE) # slower
-plot(hisc$nw)
+plot(getnetwork(hisc))
 
 hisc2     <- heuristic(fit,rats,fit.prior,restart=10,trace=FALSE)
-plot(hisc2$nw)
-print(modelstreng(hisc2$nw))
-plot(makenw(hisc2$tabel,fit))
+plot(getnetwork(hisc2))
+print(modelstring(getnetwork(hisc2)))
+plot(makenw(gettable(hisc2),fit))
 }
 
 \keyword{models}

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:48 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Jul 25 14:35:47 2003
-% Update Count    : 18
+% Last Modified On: Tue Jan 06 14:02:11 2004
+% Update Count    : 19
 % Status          : Unknown, Use with caution!
 % 
 
@@ -18,7 +18,7 @@
 \description{Creates local probability distributions reflecting the
   graph of the network. These are attached as a \code{simprob} property
   to each node in the network and can be edited and used for
-  \code{\link{simulation}}. 
+  \code{\link{rnetwork}}. 
 }
 
 \usage{
@@ -71,7 +71,7 @@ makesimprob(nw,
   \url{http://www.math.auc.dk/novo/deal}.
 }
 
-\seealso{\code{\link{simulation}}}
+\seealso{\code{\link{rnetwork}}}
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Oct 30 16:43:05 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Jul 27 16:15:42 2003
-## Update Count    : 427
+## Last Modified On: Mon Jan 12 14:32:36 2004
+## Update Count    : 428
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,7 +25,7 @@
 ######################################################################
 
 networkfamily <- function(data,nw=network(data),prior=jointprior(nw),
-                          trylist=vector("list",nw$n),timetrace=TRUE) {
+                          trylist=vector("list",size(nw)),timetrace=TRUE) {
     ## Creator class for networkfamily
     ##
     ## Generates all possible networks with the restriction that

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:17 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue Jul 22 18:21:07 2003
-% Update Count    : 19
+% Last Modified On: Fri Jan 09 10:25:58 2004
+% Update Count    : 22
 % Status          : Unknown, Use with caution!
 % 
 
@@ -20,8 +20,8 @@
 }
 
 \usage{
-insert (nw,j,i,df,prior,nocalc=FALSE,trylist=vector("list",nw$n)) 
-remover(nw,j,i,df,prior,nocalc=FALSE,trylist=vector("list",nw$n)) 
+insert (nw,j,i,df,prior,nocalc=FALSE,trylist=vector("list",size(nw))) 
+remover(nw,j,i,df,prior,nocalc=FALSE,trylist=vector("list",size(nw))) 
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -75,14 +75,14 @@ remover(nw,j,i,df,prior,nocalc=FALSE,trylist=vector("list",nw$n))
 \examples{
 data(rats)
 rats.nw    <- network(rats)
-rats.nw    <- insert(rats.nw,2,1,nocalc=TRUE)$nw
+rats.nw    <- getnetwork(insert(rats.nw,2,1,nocalc=TRUE))
 rats.prior <- jointprior(rats.nw,12)
 
 rats.nw2   <- network(rats)
-rats.nw2   <- learn(rats.nw2,rats,rats.prior)$nw
-rats.nw2   <- insert(rats.nw2,1,2,rats,rats.prior)$nw
+rats.nw2   <- getnetwork(learn(rats.nw2,rats,rats.prior))
+rats.nw2   <- getnetwork(insert(rats.nw2,1,2,rats,rats.prior))
 
-rats.nw3   <- remover(rats.nw2,1,2,rats,rats.prior)$nw
+rats.nw3   <- getnetwork(remover(rats.nw2,1,2,rats,rats.prior))
 }
 
 \keyword{iplot}

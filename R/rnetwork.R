@@ -1,9 +1,9 @@
-## simulation.R
+## rnetwork.R
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Feb 26 11:22:30 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Jul 24 16:57:16 2003
-## Update Count    : 418
+## Last Modified On: Wed Jan 07 08:36:02 2004
+## Update Count    : 420
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,7 +24,7 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-simulation <- function(nw, n=24, file="") {
+rnetwork <- function(nw, n=24, file="") {
     ## Simulate a dataset and output to screen or 'file'.
     ## nw is a network consisting of:
     ## (slightly different from ordinary networks)
@@ -80,8 +80,9 @@ simulation <- function(nw, n=24, file="") {
         if ( length( setdiff(node$parents,initsimlist) ) > 0  ) next
         
         if (!length(node$parents)>0) { ## discrete node without parents
-            res[,node$idx] <-
-                node$levelnames[mymultinomial(n,node$simprob)] 
+            res[,node$idx] <- factor(
+                node$levelnames[mymultinomial(n,node$simprob)],
+                levels = node$levelnames)
             initsimlist <- c(initsimlist,nid)
         }
         else { ## discrete node with parents

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Jul 24 14:08:32 2003
-## Update Count    : 88
+## Last Modified On: Wed Jan 07 10:30:33 2004
+## Update Count    : 89
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -50,7 +50,7 @@ line <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 }
 
 .Last.lib <- function(lib) {
-  cat("Thank you for using Deal\n")
+  cat("Thank you for using deal\n")
   return(invisible(0))
 }
 

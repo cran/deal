@@ -3,17 +3,15 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:31 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Sep 03 14:05:40 2003
-% Update Count    : 70
+% Last Modified On: Fri Jan 09 10:58:31 2004
+% Update Count    : 79
 % Status          : Unknown, Use with caution!
 % 
 
 \name{node}
 \alias{node}
 \alias{plot.node}
-\alias{prob.node}
 \alias{print.node}
-\alias{prob}
 \alias{nodes}
 \alias{nodes<-}
 
@@ -31,9 +29,8 @@ node (idx,parents,type="discrete",name=paste(idx),
                  levels=2,levelnames=paste(1:levels),position=c(0,0)) 
 \method{print}{node} (x,filename=NA,condposterior=TRUE,condprior=TRUE,...) 
 \method{plot}{node} (x,cexscale=10,notext=FALSE,...)
-prob.node (x,nw,df)
 nodes(nw)
-"nodes<-"(nw,value)
+value <- nodes(nw)
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -55,9 +52,6 @@ nodes(nw)
   \item{position}{a numeric vector with coordinates where the node should
     appear in the 
     plot. Usually set by \code{\link{network}} and \code{\link{drawnetwork}}.}
-  \item{df}{a data frame, where the columns define the variables. A
-    continuous variable should have type \code{numeric} and discrete varibles
-    should have type \code{\link[base]{factor}}.}
   \item{nw}{an object of class \code{\link{network}}.}
   \item{value}{a list of elements of class \code{\link{node}}.}
   \item{filename}{a string or \code{NA}. If not \code{NA}, output is
@@ -92,11 +86,13 @@ nodes(nw)
   parents. The generated \code{prob} can be replaced to match the prior
   information available.
 
-  \code{nodes} gives the list of nodes of a network.
+  \code{nodes} gives the list of nodes of a network. \code{localprob}
+  gives the probability distribution for each node in the network.
   }
 
 \value{
-  An object of class \code{node}, which is a list with the following
+  The \code{node} creator function returns an object of class
+  \code{node}, which is a list with the following 
   elements (properties),
   \item{idx}{an integer. A unique index for this node. It MUST
     correspond to the column index of the variable in the data frame.}
@@ -124,7 +120,7 @@ nodes(nw)
   \item{loglik}{a numeric giving the log likelihood contribution for this node,
     calculated in \code{\link{learnnode}}.}
   \item{simprob}{a numeric vector, matrix or multiway array similar to \code{prob}, added by
-    \code{\link{makesimprob}} and used by \code{\link{simulation}}.}
+    \code{\link{makesimprob}} and used by \code{\link{rnetwork}}.}
 }
 
 \references{

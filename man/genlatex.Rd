@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:07 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Jul 24 16:45:56 2003
-% Update Count    : 11
+% Last Modified On: Wed Jan 07 09:16:22 2004
+% Update Count    : 12
 % Status          : Unknown, Use with caution!
 % 
 
@@ -68,7 +68,7 @@ genpicfile (nwl,outdir="pic/",prefix="pic",w=1.6,h=1.6,bigscale=3)
 
 \examples{
 data(rats)
-allrats <- networkfamily(rats,network(rats))$nw
+allrats <- getnetwork(networkfamily(rats,network(rats)))
 allrats <- nwfsort(allrats)
 
 \dontrun{dir.create("c:/temp")}
