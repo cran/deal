@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:38 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sun May 26 11:04:17 2002
-% Update Count    : 2
+% Last Modified On: Tue Jan  7 09:32:04 2003
+% Update Count    : 3
 % Status          : Unknown, Use with caution!
 % 
 
@@ -13,10 +13,10 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
-\title{The number of distinct networks}
+\title{The number of possible networks}
 
-\description{Calculate the number of DAGS in a mixed network.
-}
+\description{Calculates the number of different DAG's for a set of
+discrete and continuous nodes. }
 
 \usage{
 numbermixed(nd,nc)
@@ -31,14 +31,14 @@ numbermixed(nd,nc)
 \details{
   No arrows are allowed from continuous nodes to discrete nodes. Cycles
   are not allowed. The
-  number of networks is given by Bøttcher (2002), using the result in
+  number of networks is given by Bøttcher (2003), using the result in
   Robinson (1977).
 
   When nd+nc>15, the procedure is quite slow.
 }
 
 \value{
-  The number of networks with the given node configuration.
+  The number of DAG's with the given node configuration.
 }
 
 \references{

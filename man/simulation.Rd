@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:04:28 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Sep 20 09:50:36 2002
-% Update Count    : 9
+% Last Modified On: Tue Jan  7 12:19:13 2003
+% Update Count    : 14
 % Status          : Unknown, Use with caution!
 % 
 
@@ -13,11 +13,11 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
-\title{Simulation of datasets with a given dependency structure}
+\title{Simulation of data sets with a given dependency structure}
 
 \description{
-  Given a network with nodes having the 'simprob'-attribute, simulates a dataset
-}
+  Given a network with nodes having the 'simprob'-attribute, simulates
+a data set.  }
 
 \usage{
 simulation(nw, n=24, file="") 
@@ -26,9 +26,9 @@ simulation(nw, n=24, file="")
 %- maybe also `usage' for other objects documented here.
 \arguments{
   \item{nw}{A network where each node have the attribute \code{simprob} (see
-    \code{\link{makesimprob}}.}
+    \code{\link{makesimprob}}).}
   \item{n}{The number of cases to simulate.}
-  \item{file}{If a filename is given, the dataset is stored there.}
+  \item{file}{If a file name is given, the data set is stored there.}
 }
 
 \details{
@@ -36,12 +36,12 @@ simulation(nw, n=24, file="")
   that the parents of the node have already been simulated. For discrete
   variables a multinomial distribution is used and for continuous
   variables, a normal distribution is used, according to the
-  probabilities or parameters given in \code{simprob}.
+  \code{simprob} attribute in each node.
 }
 
 \value{
-  A dataframe with one row per case. If a filename is given, a file is
-  created with the dataset.
+  A data frame with one row per case. If a file name is given, a file is
+  created with the data set.
 }
 
 \references{
@@ -70,7 +70,7 @@ nw <- network(df,specifygraph=FALSE,doprob=FALSE) # doprob must be False
 nw <- makesimprob(nw)                     # create simprob attributes
 
 set.seed(944) 
-sim <- simulation(nw,n=100)               # create simulated dataframe
+sim <- simulation(nw,n=100)               # create simulated data frame
 }
 
 \keyword{models}

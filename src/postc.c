@@ -3,8 +3,8 @@
  * Author          : Claus Dethlefsen
  * Created On      : Tue Mar 12 06:44:35 2002
  * Last Modified By: Claus Dethlefsen
- * Last Modified On: Mon Aug 26 17:09:56 2002
- * Update Count    : 226
+ * Last Modified On: Wed Jun 04 11:56:51 2003
+ * Update Count    : 227
  * Status          : Unknown, Use with caution!
  */
 
@@ -54,7 +54,6 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 
 	/* allocate space for matrices */
 	mtau   = dmatrix(1,*d,1,*d);
-//	mz     = dmatrix(1,*n,1,*d);
 	zi     = dmatrix(1,*d,1,1);
 	ziy    = dmatrix(1,*d,1,1);
 	mmu    = dmatrix(1,*d,1,1);
@@ -63,7 +62,6 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 	/* copy arguments into the matrices */
 	asmatrix(mu,mmu,*d,1);
 	asmatrix(tau,mtau,*d,*d);
-//	asmatrix(z,mz,*n,*d);
 	
 	/* show input */
 /*
@@ -100,10 +98,7 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 			Rprintf("\n");
 */
 		for (j=1; j<=*d; j++) {
-//			zi[j][1] = mz[i][j];
 			zi[j][1] = z[j-1+(i-1)*(*d)];
-//			Rprintf("mz[i][j]=%f ?=",mz[i][j]);
-//			Rprintf("z[j-1+(i-1)*(*d)]=%f\n",z[j-1+(i-1)*(*d)]);
 		}
 		
 		logscale = log(*phi) +
@@ -140,7 +135,6 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 			Rprintf("mscore=%f\n",mscore);
 			Rprintf("her er loglik=%f\n",*loglik);
 		*/
-// update
 		oldtau = matcopy(mtau,*d,*d);
 		oldmu  = matcopy(mmu,*d,1);
 		
@@ -218,7 +212,7 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 		/*
 			Rprintf("Phi=%f\n",*phi);
 		*/
-	} // for
+	} 
 	
 /* RESULTS */
 	/*
@@ -231,17 +225,13 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 		Rprintf("loglik=%f\n",*loglik);
 	*/
 	
-	// copy results back to original form
 	
-	// mu  <- mmu
 	for (i=1; i<=*d;i++)
 		mu[i-1] = mmu[i][1];
-	// tau <- mtau
 	for (i=1; i<=*d; i++)
 		for (j=1; j<=*d; j++)
 			tau[(*d)*(j-1)+i-1] = mtau[i][j];
 	
-	// print to check...
 	/*
 		Rprintf("Returned mu=\n");
 		for (i=0; i<*d; i++)
@@ -267,5 +257,5 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 	free_dmatrix(oldmu,1,*d,1,1);
 */
 
-} // function postc
+} 
 

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sat Sep 28 17:15:47 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Nov 04 10:44:35 2002
-## Update Count    : 12
+## Last Modified On: Thu Dec 05 11:48:26 2002
+## Update Count    : 16
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -36,7 +36,7 @@ postdist <- function(nw) {
     nw
 }
 
-postdist.node <- function(nd,nw) {
+postdist.node <- function(nd,nw,vtype="mode") {
     ## calc. local prob from post.parameters (in cond.posterior)
     if (nd$type=="discrete") {
         if (length(nd$parents)>0) {
@@ -64,7 +64,16 @@ postdist.node <- function(nd,nw) {
         for (i in 1:TD) {
             cp <- nd$condposterior[[i]]
             mu <- cp$mu
-            s2 <- cp$phi/(cp$rho-2)
+
+            if (vtype=="mean") {
+                ## mean
+                s2 <- cp$phi/(cp$rho-2)
+            }
+            if (vtype=="mode") {
+                ## mode
+                s2 <- cp$phi/(cp$rho+2)
+            }
+
             res <- rbind(res,c(s2,mu))
         }
         nd$prob <- res

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Nov 04 10:45:04 2002
-% Update Count    : 12
+% Last Modified On: Tue Jan 07 12:43:56 2003
+% Update Count    : 14
 % Status          : Unknown, Use with caution!
 % 
 
@@ -23,13 +23,14 @@ probability distributions
 
 \usage{
 postdist(nw) 
-postdist.node(nd,nw)
+postdist.node(nd,nw,vtype = "mode")
 }
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
   \item{nw}{The network.}
   \item{nd}{The node to update.}
+  \item{vtype}{Report "mode" or "mean" of the variance distribution.}
 }
 
 \details{

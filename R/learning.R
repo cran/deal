@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Jan 14 12:24:13 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Nov 04 10:57:50 2002
-## Update Count    : 495
+## Last Modified On: Sun May 25 08:10:06 2003
+## Update Count    : 543
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,11 +25,11 @@
 ######################################################################
 
 learn <- function(nw, df, prior=jointprior(nw),
-                          nodelist=1:nw$n,trylist=
-                          rep(list(NULL),nw$n),
-                          timetrace=FALSE,smalldf=NA,
-                          usetrylist = nw$n<=6
-                          ) {
+                  nodelist=1:nw$n,trylist=
+                  rep(list(NULL),nw$n),
+                  timetrace=FALSE,
+                  usetrylist = TRUE
+                  ) {
     ## nw: network to be learned (condprior must be present in the nodes)
     ## df: dataframe with observations
     ## nodelist: vector of node-indices of nodes to be learned (default
@@ -72,20 +72,23 @@ learn <- function(nw, df, prior=jointprior(nw),
             print(is.null(node$tvar)&!is.na(smalldf))
         }
         
-        if (is.null(node$tvar)&!is.na(smalldf))
-            df <- smalldf
-        else
-            df <- old
-        ##   cat("node:",node$name,"nrow(df)=",nrow(df),"\n")
         if (usetrylist) {
-            reuse <- reuselearn(node,trylist)
-            if (reuse != 0) {
-                ##      cat("reusing,",reuse,"\n")
-                nw$nodes[[i]] <- trylist[[i]][[reuse]]
-                break
+            if (!is.null(trylist[[node$idx]]))  {
+                cur <- paste(node$parents,collapse=":")
+                curm <- match(cur,trylist[[node$idx]][,1])
+                if (FALSE) {
+                    cat("node:",node$idx,"\n")
+                    cat("parents:",cur,"\n")
+                    cat("match:",curm,"\n")
+                    print(trylist[[node$idx]])}
+                if (!is.na(curm)) {
+                    nw$nodes[[i]]$loglik <-
+                        as.numeric(trylist[[node$idx]][curm,2])
+                    break
+                }
             }
         }
-        
+        ## learning
         node <- cond.node(node,nw,prior) ## master prior procedure
         
         node$condposterior <- node$condprior ## reset posterior
@@ -93,17 +96,24 @@ learn <- function(nw, df, prior=jointprior(nw),
         node <- learnnode(node,nw,df,timetrace=FALSE)## learn!
         
         ## update trylist
-        if (usetrylist)
-            trylist[[i]][length(trylist[[i]])+1] <- list(node)
-        
+        if (usetrylist) {
+            streng <- paste(node$parents,collapse=":")
+            tal    <- node$loglik
+            if (is.null(trylist[[i]])) {
+                trylist[[i]] <- cbind(streng,tal)
+            }
+            else
+                trylist[[i]] <- rbind(trylist[[i]],cbind(streng,tal))
+        }
         ## update network
         nw$nodes[[i]] <- node
     }
     
     ## calculate network score
     nw$score <- 0
-    for (i in 1:nw$n) nw$score <- nw$score + nw$nodes[[i]]$loglik
-    
+    for (i in 1:nw$n) 
+        nw$score <- nw$score + nw$nodes[[i]]$loglik
+
     if (timetrace) {
         t2 <- proc.time()
         cat((t2-t1)[1],"]")
@@ -208,7 +218,11 @@ learnnode <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
                 cat("cf=\n");print(cf)
             }
             
-            
+## herfra  ((NB: gentages senere))
+## erstattes af
+## apply(df[,dparents..],2,function(x) all("==",tilstande-vektor
+## apply(ksl[,5:8],1,function(x) all(x==c(1,2,2,2)))
+ 
             idx <- 1:nrow(df)
             for (k in 1:length(dparents)) {
                 if (FALSE) {
@@ -225,12 +239,16 @@ learnnode <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
                     cat("idx=\n");print(idx)
                 }
             } ## for k
+
+
+
             if (length(idx)>0) {
                 if (FALSE) {
                     cat("j=",j,"\n")
                     print(df[idx,node$idx])
                     print(node)
                 }
+## hertil
                 mu  <- node$condposterior[[j]]$mu
                 tau <- node$condposterior[[j]]$tau
                 rho <- node$condposterior[[j]]$rho
@@ -349,7 +367,6 @@ learnnode <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
                 }
                 
 #                res <- post(mu, tau, rho, phi, y, z)
-#                cat("her\n")
                res <- postcc(mu, tau, rho, phi, y, z)
 #                cat("diff:",res$loglik-res2$loglik,"\n")
                 node$condposterior[[j]]$mu <- res$mu

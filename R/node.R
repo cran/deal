@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:18:50 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Oct 30 14:27:52 2002
-## Update Count    : 377
+## Last Modified On: Thu Jan 16 14:25:49 2003
+## Update Count    : 382
 ## Status          : OK
 ###############################################################################
 ##
@@ -113,7 +113,7 @@ plot.node <- function(x,cexscale=10,notext=FALSE,scale=10,...) {
 }
 
 
-prob.node <- function(x,nw,df,equalcases=FALSE,vif=1.0,smalldf=NA) {
+prob.node <- function(x,nw,df) {
     
     data <- df
     node <- x # for compatibility reasons.
@@ -123,19 +123,17 @@ prob.node <- function(x,nw,df,equalcases=FALSE,vif=1.0,smalldf=NA) {
     ## data: for continuous nodes, we need to estimate mu and sigma2
     ## from data. For discrete nodes we need to count the number of
     ## cases for each state.
-    ## vif: variance inflation factor. The reported variances are
-    ## multiplied by this factor.
     ##
     ## Returns: a node with the prob-attribute set to
     ##          for discrete: an array of dimension equal to the levels
     ##          of the discrete parents and value:
     ##          if equalcases=T  1/xx, where xx is
     ##                           the product of the levels.
-    ##          if equalcases=F  y/x, where x is the number of data and
+    ## obsolete         if equalcases=F  y/x, where x is the number of data and
     ##                           y is the number of cases for each level
     
-    if (is.null(node$tvar)&!is.na(smalldf))
-        data <- smalldf
+#    if (is.null(node$tvar)&!is.na(smalldf))
+#        data <- smalldf
     
     nodelist <- nw$nodes
     
@@ -160,13 +158,12 @@ prob.node <- function(x,nw,df,equalcases=FALSE,vif=1.0,smalldf=NA) {
         }
         node$prob <- array(1/prod(vek),dim=vek)
         dimnames(node$prob) <- dnames
-        ## changed 5/3 2002
-        ## changed back 6/3 2002
-        ##     if (length(node$parents)>0)
-        ##      node$prob <- node$prob/apply(node$prob,1,sum)
         if (length(node$parents)>0)
             node$prob <- prop.table(node$prob,2:(length(node$parents)+1))
-        if (equalcases==FALSE) {
+
+        ## OBSOLETE
+        ##        if (equalcases==FALSE) {
+        if (FALSE) {
             
             ##      family      <- sort( c(node$idx, node$parents) )
             ##      familytable <- table( data[,family] )
@@ -290,7 +287,7 @@ prob.node <- function(x,nw,df,equalcases=FALSE,vif=1.0,smalldf=NA) {
                         beta <- coef(lsobj)
                         s2   <- sum(resid(lsobj)^2)/nrow(data)
                         
-                        M[i,] <- c(vif*s2,beta)
+                        M[i,] <- c(s2,beta)
                         
                         ## print(obs)
                     }
@@ -306,7 +303,7 @@ prob.node <- function(x,nw,df,equalcases=FALSE,vif=1.0,smalldf=NA) {
                     beta <- coef(lsobj)
                     s2   <- sum(resid(lsobj)^2)/nrow(data)
                     
-                    node$prob <- c(vif*s2,beta)
+                    node$prob <- c(s2,beta)
                     names(node$prob) <- c("s2",
                                           paste("Intercept",node$name,sep=":")
                                           ,names(data)[cparents])
@@ -371,7 +368,7 @@ prob.node <- function(x,nw,df,equalcases=FALSE,vif=1.0,smalldf=NA) {
         else { ## no parents
             n <- dim(data)[1]
             ##    node$prob <- c(mean(data[,node$idx]),var(data[,node$idx])*(n-1)/n)
-            node$prob <- c(vif*var(data[,node$idx])*(n-1)/n,mean(data[,node$idx]))
+            node$prob <- c(var(data[,node$idx])*(n-1)/n,mean(data[,node$idx]))
             names(node$prob) <- c("s2",paste("Intercept",node$name,sep=":"))
             
         }

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:52 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 15:58:56 2002
-% Update Count    : 2
+% Last Modified On: Sat May 24 12:41:06 2003
+% Update Count    : 6
 % Status          : Unknown, Use with caution!
 % 
 
@@ -13,7 +13,7 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
-\title{Create the full trylist}
+\title{Creates the full trylist}
 
 \description{For faster learning, a trylist is maintained.}
 
@@ -24,7 +24,7 @@ maketrylist(initnw,data,prior=jointprior(network(data)),timetrace=FALSE)
 %- maybe also `usage' for other objects documented here.
 \arguments{
   \item{initnw}{The network}
-  \item{data}{Dataframe}
+  \item{data}{Data Frame}
   \item{prior}{Joint prior}
   \item{timetrace}{For timing purposes}
 }
@@ -32,15 +32,16 @@ maketrylist(initnw,data,prior=jointprior(network(data)),timetrace=FALSE)
 \details{For each node in the network, all possible parent
   configurations are created and learned. The result is called a
   trylist. This is very time-consuming,
-  and a better choice is to maintain a trylist, while searching and
+  and a better choice is to maintain a trylist while searching and
   indeed this is automatically done. 
 }
 
 \value{A list with one element per node in the network. Element \emph{i}
 is a list of nodes. These nodes are copies of node \emph{i} in the
-network, except that all possible parent configurations is present. And
-for each copy, the node is learned so that the parameter posteriors and
-log-likelihood contribution is calculated. These nodes can then be
+network, except that all possible parent configurations are
+present. For each copy, the node is learned so that the parameter
+posteriors and 
+log-likelihood contribution are calculated. These nodes can then be
 copied into networks where the node appears.}
 
 
@@ -70,7 +71,7 @@ rats.pr <- jointprior(rats.nw,12)
 rats.nw <- learn(rats.nw,rats,rats.pr)$nw
 rats.tr <- maketrylist(rats.nw,rats,rats.pr)
 
-rats.hi <- heuristic(rats.nw,rats,rats.pr,trylist=rats.tr)$nw
+#rats.hi <- heuristic(rats.nw,rats,rats.pr,trylist=rats.tr)$nw
 
 }
 

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Jan 13 10:16:01 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:17:49 2002
-## Update Count    : 91
+## Last Modified On: Thu Jan 16 11:58:18 2003
+## Update Count    : 92
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,7 +24,7 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-perturb <- function(nw,data,prior,degree=nw$n,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=TRUE,smalldf=NA) {
+perturb <- function(nw,data,prior,degree=nw$n,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=TRUE) {
   ## change nw by randomly adding, deleting or turning arrows.
   ## In 'degree' steps, one of the three actions is taken. Note that
   ## adding, deleting or turning may not be possible due to an empty
@@ -37,9 +37,9 @@ perturb <- function(nw,data,prior,degree=nw$n,trylist=rep(list(NULL),nw$n),nocal
 
   for (i in 1:degree) {
     choice <- runif(1)
-    if (choice <= 1/3)       nw <- addrandomarrow(nw,data,prior,trylist,nocalc,timetrace=FALSE,smalldf=smalldf)
-    else if (choice <= 2/3)  nw <- turnrandomarrow(nw,data,prior,trylist,nocalc,timetrace=FALSE,smalldf=smalldf)
-    else if (choice <= 1)    nw <- deleterandomarrow(nw,data,prior,trylist,nocalc,timetrace=FALSE,smalldf=smalldf)
+    if (choice <= 1/3)       nw <- addrandomarrow(nw,data,prior,trylist,nocalc,timetrace=FALSE)
+    else if (choice <= 2/3)  nw <- turnrandomarrow(nw,data,prior,trylist,nocalc,timetrace=FALSE)
+    else if (choice <= 1)    nw <- deleterandomarrow(nw,data,prior,trylist,nocalc,timetrace=FALSE)
     trylist <- nw$trylist
     nw <- nw$nw
   }
@@ -56,7 +56,7 @@ perturb <- function(nw,data,prior,degree=nw$n,trylist=rep(list(NULL),nw$n),nocal
   list(nw=nw,trylist=trylist)
 }
 
-addrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=FALSE,smalldf=NA) {
+addrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=FALSE) {
   ## add an arrow at random. Continue until one arrow is added or the
   ## graph is complete.
   ## cat("adding arrow\n")
@@ -78,7 +78,7 @@ addrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FAL
     from <- possible[r,1]
     to <- possible[r,2]
 #    cat("from=",from,"to=",to,"\n")
-    newnet <- insert(nw, from,to,data,prior,trylist=trylist,nocalc=nocalc,smalldf=smalldf)
+    newnet <- insert(nw, from,to,data,prior,trylist=trylist,nocalc=nocalc)
     trylist <- newnet$trylist
     newnet <- newnet$nw
     if (length(newnet)>0) {
@@ -102,7 +102,7 @@ addrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FAL
   list(nw=nw,trylist=trylist)
 }
 
-turnrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=FALSE,smalldf=NA) {
+turnrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=FALSE) {
   ## continue until an arrow is turned or it is not possible
   ## cat("turning arrow\n")
 
@@ -135,11 +135,11 @@ turnrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FA
     newnet$nodes[[to]]$parents <-  setdiff(newnet$nodes[[to]]$parents,from)
 #    print(newnet)
     if (!nocalc) {
-      newnet <- learn(newnet,data,prior,to,trylist=trylist,smalldf=smalldf)
+      newnet <- learn(newnet,data,prior,to,trylist=trylist)
       trylist <- newnet$trylist
       newnet <- newnet$nw
     }
-    newnet <- insert(newnet, to, from,data,prior,trylist=trylist,nocalc=nocalc,smalldf=smalldf)
+    newnet <- insert(newnet, to, from,data,prior,trylist=trylist,nocalc=nocalc)
     trylist <- newnet$trylist
     newnet <- newnet$nw
     ##    print(newnet)
@@ -165,7 +165,7 @@ turnrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FA
   list(nw=nw,trylist=trylist)
 }
 
-deleterandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=timetrace,smalldf=NA) {
+deleterandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=timetrace) {
   ## delete an arrow at random. Return nw, if the graph is empty.
   ##  cat("deleting arrow\n")
 
@@ -194,7 +194,7 @@ deleterandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=
   p <- parentlist[todie,2]
   nw$nodes[[i]]$parents <- setdiff(nw$nodes[[i]]$parents,p)
   if (!nocalc) {
-    nw <- learn(nw,data,prior,i,trylist=trylist,smalldf=smalldf)
+    nw <- learn(nw,data,prior,i,trylist=trylist)
     trylist <- nw$trylist
     nw <- nw$nw
   }

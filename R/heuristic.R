@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Jan 13 11:23:16 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Sep 16 18:44:16 2002
-## Update Count    : 104
+## Last Modified On: Sun May 25 07:15:29 2003
+## Update Count    : 139
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,85 +25,104 @@
 ######################################################################
 
 heuristic <-
-  function(initnw,data,prior=jointprior(network(data)),maxiter=100,restart=10,degree=initnw$n,trylist= rep(list(NULL),initnw$n),trace=FALSE,timetrace=TRUE,smalldf=NA)
+  function(initnw,data,prior=jointprior(network(data)),
+           maxiter=100,restart=10,degree=initnw$n,
+           trylist= rep(list(NULL),initnw$n),trace=TRUE,
+           timetrace=TRUE,saveall=FALSE)
 {
-  ## Heuristic search with random restart
-  ## initnw: an initial network (already learned)
-  ## data:   dataframe
-  ## prior:  your favorite prior (has a default)
-  ## maxiter:Max search steps in the search algorithm
-  ## restart:The number of times to perturb initnw and rerun the search
-  ## degree: Degree of perturbation
-  ## trace=F: Do not plot
-  
-  ## outputs: The network with highest likelihood,
-  ##          A list of start and end networks in the restart
-  ##          A list of all networks tried 
-
-  if (timetrace) {t1 <- proc.time();cat("[Heuristic ")}
-
-  if (timetrace) s1 <- proc.time()[3]
-  nwl <- autosearch(initnw,
-                    data,prior,
-                    maxiter,
-                    trylist,
-                    trace=trace,timetrace=TRUE,smalldf=smalldf)
-  trylist <- nwl$trylist
-  nwl <- nwfunique(nwfsort(nwl$nwl))
-
-  if (timetrace) {
-    s2 <- proc.time()[3]
-    sauto <- s2-s1
-    spert <- 0
-    suniq <- 0
-  }
-  if (restart>0) {
-    for (i in 1:restart) {
-      if (timetrace) s3 <- proc.time()[3]
-      nw <-
-        perturb(initnw,data,prior,degree,trylist=trylist,timetrace=FALSE,smalldf=smalldf)
-      trylist <- nw$trylist
-      nw <- nw$nw
-      if (timetrace) {
-        s4 <- proc.time()[3]
-        spert <- spert + s4-s3
-      }
-      if (elementin(nw,nwl)) next
-      if (trace) {
-        plot(nw)
-        title("New network")
-      }
-      
-      if (timetrace)
-        s5 <- proc.time()[3]
-      newnwl <- autosearch(nw,data,prior,maxiter,
-                           trylist=trylist,trace=trace,timetrace=TRUE,smalldf=smalldf)
-      trylist <- newnwl$trylist
-      newnwl <- newnwl$nwl
-      if (timetrace) {
-      s6 <- proc.time()[3]
-      sauto <- sauto + s6-s5
+    ## Heuristic search with random restart
+    ## initnw: an initial network (already learned)
+    ## data:   dataframe
+    ## prior:  your favorite prior (has a default)
+    ## maxiter:Max search steps in the search algorithm
+    ## restart:The number of times to perturb initnw and rerun the search
+    ## degree: Degree of perturbation
+    ## trace=F: Do not plot
+    
+    ## outputs: The network with highest likelihood,
+    ##          A list of start and end networks in the restart
+    ##          A list of all networks tried 
+    
+    if (timetrace) {t1 <- proc.time();cat("[Heuristic ")}
+    
+    if (timetrace) s1 <- proc.time()[3]
+    nwl <- autosearch(initnw,
+                      data,prior,
+                      maxiter,
+                      trylist,
+                      trace=trace,timetrace=TRUE,saveall=saveall)
+    
+    nw <- nwl$nw
+    trylist <- nwl$trylist
+#    nwl <- nwfunique(nwfsort(nwl$nwl))
+    tabel <- nwl$tabel
+    
+    if (timetrace) {
+        s2 <- proc.time()[3]
+        sauto <- s2-s1
+        spert <- 0
+        suniq <- 0
     }
-      nwl <- c(nwl,newnwl)
-     if (timetrace) s7 <- proc.time()[3]
-      nwl <- nwfunique(nwfsort(nwl),timetrace=FALSE,equi=FALSE)
-      if (timetrace) {
-        s8 <- proc.time()[3]
-        suniq <- suniq + s8 - s7
-      }
-  } ## for i
-#    nwl <- nwfsort(nwl)
-} ## if restart
-  class(nwl) <- "networkfamily"
-  if (initnw$n<15) antal <- paste(numbermixed(initnw$nc,initnw$nd))
-  else antal <- "many"
+    if (restart>0) {
+        for (i in 1:restart) {
+            if (timetrace) s3 <- proc.time()[3]
+            nw <-
+                perturb(initnw,data,prior,degree,trylist=trylist,timetrace=TRUE)
+            trylist <- nw$trylist
 
-  cat("Tried",length(nwl),"out of",antal,"networks\n")
-  if (timetrace) {
-    t2 <- proc.time()
-    cat((t2-t1)[1],"]\n")
-    cat("Perturb:",spert,",Autosearch:",sauto,",Unique:",suniq,"\n")
-  }
-  
-  list(nw=nwl,trylist=trylist)
+            nw <- nw$nw
+            ms <- modelstreng(nw)
+            if (timetrace) {
+                s4 <- proc.time()[3]
+                spert <- spert + s4-s3
+            }
+            if (!is.na(match(ms,tabel[,1]))) next
+#            if (elementin(nw,nwl)) next
+            tabel <- rbind(tabel,cbind(ms,nw$score))
+            if (trace) {
+                plot(nw)
+                title("New network")
+            }
+            
+            if (timetrace)
+                s5 <- proc.time()[3]
+            newnwl <- autosearch(nw,data,prior,maxiter,
+                                 trylist=trylist,trace=trace,timetrace=TRUE,saveall=saveall)
+            trylist <- newnwl$trylist
+#            newnwl <- newnwl$nwl
+            tabel <- rbind(tabel,newnwl$tabel)
+#            nw <- newnwl$nw
+            if (timetrace) {
+                s6 <- proc.time()[3]
+                sauto <- sauto + s6-s5
+            }
+#            nwl <- c(nwl,newnwl)
+            if (timetrace) s7 <- proc.time()[3]
+#            nwl <- nwfunique(nwfsort(nwl),timetrace=FALSE,equi=FALSE)
+            tabel <- tabel[!duplicated(tabel[,1]),]
+            tabel <- tabel[sort.list(tabel[,2]),]
+            if (timetrace) {
+                s8 <- proc.time()[3]
+                suniq <- suniq + s8 - s7
+            }
+        } ## for i
+        ##    nwl <- nwfsort(nwl)
+    } ## if restart
+#    class(nwl) <- "networkfamily"
+    if (initnw$n<15) antal <- paste(numbermixed(initnw$nc,initnw$nd))
+    else antal <- "many"
+    
+    cat("Tried",nrow(tabel),"out of approx.",antal,"networks\n")
+#    cat("Tried",length(nwl),"out of",antal,"networks\n")
+    if (timetrace) {
+        t2 <- proc.time()
+        cat((t2-t1)[1],"]\n")
+        cat("Perturb:",spert,",Autosearch:",sauto,",Unique:",suniq,"\n")
+    }
+
+
+    thebest <- as.network(tabel[1,],initnw)
+    thebest <- learn(thebest,data,prior)$nw
+    list(nw=thebest,tabel=tabel,trylist=trylist)
+    #list(nw=nwl,trylist=trylist)
 }

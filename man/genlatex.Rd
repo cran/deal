@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:07 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue May 28 19:31:30 2002
-% Update Count    : 2
+% Last Modified On: Tue Jan  7 09:25:25 2003
+% Update Count    : 3
 % Status          : Unknown, Use with caution!
 % 
 
@@ -14,9 +14,9 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
-\title{From a networkfamily, generate LaTeX output}
+\title{From a network family, generate LaTeX output}
 
-\description{The networks in a networkfamily is arranged as
+\description{The networks in a network family is arranged as
   pictex-graphs in a LaTeX-table. 
 }
 
@@ -48,7 +48,7 @@ genpicfile (nwl,outdir="pic/",prefix="pic",w=1.6,h=1.6,bigscale=3)
 \value{Files:
 
   \{outdir\}\{picpre\}xx.tex : one pictex file for each network in the
-  networkfamily, indexed by xx.
+  network family, indexed by xx.
 
   \{outdir\}\{prefix\}.tex   : LaTeX file with table including all pictex files.
 

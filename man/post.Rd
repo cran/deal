@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Mon May 06 10:35:00 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Nov 04 10:56:28 2002
-% Update Count    : 30
+% Last Modified On: Tue Jan  7 12:17:43 2003
+% Update Count    : 33
 % Status          : Unknown, Use with caution!
 % 
 
@@ -20,12 +20,12 @@
 
 \title{Calculation of parameter posteriors for continuous node}
 
-\description{Learning parameters and calculating network score contribution
-}
+\description{Learning the parameters and calculating the network score
+contribution for continuous nodes.  }
 
 \usage{
 post   (mu,tau,rho,phi,y,z,timetrace=FALSE) 
-postM   (mu,tau,rho,phi,y,z,timetrace=FALSE) 
+postM  (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 postc  (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 postcc (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 post0  (mu,tau,rho,phi,y,timetrace=FALSE) 
@@ -49,11 +49,11 @@ postc0c(mu,tau,rho,phi,y,timetrace=FALSE)
 \details{These functions are called by the learning routines
   (learn, learnnode).
 
-  post0: Posterior for continuous node with 0 parents as batch learning.
+  post0: posterior for continuous node with 0 parents as batch learning.
 
   postc0c: as post0, but using sequential learning in C.
 
- postc: Posterior for continuous node with continuous
+ postc: posterior for continuous node with continuous
  parents. Sequential learning.
 
  post: as postc, but as batch learning.
@@ -64,7 +64,7 @@ postc0c(mu,tau,rho,phi,y,timetrace=FALSE)
 
 }
 
-\value{Updated parameters and log-network score contribution of current node.
+\value{Updated parameters and log network score contribution of current node.
 }
 
 \seealso{\code{\link{learnnode}}}

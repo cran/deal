@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:20:16 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Nov 03 16:44:19 2002
-## Update Count    : 300
+## Last Modified On: Thu Jan 16 11:49:18 2003
+## Update Count    : 305
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,85 +24,77 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-## Et netværk skal have en vektor af diskrete knude-idx og en vektor
-## af kont. knude-idx fremfor 1:nd, (nd+1):nw$n.
-## Og så skal vi selv lige finde ud af det hele fra en dataframe.
-## dataframen skal vel ikke sendes med netværket rundt?
-
-network <- function(df,specifygraph=FALSE,inspectprob=FALSE,equalcases=FALSE,vif=1.0,doprob=TRUE,tvar=NA,smalldf=NA,yr=c(0,350),xr=yr) {
-  ## creator for class 'network'
-  ## df is a dataframe with one column per variable and one row per
-  ## observation. Discrete variables are factors. We assume complete
-  ## data, that is no NA's and at least one observation for each
-  ## configuration of the factors.
-    ## vif: variance inflation factor. The reported variances are
-    ## multiplied by this factor.
-  ##
-  ## We create a 'trivial' network, which is a network without any arrows.
-
-  if (length(dim(df))<1) stop("Can't handle networks with one node, sorry\n")
-  
-  nw   <- list()
-  nw$n <- ncol(df)  ## df must have at least 2 columns...
-  
-  nw$discrete <- c()
-  nw$continuous <- c()
-  
-  nw$nodes <- list()
-  unit <- 2*pi/nw$n
-  xc <- mean(xr)
-  yc <- mean(yr)
-  for (i in 1:nw$n) {
-      pos <- c(cos( unit*i+pi/4),sin(unit*i+pi/4))*xc*.8 + c(xc,yc)
-    ## create one node per column
-    if (is.factor(df[,i])) {
-      ## the node is discrete
-      nw$nodes[[i]] <- node(i,c(),"discrete",
-                            names(df)[i],
-                            length(levels(df[,i])),
-                            levels(df[,i]),
-                            position=pos
-                            )
-      nw$discrete <- c(nw$discrete,i)
-    }
-    else {
-      ## the node is continuous
-      nw$nodes[[i]] <- node(i,c(),"continuous",
-                            names(df)[i],
-                            position=pos
-                            )
-      nw$continuous <- c(nw$continuous,i)
-
-    }
-  }
-
-  if (!is.na(tvar)) {
-      for (j in tvar)
-          nw$nodes[[j]]$tvar <- TRUE
-  }
-  
-  nw$nd <- length(nw$discrete)
-  nw$nc <- length(nw$continuous)
-  stopifnot(nw$nd+nw$nc==nw$n) # invariant
-
-  names(nw$nodes) <- names(df)
-  
-  class(nw) <- "network"
-
-  if (specifygraph) {
-##    cat("Specifygraph not yet implemented, sorry... using trivial graph\n")
-#    cat("Specify prior network\n")
-    nw <- drawnetwork(nw,nocalc=TRUE,smalldf=smalldf)$nw
+network <- function(df,specifygraph=FALSE,inspectprob=FALSE,
+                    doprob=TRUE,
+                    yr=c(0,350),xr=yr) {
+    ## creator for class 'network'
+    ## df is a dataframe with one column per variable and one row per
+    ## observation. Discrete variables are factors. We assume complete
+    ## data, that is no NA's and at least one observation for each
+    ## configuration of the factors.
+    ##
+    ## We create a 'trivial' network, which is a network without any arrows.
     
-  }
-  
-
-  if (doprob) 
-    nw <- prob.network(x=nw,df=df,equalcases=equalcases,vif=vif,smalldf=smalldf)
-
-  if (inspectprob) nw <- inspectprob(nw)
-  
-  nw
+    if (length(dim(df))<1) stop("Can't handle networks with one node, sorry\n")
+    
+    nw   <- list()
+    nw$n <- ncol(df)  ## df must have at least 2 columns...
+    
+    nw$discrete <- c()
+    nw$continuous <- c()
+    
+    nw$nodes <- list()
+    unit <- 2*pi/nw$n
+    xc <- mean(xr)
+    yc <- mean(yr)
+    for (i in 1:nw$n) {
+        pos <- c(cos( unit*i+pi/4),sin(unit*i+pi/4))*xc*.8 + c(xc,yc)
+        ## create one node per column
+        if (is.factor(df[,i])) {
+            ## the node is discrete
+            nw$nodes[[i]] <- node(i,c(),"discrete",
+                                  names(df)[i],
+                                  length(levels(df[,i])),
+                                  levels(df[,i]),
+                                  position=pos
+                                  )
+            nw$discrete <- c(nw$discrete,i)
+        }
+        else {
+            ## the node is continuous
+            nw$nodes[[i]] <- node(i,c(),"continuous",
+                                  names(df)[i],
+                                  position=pos
+                                  )
+            nw$continuous <- c(nw$continuous,i)
+            
+        }
+    }
+    
+#    if (!is.na(tvar)) {
+#        for (j in tvar)
+#            nw$nodes[[j]]$tvar <- TRUE
+#    }
+    
+    nw$nd <- length(nw$discrete)
+    nw$nc <- length(nw$continuous)
+    stopifnot(nw$nd+nw$nc==nw$n) # invariant
+    
+    names(nw$nodes) <- names(df)
+    
+    class(nw) <- "network"
+    
+    if (specifygraph) {
+        nw <- drawnetwork(nw,nocalc=TRUE)$nw
+    }
+    
+    
+    if (doprob) 
+        nw <- prob.network(x=nw,df=df)
+    
+    if (inspectprob) nw <- inspectprob(nw)
+    
+    nw
 }
 
 
@@ -112,101 +104,94 @@ print.network <- function(x,filename=NA,master=FALSE,condposterior=FALSE,
                           condprior=FALSE,...) {
     nw <- x
     str <- paste("## ",nw$n,"(",nw$nd,"discrete+",nw$nc,") nodes;score=",
-               nw$score,";relscore=",nw$relscore,"\n")
-  if (is.na(filename)) cat(str)
-  else cat(str,file=filename)
-
-  for (i in 1:nw$n)
-    print(nw$nodes[[i]],filename=filename,master,condposterior,condprior)
-  invisible(nw)
+                 nw$score,";relscore=",nw$relscore,"\n")
+    if (is.na(filename)) cat(str)
+    else cat(str,file=filename)
+    
+    for (i in 1:nw$n)
+        print(nw$nodes[[i]],filename=filename,master,condposterior,condprior)
+    invisible(nw)
 }
 
-plot.network <-
-    function(x,scale=10,arrowlength=.25,
-             notext=FALSE,sscale=.7*scale,showban=TRUE,
-             yr=c(0,350),xr=yr
-             ,unitscale=20,cexscale=8,...) {
-
+plot.network <- function(x,scale=10,arrowlength=.25,
+                         notext=FALSE,sscale=.7*scale,showban=TRUE,
+                         yr=c(0,350),xr=yr
+                         ,unitscale=20,cexscale=8,...) {
+    
     nw <- x
     
     plot(0,0,xlim=xr,
-       ylim=yr,type="n",
-       axes=FALSE,xlab="",ylab="",...)
-
-  unit <- 2*pi/nw$n
+         ylim=yr,type="n",
+         axes=FALSE,xlab="",ylab="",...)
+    
+    unit <- 2*pi/nw$n
     xc <- mean(xr) # center coordinates
     yc <- mean(yr) # 
     
-  ## show nodes
-  for (i in 1:nw$n) 
-    plot(nw$nodes[[i]],
-         cexscale=cexscale,notext=notext,scale=scale,...)
-
-  ## show score and relscore
-  if (length(nw$score)>0 && !notext) {
-#  if (length(nw$score)>0 ) {
+    ## show nodes
+    for (i in 1:nw$n) 
+        plot(nw$nodes[[i]],
+             cexscale=cexscale,notext=notext,scale=scale,...)
     
-    string <- paste("Score:",format(nw$score,2))
-    if (length(nw$relscore)>0)
-      string <- paste(string,"\n","Relscore:",format(nw$relscore,2))
-    
-    text(xc,0.97*yr[2],string)
-  }
-
-  ## show banlist
-  if (showban) {
-##      print(nw$banlist)
-      if (!is.null(nw$banlist))
-          if (nrow(nw$banlist)>0) {
-##                    cat("showing ban-arrows\n")
-                    bl <- nw$banlist
-                    for (i in 1:nrow(bl)) {
-                        from <- bl[i,2]
-                        to   <- bl[i,1]
-                        x  <- nw$nodes[[from]]$position 
-                        y  <- nw$nodes[[to]]$position 
-                        u <- (x - y) / sqrt(sum( (x-y)^2 )) 
+    ## show score and relscore
+    if (length(nw$score)>0 && !notext) {
         
-                        x <- x - u*unitscale
-                        y <- y + u*unitscale
-                        arrows( y[1],y[2],x[1],x[2],length=arrowlength,col="red",lty=2)
-                    } ## for
-                } ## if (nrow...)
-  } ## if (showban)
-
-
-  ##< show arrows
-
-  ## Skal lige skaleres ved at lave en enhedsvektor i pilens retning
-  ## og så trække radius fra i begge ender
-
-#  sscale <- 0.7*scale
-
-  for (i in 1:nw$n) {
-    ni <- nw$nodes[[i]]    # node i
-    if (length(ni$parents)>0) {
-      for (j in 1:length(ni$parents)) {
-        x  <- ni$position # coords of ni
-        pj <- ni$parents[j]  # parent j (index)
-        y  <- nw$nodes[[pj]]$position # coords of pj
+        string <- paste("Score:",format(nw$score,2))
+        if (length(nw$relscore)>0)
+            string <- paste(string,"\n","Relscore:",format(nw$relscore,2))
         
-        u <- (x - y) / sqrt(sum( (x-y)^2 )) # unit vector from y to x
-        
-        x <- x - u*unitscale
-        y <- y + u*unitscale
-#        cat("(x,y)=(",x,",",y,")\n")
-
-        arrows( y[1],y[2],x[1],x[2],length=arrowlength,...)
-      }
+        text(xc,0.97*yr[2],string)
     }
-  }
+    
+    ## show banlist
+    if (showban) {
+        if (!is.null(nw$banlist))
+            if (nrow(nw$banlist)>0) {
+                bl <- nw$banlist
+                for (i in 1:nrow(bl)) {
+                    from <- bl[i,2]
+                    to   <- bl[i,1]
+                    x  <- nw$nodes[[from]]$position 
+                    y  <- nw$nodes[[to]]$position 
+                    u <- (x - y) / sqrt(sum( (x-y)^2 )) 
+                    
+                    x <- x - u*unitscale
+                    y <- y + u*unitscale
+                    arrows( y[1],y[2],x[1],x[2],length=arrowlength,col="red",lty=2)
+                } ## for
+            } ## if (nrow...)
+    } ## if (showban)
+    
+    
+    ##< show arrows
+    
+    ## Skal lige skaleres ved at lave en enhedsvektor i pilens retning
+    ## og så trække radius fra i begge ender
+    
+    for (i in 1:nw$n) {
+        ni <- nw$nodes[[i]]    # node i
+        if (length(ni$parents)>0) {
+            for (j in 1:length(ni$parents)) {
+                x  <- ni$position # coords of ni
+                pj <- ni$parents[j]  # parent j (index)
+                y  <- nw$nodes[[pj]]$position # coords of pj
+                
+                u <- (x - y) / sqrt(sum( (x-y)^2 )) # unit vector from y to x
+                
+                x <- x - u*unitscale
+                y <- y + u*unitscale
+                
+                arrows( y[1],y[2],x[1],x[2],length=arrowlength,...)
+            }
+        }
+    }
     
 }
 
-prob.network <- function(x,df,equalcases=FALSE,vif=1.0,smalldf=NA) {
-  ## calculate initial probability
-  x$nodes <- lapply(x$nodes,prob.node,x,df,equalcases,vif,smalldf=smalldf)
-  x
+prob.network <- function(x,df) {
+    ## calculate initial probability
+    x$nodes <- lapply(x$nodes,prob.node,x,df)
+    x
 }
 
 

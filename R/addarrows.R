@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:02:07 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Oct 23 20:32:23 2002
-## Update Count    : 187
+## Last Modified On: Mon May 12 10:36:53 2003
+## Update Count    : 193
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -60,101 +60,101 @@ addarrows <- function(nw, node, data, prior,trylist=rep(list(NULL),nw$n)) {
 }
 
 
-insert <- function(nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n),smalldf=NA) {
-  ## insert one arrow from node i to node j in network nw
-  ## df: dataframe
-  ## prior: jointprior
-  ## nocalc: if F, relearn the net; else do not relearn
-  ## trylist: a list of networks wherefrom some learning may be reused
+insert <- function(nw,j,i,df,prior,nocalc=FALSE,
+                   trylist=rep(list(NULL),nw$n)) {
+    ## insert one arrow from node j to node i in network nw
+    ## df: dataframe
+    ## prior: jointprior
+    ## nocalc: if F, relearn the net; else do not relearn
+    ## trylist: a list of networks wherefrom some learning may be reused
+    
+    ## If arrow is illegal, returns a NULL network. Otherwise, returns a
+    ## network with the arrow added (and relearned, if nocalc=F)
+    
+    ## Used by: addarrows, drawnetwork, addarrow, turnarrow
+    ## Uses: learn(.network) if nocalc=F
+    ## network attributes: nodes[[]]$type, nodes[[]]$parents,
+    ##                     nw$banlist, nodes[[]]$tvar
+    
+    ## examines if the arrow is legal (no continuous parents for discrete
+    ## node), is not banned and is not from tvar to non-tvar nodes (obsolete).
 
-  ## If arrow is illegal, returns a NULL network. Otherwise, returns a
-  ## network with the arrow added (and relearned, if nocalc=F)
-  
-  ## Used by: addarrows, drawnetwork, addarrow, turnarrow
-  ## Uses: learn(.network) if nocalc=F
-  ## network attributes: nodes[[]]$type, nodes[[]]$parents,
-  ##                     nw$banlist, nodes[[]]$tvar
-  
-  ## examines if the arrow is legal (no continuous parents for discrete
-  ## node), is not banned and is not from tvar to non-tvar nodes.
-
-
-  if (i==j) {
-##        cat("Arrow (",i,"->",j,") illegal\n")
-    return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
-  }
-  
-  if (nw$nodes[[i]]$type=="discrete" &
-      nw$nodes[[j]]$type=="continuous")
-    {
-      ##      cat("Arrow (",i,"->",j,") illegal\n")
-    return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
+    if (i==j) {
+        ##        cat("Arrow (",i,"<-",j,") illegal\n")
+        return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
     }
-  else if (!is.null(nw$nodes[[j]]$tvar) & is.null(nw$nodes[[i]]$tvar) ) {
-      ##      cat("nw$nodes[[i]]$tvar=",nw$nodes[[i]]$tvar,
-      ##          "nw$nodes[[j]]$tvar=",nw$nodes[[j]]$tvar,"\n")
-    return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
-  }
-  else if (!is.na(match(j,nw$nodes[[i]]$parents))) {
-    ##      cat("Arrow (",i,"->",j,") already exists\n")
-    return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
-  }
-  else if (!is.na(match(i,nw$nodes[[j]]$parents))) {
-    ##      cat("Arrow (",j,"->",i,") already exists\n")
-    return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
-  }
-  else if (!is.null(nw$banlist)) {
-      if (nrow(nw$banlist)>0) {
-          idx <- (1:nrow(nw$banlist))[nw$banlist[,1]==j]
-          if (length(idx)>0) 
-              if (!is.na(match(i,nw$banlist[idx,2]))) {
-##                  cat("Arrow (",j,"->",i,") banned\n")
-                  return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
-              }
-      }
-  }
+    
+    if (nw$nodes[[i]]$type=="discrete" &
+        nw$nodes[[j]]$type=="continuous")
+    {
+        ##      cat("Arrow (",i,"<-",j,") illegal\n")
+        return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
+    }
+#    else if (!is.null(nw$nodes[[j]]$tvar) & is.null(nw$nodes[[i]]$tvar) ) {
+        ##      cat("nw$nodes[[i]]$tvar=",nw$nodes[[i]]$tvar,
+        ##          "nw$nodes[[j]]$tvar=",nw$nodes[[j]]$tvar,"\n")
+#        return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
+#    }
+    else if (!is.na(match(j,nw$nodes[[i]]$parents))) {
+        ##      cat("Arrow (",i,"<-",j,") already exists\n")
+        return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
+    }
+    else if (!is.na(match(i,nw$nodes[[j]]$parents))) {
+        ##      cat("Arrow (",j,"<-",i,") already exists\n")
+        return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
+    }
+    else if (!is.null(nw$banlist)) {
+        if (nrow(nw$banlist)>0) {
+            idx <- (1:nrow(nw$banlist))[nw$banlist[,1]==j]
+            if (length(idx)>0) 
+                if (!is.na(match(i,nw$banlist[idx,2]))) {
+                    ##    cat("Arrow (",j,"<-",i,") banned\n")
+                    return(list(nw=NULL,trylist=trylist))  
+                                        # RETURNS a NULL network
+                }
+        }
+    }
 
-##  else { ## bingo
     ## update parents
     nw$nodes[[i]]$parents <- sort(c(nw$nodes[[i]]$parents,j))
-##  }
-  if (!nocalc) {
-    nw <- learn(nw,df,prior,i,trylist=trylist,smalldf=smalldf)
-    trylist <- nw$trylist
-    nw <- nw$nw
-  }
-  list(nw=nw,trylist=trylist)
+    if (!nocalc) {
+        nw <- learn(nw,df,prior,i,trylist=trylist)
+        trylist <- nw$trylist
+        nw <- nw$nw
+    }
+    list(nw=nw,trylist=trylist)
 }
 
-remover <- function(nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n),smalldf=NA) {
-  ## remove one arrow from node i to node j in network nw
-  ## df: dataframe
-  ## prior: jointprior
-  ## nocalc: if F, relearn the net; else do not relearn
-  ## trylist: a list of networks wherefrom some learning may be reused
-
-  ## Used by: drawnetwork
-  ## Uses: learn(.network) if nocalc=F
-  ## network attributes: nodes[[]]$parents
-
-  if (i==j) {
-    ##    cat("Arrow (",i,"->",j,") illegal\n")
-    return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
-  }
-
-  ## check if there *is* an arrow from i to j.
-  parents <- nw$nodes[[i]]$parents
-  if (!length(intersect(parents,j))>0) {
-    cat("There's no arrow there!\n")
-    return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
-  }
-  else { ## bingo
-    ## update parents
-    nw$nodes[[i]]$parents <- setdiff(nw$nodes[[i]]$parents,j)
-  }
-  if (!nocalc) { nw <- learn(nw,df,prior,i,trylist=trylist,smalldf=smalldf)
-                 trylist <- nw$trylist
-                 nw <- nw$nw
+remover <- function(nw,j,i,df,prior,nocalc=FALSE,
+                    trylist=rep(list(NULL),nw$n)) {
+    ## remove one arrow from node j to node i in network nw
+    ## df: dataframe
+    ## prior: jointprior
+    ## nocalc: if F, relearn the net; else do not relearn
+    ## trylist: a list of networks wherefrom some learning may be reused
+    
+    ## Used by: drawnetwork
+    ## Uses: learn(.network) if nocalc=F
+    ## network attributes: nodes[[]]$parents
+    
+    if (i==j) {
+        ##    cat("Arrow (",i,"<-",j,") illegal\n")
+        return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
+    }
+    
+    ## check if there *is* an arrow from i to j.
+    parents <- nw$nodes[[i]]$parents
+    if (!length(intersect(parents,j))>0) {
+        cat("There's no arrow there!\n")
+        return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
+    }
+    else { 
+        ## update parents
+        nw$nodes[[i]]$parents <- setdiff(nw$nodes[[i]]$parents,j)
+    }
+    if (!nocalc) { nw <- learn(nw,df,prior,i,trylist=trylist)
+                   trylist <- nw$trylist
+                   nw <- nw$nw
                }
-  list(nw=nw,trylist=trylist)
+    list(nw=nw,trylist=trylist)
 }

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Wed Mar 06 12:52:57 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:11:34 2002
-## Update Count    : 26
+## Last Modified On: Tue Dec 10 19:19:18 2002
+## Update Count    : 27
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,96 +25,78 @@
 ######################################################################
 
 jointdisc <- function(nw,timetrace=FALSE) {
-  ## From the discrete part of nw, the joint distribution is
-  ## determined from the local distributions in nodes$prob.
-  ##
-  ## If eg. A|B,C, B|C, C are given, the joint distribution of A,B,C
-  ## is returned
-  ##
-
-  if (timetrace) {t1 <- proc.time();cat("[jointdisc ")}
-
-  ## First, determine the discrete nodes and their dimensions
-
-  Dim <- c()
-#  lab <- c()
-  lablist <- list()
-  for (i in nw$discrete) {
-    Dim <- c(Dim, nw$nodes[[i]]$levels)
-#    lab <- c(lab, nw$nodes[[i]]$name)
-    lablist <- c(lablist,list(nw$nodes[[i]]$levelnames))
-  }
-#  print(lab)
-#  print(lablist)
-  
-  ## Dim is the dimension of the returned joint distribution
-  jointprob <- array(1,Dim)
-  dimnames(jointprob) <- lablist
-
-  ## for each node, multiply jointprob by the local distribution
-  ## (blown up appropriately).
-
-  for (nid in nw$discrete) {
-#    cat("nid=",nid,"\n")
-    node    <- nw$nodes[[nid]] 
-    Pn      <- node$prob        ## the local distribution
-    parents <- node$parents     ## the parents, 
-    if (nw$nd>0)    dparents<- sort(intersect(parents,nw$discrete))
-    else dparents <- c()
-#    if (nw$nc>0)    cparents<- sort(intersect(parents,nw$continuous))
-
-    idx <- c(node$idx, dparents) ## sequence in Pn
-    pidx<- 1:length(idx)         ## corresponding idx
-    jidx<- 1:nw$nd               ## idx in jointprior
-#    cat("pidx=",pidx,"\n")
+    ## From the discrete part of nw, the joint distribution is
+    ## determined from the local distributions in nodes$prob.
+    ##
+    ## If eg. A|B,C, B|C, C are given, the joint distribution of A,B,C
+    ## is returned
+    ##
     
-    ## dimension of c(node,parents)
-    nDim <- c(node$levels)
-    for (i in dparents) 
-      nDim <- c(nDim,nw$nodes[[i]]$levels)
-#    TD <- prod(nDim) # number of configurations
-
-#    cat("nDim=",nDim,"\n")
-
-    ## blow up
-    ## first, permute Dim appropriately
-#    cat("idx=",idx,"\n")
-#    cat("jidx=",jidx,"\n")
-    ivek <- c(pidx,setdiff(jidx,pidx))
-#    cat("ivek=",ivek,"\n")
-    jDim <- Dim[ivek]
-#    cat("jDim=",jDim,"\n")
-    bigPn <- array(Pn,jDim)
-#    cat("nu\n")
-    ## permute indices appropriately
-#    permvek <- (1:nw$nd)[ivek]
-    permvek <- match(1:nw$nd,ivek)
-    bigPn <- aperm(bigPn, permvek)
-
-    jointprob <- jointprob * bigPn
-    if (FALSE) {
-      line()
-      cat("(discjoint:)\n")
-      cat("Node ", node$name,"\n")
-      cat("Discrete parents:", dparents,"\n")
-      cat("Pn:\n");print(Pn)
-      cat("idx in Pn:",idx,"\n")
-      cat("pidx in Pn:",pidx,"\n")
-      cat("jidx in joint:",jidx,"\n")
-      cat("nDim=",nDim,"\n")
-##      cat("TD=",TD,"\n")
-    cat("jDim=\n");print(jDim)
-    cat("permvek:",permvek,"\n")
-    cat("bigPn:\n");print(bigPn)
+    if (timetrace) {t1 <- proc.time();cat("[jointdisc ")}
+    
+    ## First, determine the discrete nodes and their dimensions
+    
+    Dim <- c()
+    lablist <- list()
+    for (i in nw$discrete) {
+        Dim <- c(Dim, nw$nodes[[i]]$levels)
+        lablist <- c(lablist,list(nw$nodes[[i]]$levelnames))
     }
-
     
-  } ## for
+    ## Dim is the dimension of the returned joint distribution
+    jointprob <- array(1,Dim)
+    dimnames(jointprob) <- lablist
+    
+    ## for each node, multiply jointprob by the local distribution
+    ## (blown up appropriately).
+    
+    for (nid in nw$discrete) {
+        node    <- nw$nodes[[nid]] 
+        Pn      <- node$prob        ## the local distribution
+        parents <- node$parents     ## the parents, 
+        if (nw$nd>0)    dparents<- sort(intersect(parents,nw$discrete))
+        else dparents <- c()
 
-  if (timetrace) {
-    t2 <- proc.time()
-    cat((t2-t1)[1],"]")
-  }
-  jointprob
+        idx <- c(node$idx, dparents) ## sequence in Pn
+        pidx<- 1:length(idx)         ## corresponding idx
+        jidx<- 1:nw$nd               ## idx in jointprior
+    
+        ## dimension of c(node,parents)
+        nDim <- c(node$levels)
+        for (i in dparents) 
+            nDim <- c(nDim,nw$nodes[[i]]$levels)
+        
+        ## blow up
+        ## first, permute Dim appropriately
+        ivek <- c(pidx,setdiff(jidx,pidx))
+        jDim <- Dim[ivek]
+        bigPn <- array(Pn,jDim)
+        ## permute indices appropriately
+        permvek <- match(1:nw$nd,ivek)
+        bigPn <- aperm(bigPn, permvek)
+        
+        jointprob <- jointprob * bigPn
+        if (FALSE) {
+            line()
+            cat("(discjoint:)\n")
+            cat("Node ", node$name,"\n")
+            cat("Discrete parents:", dparents,"\n")
+            cat("Pn:\n");print(Pn)
+            cat("idx in Pn:",idx,"\n")
+            cat("pidx in Pn:",pidx,"\n")
+            cat("jidx in joint:",jidx,"\n")
+            cat("nDim=",nDim,"\n")
+            ##      cat("TD=",TD,"\n")
+            cat("jDim=\n");print(jDim)
+            cat("permvek:",permvek,"\n")
+            cat("bigPn:\n");print(bigPn)
+        }
+    } ## for
+    
+    if (timetrace) {
+        t2 <- proc.time()
+        cat((t2-t1)[1],"]")
+    }
+    jointprob
 } ## function discjoint
   

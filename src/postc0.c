@@ -3,8 +3,8 @@
  * Author          : Claus Dethlefsen
  * Created On      : Tue Mar 12 06:44:35 2002
  * Last Modified By: Claus Dethlefsen
- * Last Modified On: Tue May 07 09:40:37 2002
- * Update Count    : 54
+ * Last Modified On: Wed Jun 04 11:57:10 2003
+ * Update Count    : 55
  * Status          : Unknown, Use with caution!
  */
 
@@ -27,18 +27,6 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 */
-// compile:
-// Rcmd SHLIB postc0.c
-//
-// link: if (!is.loaded("postc0.dll")) dyn.load("postc0")
-//
-// postc0 <- function(a, b)
-//  .C("postc0",
-//     as.double(a),
-//     as.integer(length(a)),
-//     as.double(b),
-//     as.integer(length(b)),
-//     ab = double(length(a) + length(b) - 1))$ab
 
 #include <R.h>
 #include <Rmath.h>
@@ -59,7 +47,7 @@ void postc0(double *mu, double *tau, double *rho, double *phi, double
 */
 
 	for(i = 0; i < *n; i++) {
-		//	Rprintf("y[i]=%f\n",y[i]);
+		
 		logscale = log(*phi)+log1p(1.0/(*tau));
 		logk = lgammafn( 0.5*(1.0+*rho) ) - lgammafn(*rho*0.5);
 		logk -= 0.5*(logscale + log(M_PI));

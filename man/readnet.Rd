@@ -1,21 +1,19 @@
 \name{readnet}
 \alias{readnet}
 %- Also NEED an `\alias' for EACH other topic documented here.
-\title{Read .net file}
+\title{Reads .net file}
 \description{
-Read a Bayesian network specification in the .net language (see eg. Hugin)
+Reads a Bayesian network specification in the .net language (see e.g. Hugin).
 }
 \usage{
 readnet(fn)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{fn}{Filename to be read}
+  \item{fn}{File name to be read.}
 }
 \details{
-  Reads only the 'node' and 'potential' specifycation. Does not store
-  the 'data' entries as well as other information.
-}
+  Reads only the structure of a network, i.e.\ the DAG.}
 \value{
   A network with the nodes specified as in the .net file. The network
   has not been learned and does not contain 'prob' attributes.

@@ -1,3 +1,14 @@
+1.1-14: relaese on CRAN
+1.1-11: release. Changed structure of 'trylist' and the output from
+	autosearch and heuristic. Introduced makenw, as.network, modelstreng.
+1.1-10: Tried to resolve memory problem in heuristic(). 
+1.1-9:	R 1.7.0
+1.1-8:  fixed bug in demo(simulation)
+1.1-7:  tvar,timeslice,equalcases,vif,smalldf deleted
+1.1-5:  Ready for paper submission to JSS.
+1.1-4:  Using mode instead of mean of variance distribution (postdist)
+1.1-3:  Fixed bug in autosearch that did not remove cycles.
+1.1-2:  Needed to clean up package before build (Ripley)
 1.1-1:  A few fixes before CRAN release
 1.1-0:  Second CRAN release
 1.0-31: Fixed package tests codoc() and generic. (changes in learn,prob,cond)

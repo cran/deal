@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Nov 04 00:20:29 2002
-% Update Count    : 19
+% Last Modified On: Mon Feb 03 10:05:52 2003
+% Update Count    : 32
 % Status          : Unknown, Use with caution!
 % 
 
@@ -24,8 +24,8 @@
 }
 
 \usage{
-network(df,specifygraph=FALSE,inspectprob=FALSE,equalcases=FALSE,vif=1.0,
-        doprob=TRUE,tvar=NA,smalldf=NA,yr=c(0,350),xr=yr) 
+network(df,specifygraph=FALSE,inspectprob=FALSE,
+        doprob=TRUE,yr=c(0,350),xr=yr) 
 \method{print}{network}(x,filename=NA,master=FALSE,condposterior=FALSE,
                           condprior=FALSE,...) 
 \method{plot}{network} (x,scale=10,arrowlength=.25,
@@ -33,36 +33,32 @@ network(df,specifygraph=FALSE,inspectprob=FALSE,equalcases=FALSE,vif=1.0,
                         sscale=.7*scale,showban=TRUE,yr=c(0,350),xr=yr,
                         unitscale=20,cexscale=8,...)
 
-prob.network (x,df,equalcases=FALSE,vif=1.0,smalldf=NA) 
+prob.network (x,df) 
 }
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{df}{A dataframe, where the columns define the variables. A
+  \item{df}{A data frame, where the columns define the variables. A
     continuous variable should have type \code{numeric} and discrete varibles
     should have type \code{\link[base]{factor}}.}
   \item{specifygraph}{Interactively specify a directed acyclic graph and
-    possibly a banlist (see below).}
-  \item{inspectprob}{Inspect/change the calculated probability
+    possibly a ban list (see below).}
+  \item{inspectprob}{Inspect the calculated probability
     distribution using a graphical interface.}
-  \item{equalcases}{When calculating the probability distribution for
-    discrete variables, do not (if \code{TRUE}) set the probability
-    equal to the 
-    observed frequency. If \code{FALSE}, observed frequencies are used. }
-  \item{vif}{Variance inflation factor. For continuous nodes, the
-    probability distribution is assumed normal with a mean depending on
-    the parents and a variance for each configuration of the discrete
-    parents. The mean and variance are deduced from data as a linear
-    regression, but the variance is multiplied by this vif.}
+%  \item{equalcases}{When calculating the probability distribution for
+%    discrete variables,(if \code{TRUE}) set the probability
+%    equal for all configurations of a node given its parents. If
+%\code{FALSE}, observed frequencies are used. }
+%  \item{vif}{Variance inflation factor. Can be used to adjust the variance for the continuous variables.}
   \item{doprob}{If \code{TRUE}, do not calculate a probability distribution. Used
     for example in \code{\link{simulation}}. }
-  \item{tvar}{Vector of indices of time-varying nodes, see \code{\link{timeslice}}.}
-  \item{smalldf}{For use with timevarying networks, see \code{\link{timeslice}}.}
+%  \item{tvar}{Vector of indices of time varying nodes, see \code{\link{timeslice}}.}
+%  \item{smalldf}{For use with time varying networks, see \code{\link{timeslice}}.}
   \item{x}{The network.}
-  \item{filename}{Print to file.}
-  \item{condprior}{Print condprior? TRUE/FALSE}
-  \item{condposterior}{Print condposterior? TRUE/FALSE}
-  \item{master}{Print master? TRUE/FALSE.}
+  \item{filename}{If a string argument is given, output is printed to a file.}
+  \item{condprior}{Print condprior? \code{TRUE}/\code{FALSE}}
+  \item{condposterior}{Print condposterior? \code{TRUE}/\code{FALSE}}
+  \item{master}{Print master? \code{TRUE}/\code{FALSE}.}
   \item{scale}{The axes in network plots are from \code{-scale} to
     \code{scale}. }
   \item{sscale}{The nodes are placed on a circle with radius \code{sscale}.}
@@ -71,8 +67,9 @@ prob.network (x,df,equalcases=FALSE,vif=1.0,smalldf=NA)
   \item{arrowlength}{The length of the arrow heads.}
   \item{xr}{Range of x-axis.}
   \item{yr}{Range of y-axis.}
-  \item{notext}{No (or little) text is displayed on the plot if \code{notext==TRUE}.}
-  \item{rotate}{The nodes are placed on a circle and this may be rotated
+  \item{notext}{No text is displayed in the nodes on the plot if notext
+    is \code{TRUE}}
+  \item{rotate}{The nodes are placed on a circle and they may be rotated
   by this number (in radians).}
   \item{showban}{If banned arrows should be shown (they are shown in red).}
   \item{\dots}{Passed to \code{\link{plot.node}}.}
@@ -83,18 +80,18 @@ prob.network (x,df,equalcases=FALSE,vif=1.0,smalldf=NA)
   A network object with attributes
   \item{nodes}{A list of nodes. If \code{doprob==TRUE}, the nodes are given the
     attribute \code{prob} which is the initial probability distribution used
-    by \code{\link{jointprior}}. Arguments \code{equalcases} and
-    \code{vif} are used to calculate \code{prob}.}
-  \item{n}{The number of nodes}
+    by \code{\link{jointprior}}.}% Arguments \code{equalcases} and
+%    \code{vif} are used to calculate \code{prob}.}
+  \item{n}{The number of nodes.}
   \item{discrete}{A vector of indices of discrete nodes.}
   \item{continuous}{A vector of indices of continuous nodes.}
   \item{banlist}{A matrix with two columns. Each row contains the
     indices \code{i -> j} of arrows that may not be allowed in the
     directed acyclic graph.}
-  \item{score}{Added by \code{\link{learn}} and is the log-network
+  \item{score}{Added by \code{\link{learn}} and is the log network
     score.}
   \item{relscore}{Added by \code{\link{nwfsort}} and is the relative
-    log-network score -- compared to the best network in a networkfamily.}
+    log network score -- compared with the best network in a network family.}
 }
 
 \seealso{\code{\link{networkfamily}},

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:24 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 18:47:20 2002
-% Update Count    : 6
+% Last Modified On: Thu Jan 16 13:53:29 2003
+% Update Count    : 10
 % Status          : Unknown, Use with caution!
 % 
 
@@ -23,23 +23,23 @@
 
 \usage{
 addrandomarrow(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,
-               timetrace=FALSE,smalldf=NA)
+               timetrace=FALSE)
 turnrandomarrow(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,
-               timetrace=FALSE,smalldf=NA)
+               timetrace=FALSE)
 deleterandomarrow(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,
-               timetrace=timetrace,smalldf=NA)  }
+               timetrace=timetrace)  }
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
   \item{nw}{The network from which arrows are added/removed/turned.}
-  \item{data}{Dataframe used for learning the network, see \code{\link{network}}.}
+  \item{data}{Data frame used for learning the network, see \code{\link{network}}.}
   \item{prior}{A joint prior, see \code{\link{jointprior}}.}
   \item{trylist}{Used internally for reusing learning of nodes, see \code{\link{maketrylist}}.}
   \item{nocalc}{Do not call the learning procedure if \code{TRUE}. Used if only a
     random graph is wanted.}
   \item{timetrace}{If \code{TRUE}, prints some timing information on the screen.}
-  \item{smalldf}{Used for analysing networks with time-varying nodes,
-    see \code{\link{timeslice}}.}
+%  \item{smalldf}{Used for analysing networks with time varying nodes,
+%    see \code{\link{timeslice}}.}
 }
 
 \details{
@@ -53,7 +53,7 @@ deleterandomarrow(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,
   }
 
 \value{A list with two elements
-  \item{nw}{A networkfamily with all created networks.}
+  \item{nw}{A network family with all created networks.}
   \item{trylist}{Updated.}
 }
 

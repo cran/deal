@@ -24,7 +24,6 @@ readnet <- function(fn) {
 #            cat(lcount, nodeptr,"\n")
             ss <- unlist(strsplit(l[lcount]," "))
             ss <- ss[ss!=""]
-#print(ss)
             nd         <- list()
             nd$idx     <- nodecount
 #            nd$parents <- parents ## to be filled out by 'potential'
@@ -123,6 +122,6 @@ readnet <- function(fn) {
     nw$nd <- length(nw$discrete)
     nw$nc <- length(nw$continuous)
     class(nw) <- "network"
-
+#    unlink(fn)
     nw
 }

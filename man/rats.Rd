@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:04:20 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sat May 25 23:04:21 2002
-% Update Count    : 1
+% Last Modified On: Tue Jan  7 09:20:13 2003
+% Update Count    : 3
 % Status          : Unknown, Use with caution!
 % 
 
@@ -12,13 +12,13 @@
 \alias{rats}
 \title{Weightloss of rats}
 \description{
-  An artificial dataset. 24 rats (12 female, 12 male) have been
+  An artificial data set. 24 rats (12 female, 12 male) have been
   randomized to use one of three drugs (products for loosing
   weight). The weightloss for each rat is noted after one and two
   weeks. 
 }
 \usage{data(rats)}
-\format{A dataframe with 4 variables. Sex: "M" (male), "F"
+\format{A data frame with 4 variables. Sex: "M" (male), "F"
   (female). Drug:  "D1", "D2", "D3" (three types). W1 weightloss, week
   one. W2 weightloss, week 2.}
 \references{

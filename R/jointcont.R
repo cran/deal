@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Wed Mar 06 12:52:57 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Fri Oct 04 10:19:07 2002
-## Update Count    : 254
+## Last Modified On: Tue Dec 10 19:18:00 2002
+## Update Count    : 260
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -93,8 +93,6 @@ jointcont <- function(nw,timetrace=FALSE) {
     calclist <- c()
     allnodes <- c(nw$continuous)
     
-    ##  cat("allnodes=",allnodes,"\n")
-    
     nidx <- 0
     while ( length( setdiff(allnodes,calclist) )>0 ) {
         
@@ -108,7 +106,6 @@ jointcont <- function(nw,timetrace=FALSE) {
         }
         
         if ( length(intersect(nid,calclist))>0) {
-            ##  cat("Skipping,length(intersect(nid,calclist))>0\n")
             next
         }
         
@@ -121,7 +118,6 @@ jointcont <- function(nw,timetrace=FALSE) {
         else dparents <- c()
         
         if ( length( setdiff(cparents,calclist) ) > 0  ) {
-            ##  cat("Skipping, length( setdiff(cparents,calclist) ) > 0\n")
             next
         }
         if (FALSE) {
@@ -146,7 +142,6 @@ jointcont <- function(nw,timetrace=FALSE) {
             ##        line()
             ##        cat("(jointcont:)\n")
             M <- array(1:TD,dim=Dim)
-            ##        print(M)
             if (length(dparents)>0) {
                 if (FALSE) cat("diskrete parents\n")
                 
@@ -173,7 +168,6 @@ jointcont <- function(nw,timetrace=FALSE) {
                 }
                 
                 ## permute back
-                ##          permvek <- match(nw$discrete,ivek)
                 permvek <- match(1:nw$nd,ivek)
                 bigM <- aperm(bigM, permvek)
                 if (FALSE) {
@@ -208,8 +202,6 @@ jointcont <- function(nw,timetrace=FALSE) {
                             cat("Pn[",theidxm[k],",",paridx+1,"]=\n")
                             print(Pn[theidxm[k],2])
                         }
-                        ##            mu[theidx,nidx] <- Pn[theidxm[k],nidx+1]
-                        ##            mu[theidx,nidx] <- Pn[theidxm[k],paridx+1]            
                         mu[theidx,nidx] <- Pn[theidxm[k],2]
                         sigma2list[[theidx[k]]][nidx,nidx] <- Pn[theidxm[k],1]
                     }
@@ -228,16 +220,6 @@ jointcont <- function(nw,timetrace=FALSE) {
                 }
             } ## end else (no discrete parents)
             
-            ##      for (i in 1:TD) {
-            ##        cat("i=",i,"\n")
-            ##        ## Pn skal altid være en matrix...
-            ##        mu[i,nidx] <- Pn[i,2]
-            ##        sigma2list[[i]][nidx,nidx] <- Pn[i,1]
-            ##      }
-            ##    }
-            
-            ##      mu[1,nidx] <- Pn[2]
-            ##      sigma2[nidx,nidx] <- Pn[1] # så det stadig virker
             if (FALSE) {
                 print(mu)
                 print(sigma2list)
@@ -250,30 +232,19 @@ jointcont <- function(nw,timetrace=FALSE) {
             
             
             for (k in 1:TD) {
-                ##        cat("k=",k,"\n")
-                ##      parentidx <- match(1:nw$nc,cparents)
                 if (length(dparents)>0) {
-                    ## should be moved to the top...
                     mdim <- c()
                     for (i in dparents) 
                         mdim <- c(mdim,nw$nodes[[i]]$levels)
                     
-                    ##          line("*",10)
-                    ##          cat("k=",k,"\n")
                     Mcf <- findex(k,Dim,config=FALSE)
-                    ##          cat("Mcf=\n");print(Mcf)
                     didx <- match(dparents,nw$discrete)
-                    ##          cat("didx=",didx,"\n")
                     dcf <- Mcf[,didx]
-                    ##          cat("dcf=\n");print(dcf)
 
-                    if (length(dcf)==2) ## dirty solution to bug 5/9-02
+                    if (length(dcf)==2) 
                         dcf <- matrix(dcf,ncol=2)
                     
                     kidx <- findex(dcf,mdim,config=TRUE)
-                    ##          cat("kidx=",kidx,"\n")
-                    ##          line("*",10)
-                    ##kidx <- 1
                 }
                 else
                     kidx <- 1
@@ -291,12 +262,8 @@ jointcont <- function(nw,timetrace=FALSE) {
                     s2.ylx<- Pn[kidx,1]
                     b.ylx <- Pn[kidx,3:ncol(Pn)]
                 }
-                ##        cat("mu=\n")
-                ##        print(mu)
                 m.x   <- mu[k,parentidx]
                 s2.x  <- sigma2list[[k]][parentidx,parentidx]
-                ##        cat("** her skal ikke stå 1, men løkke\n")
-                ##        s2.x   <- sigma2[parentidx,parentidx]
                 
                 s.xy  <- s2.x %*% b.ylx
                 s2.y  <- s2.ylx + c(s.xy)%*%b.ylx
@@ -315,22 +282,12 @@ jointcont <- function(nw,timetrace=FALSE) {
                     cat("m.y=\n");print(m.y)
                 }
                 
-##                mu[,nidx] <- m.y
-                mu[k,nidx] <- m.y                ## bug fix 20/9 02
-                ##        sigma2[nidx,nidx] <- s2.y
-                ##        sigma2[parentidx,nidx] <- s.xy
-                ##        sigma2[nidx,parentidx] <- t(s.xy)
+                mu[k,nidx] <- m.y 
                 
                 sigma2list[[k]][nidx,nidx] <- s2.y
                 sigma2list[[k]][parentidx,nidx] <- s.xy
                 sigma2list[[k]][nidx,parentidx] <- t(s.xy)
             }
-            ##      } # continuous parents, but no discrete
-            ##      else {
-            ##        cat("Mixed parents\n")
-            ##        stop("*** not implemented yet\n")
-            ##      }
-            
         }
         
         

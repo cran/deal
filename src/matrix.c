@@ -3,8 +3,8 @@
  * Author          : Claus Dethlefsen
  * Created On      : Thu Mar 14 06:48:02 2002
  * Last Modified By: Claus Dethlefsen
- * Last Modified On: Sun Nov 03 21:33:42 2002
- * Update Count    : 34
+ * Last Modified On: Wed Jun 04 11:56:23 2003
+ * Update Count    : 36
  * Status          : Ready
  */
 
@@ -38,7 +38,6 @@ int *ivector(int nl, int nh)
 {
    int *v;
 
-//   v=(int *)malloc((unsigned) (nh-nl+1)*sizeof(int));
    v=(int *) R_alloc((unsigned) (nh-nl+1)*sizeof(int),sizeof(int));
    if ( v == NULL ){
       error("memory allocation failure in ivector()"); return(NULL);
@@ -97,26 +96,16 @@ double** matcopy(double **mat, int nr, int nc) {
 	Rprintf("(mat=%d)\n",mat);
 	Rprintf("(mat[1][1]=%f)\n",mat[1][1]);
 */
-//	printmat(mat,nr,nc);
-//	Rprintf("\n");
-//	printmat(nat,nr,nc);
-//	Rprintf("\n");
 
 	for (i=1; i<=nr; i++) {
 		for (j=1; j<=nc; j++) {
 			 nat[i][j] = mat[i][j];
-			 //		Rprintf("(%d,%d)\t",i,j);
 		}
-//		Rprintf("\n");
 	}
 	return(nat);
 }
 
 double** matmult(double **a, double **b, int nra, int nca, int ncb) {
-	// matrix multiplication
-	// a[1..nra][1..nca]
-	// b[1..nca][1..ncb]
-	// result: c[1..nra][1..ncb]
 	double **c;
 	int i,j,k;
 	c = dmatrix(1,nra,1,ncb);
@@ -132,7 +121,6 @@ double** matmult(double **a, double **b, int nra, int nca, int ncb) {
 }
 
 double** matsum(double **a, double **b, int nr, int nc) {
-	// sum of matrices a and b (same size)
 	double **c;
 	int i,j;
 	c = dmatrix(1,nr,1,nc);
@@ -144,7 +132,6 @@ double** matsum(double **a, double **b, int nr, int nc) {
 }
 
 double** matminus(double **a, double **b, int nr, int nc) {
-	// subtraction of matrices a and b (same size)
 	double **c;
 	int i,j;
 	c = dmatrix(1,nr,1,nc);
@@ -156,7 +143,6 @@ double** matminus(double **a, double **b, int nr, int nc) {
 }
 
 double** transp (double **a, int n, int m) {
-	// transpose a
 	double **b;
 	int i,j;
 	b = dmatrix(1,m,1,n);
@@ -228,9 +214,6 @@ int invers(double **a, int n, double **b, int m)
          }
       }
    }
-//   free_ivector(ipiv,1,n);
-//   free_ivector(indxr,1,n);
-//   free_ivector(indxc,1,n);
    return(0);
 }
 

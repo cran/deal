@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Oct 30 16:43:05 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Oct 30 20:21:19 2002
-## Update Count    : 414
+## Last Modified On: Tue Dec 10 19:31:10 2002
+## Update Count    : 415
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,12 +24,13 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-networkfamily <- function(data,nw=network(data),prior=jointprior(nw),trylist=rep(list(NULL),nw$n),timetrace=TRUE) {
+networkfamily <- function(data,nw=network(data),prior=jointprior(nw),
+                          trylist=rep(list(NULL),nw$n),timetrace=TRUE) {
     ## Creator class for networkfamily
     ##
     ## Generates all possible networks with the restriction that
     ## discrete nodes cannot have continuous parents. (see insert)
-
+    
     ## Uses: numbermixed, addarrows, learn.network, cycletest
     ## and attributes of nw: nd,nc
     
@@ -39,8 +40,6 @@ networkfamily <- function(data,nw=network(data),prior=jointprior(nw),trylist=rep
 
     if (timetrace) {t1 <- proc.time();cat("[networkfamily ")}
 
-    ##  cat("(networkfamily: Vi skal lige lade nw være det tomme...)\n")
-    
     nw <- learn(nw,data,prior,trylist=trylist)
     trylist <- nw$trylist
     nw <- nw$nw
@@ -88,62 +87,48 @@ networkfamily <- function(data,nw=network(data),prior=jointprior(nw),trylist=rep
 
 
 
-plot.networkfamily <- function(x,layout=rep(min(1+floor(sqrt(length(nwf))),5),2),cexscale=5,arrowlength=0.1,scale=10,sscale=.7*scale,...) {
+plot.networkfamily <- function(x,
+                               layout=rep(min(1+floor(sqrt(length(nwf))),5),2),
+                               cexscale=5,arrowlength=0.1,
+                               scale=10,sscale=.7*scale,...) {
     nwf <- x
     par(mfrow=layout)
-  for (i in 1:length(nwf)) {
-    par(mar=c(0,0,0,0))
-       plot(nwf[[i]],cexscale=cexscale,arrowlength=arrowlength,scale=scale,sscale=sscale,showban=FALSE,...)
-  }
-  par(mfrow=c(1,1))
+    for (i in 1:length(nwf)) {
+        par(mar=c(0,0,0,0))
+        plot(nwf[[i]],cexscale=cexscale,arrowlength=arrowlength,scale=scale,sscale=sscale,showban=FALSE,...)
+    }
+    par(mfrow=c(1,1))
 }
 
-## example: plot(nwfsort(res),layout=c(8,8),cexscale=3.7,scale=8)
-
-
 nwfsort <- function(nwf) {
-  ## sort according to network score, and add relative scores
+    ## sort according to network score, and add relative scores
   
-  n <- length(nwf)
-  ## first, create a vector with the indices and scores
-  tab <- rep(NA,n)
-  for (i in 1:n)
-    tab[i] <- nwf[[i]]$score
-  
-  ## then find the sort list of indices
-  sl <- sort.list(-tab)
-
-#  if ( tab[sl[1]] > 0) 
-#    relscore <- tab/max(tab)
-#  else
-#    relscore <- max(tab)/tab
-
-#  relscore <- exp( tab - tab[sl[1]] )
+    n <- length(nwf)
+    ## first, create a vector with the indices and scores
+    tab <- rep(NA,n)
+    for (i in 1:n)
+        tab[i] <- nwf[[i]]$score
+    
+    ## then find the sort list of indices
+    sl <- sort.list(-tab)
+    
   relscore <- exp(tab - tab[sl[1]]) 
   
-  ## create the sorted family
-#  snwf <- nwf
-#  for (i in 1:n) {
-#    nw <- nwf[[sl[i]]]
-#    nw$relscore <- relscore[[sl[i]]]
-#    snwf[[i]] <- nw
-#  }
-  
-#  snwf
-  nwf <- nwf[sl]
-  for (i in 1:n)
-      nwf[[i]]$relscore <- relscore[sl[i]]
-  class(nwf) <- "networkfamily"
-  nwf
+    ## create the sorted family
+    nwf <- nwf[sl]
+    for (i in 1:n)
+        nwf[[i]]$relscore <- relscore[sl[i]]
+    class(nwf) <- "networkfamily"
+    nwf
 }
 
 print.networkfamily <- function(x,...) {
-
+    
     nwf <- nwfsort(x) ## ensure they are sorted
     
     g <- function(x) x$name
     nw <- nwf[[1]]
-
+    
     cat("Discrete:  ")
     if (nw$nd>0) {
         nn <- nw$discrete[1]
@@ -155,7 +140,7 @@ print.networkfamily <- function(x,...) {
         cat("\n")
     }
     else cat("\n")
-        
+    
     
     cat("Continuous:")
     if (nw$nc>0) {

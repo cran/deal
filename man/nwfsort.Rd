@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:47 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue May 28 14:02:02 2002
-% Update Count    : 3
+% Last Modified On: Tue Jan  7 11:48:25 2003
+% Update Count    : 5
 % Status          : Unknown, Use with caution!
 % 
 
@@ -13,11 +13,12 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
-\title{Sort a list of networks}
+\title{Sorts a list of networks}
 
 \description{According to the \code{score} attribute of the networks in
-  a networkfamily, the networks are sorted and the relative score to the
-  highest score is attached to each network as the \code{relscore}
+  a network family, the networks are sorted and the relative score,
+i.e.\ the score of a network relative to the
+  highest score, is attached to each network as the \code{relscore}
   attribute. 
 }
 
@@ -27,7 +28,7 @@ nwfsort(nwf)
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{nwf}{Networkfamily}
+  \item{nwf}{Network family.}
 }
 
 

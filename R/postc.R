@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Mar 12 06:52:02 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Nov 04 00:45:20 2002
-## Update Count    : 140
+## Last Modified On: Wed Jun 04 11:33:06 2003
+## Update Count    : 141
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -207,7 +207,8 @@ postcc <- function(mu,tau,rho,phi,y,z,timetrace=FALSE) {
               as.double(y),
               as.double(t(z)),
               as.integer(length(y)),
-              as.integer(ncol(z))
+              as.integer(ncol(z)),
+              package="deal"
               )
     if (FALSE) {
     res <- list()

@@ -6,7 +6,7 @@ C <- factor(NA,levels=paste("C",1:2,sep=""))
 sim.df <- data.frame(A,B,C)
 
 ## graph: A|B,C  C|B  B
-nw <- network(sim.df,specifygraph=F,doprob=F)
+nw <- network(sim.df,specifygraph=FALSE,doprob=FALSE)
 nw <- insert(nw,2,1,nocalc=TRUE)$nw
 nw <- insert(nw,3,1,nocalc=TRUE)$nw
 nw <- insert(nw,2,3,nocalc=TRUE)$nw
@@ -40,8 +40,8 @@ sim <- simulation(sim.nw,n)
 
 #### -- analysis 
 
-## prior network (empty with equalcases)
-simprior.nw <- network(sim,equalcases=TRUE)
+## prior network 
+simprior.nw <- network(sim)
 
 ## Imaginary database and joint parameter prior
 N <- 500

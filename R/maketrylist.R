@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Jan 11 10:54:00 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:14:13 2002
-## Update Count    : 193
+## Last Modified On: Tue Dec 10 19:25:43 2002
+## Update Count    : 194
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,56 +25,29 @@
 ######################################################################
 
 
-maketrylist <-
-  function(initnw,data,prior=jointprior(network(data)),timetrace=FALSE) {
+maketrylist <- function(initnw,data,prior=jointprior(network(data)),
+                        timetrace=FALSE) {
     
     if (timetrace) {t1 <- proc.time();cat("[Maketrylist ")}
-
+    
     tryl <- list()
     for (i in 1:initnw$n) {
-      nwl <- list(initnw)
-      for (j in setdiff(1:initnw$n,i)) {
-#        for (k in 1:length(nwl)) {
-        newnet <- lapply(nwl,insert,j,i,data,prior)
-        newnet <- lapply(newnet,function(x) x$nw)
-#        line()
-#        print(newnet)
-#        line()
-#        cat("NOT NULL\n")
-#        print(newnet[newnet!=NULL])
-#          newnet <- insert(nwl[[k]],j,i,data,prior)
-#        for (k in 1:length(newnet)) {
-#          if (length(newnet[[k]])>0) {
-#            nwl[length(nwl)+1] <- list(newnet[[k]])
-#            nodelist[length(nodelist)+1] <- list(newnet[[k]]$nodes[[i]])
-#          }
-
-        nwl <- c(nwl,newnet[!unlist(lapply(newnet,is.null))])
-        
-#      class(nwl) <- "networkfamily"
-#      line()
-#      cat("nwl=\n")
- #     print(nwl)
-
-      ##    tryl[[i]] <- nwl
-#      nodelist <- list()
-#      for (k in 1:length(nwl))
-#        nodelist[length(nodelist)+1] <- list(nwl[[k]]$nodes[[i]])
-      nodelist <- lapply(nwl,function(x) x$nodes[[i]])
-      ## 
-
-      
-      tryl[[i]] <- nodelist
+        nwl <- list(initnw)
+        for (j in setdiff(1:initnw$n,i)) {
+            newnet <- lapply(nwl,insert,j,i,data,prior)
+            newnet <- lapply(newnet,function(x) x$nw)
+            
+            nwl <- c(nwl,newnet[!unlist(lapply(newnet,is.null))])
+            
+            nodelist <- lapply(nwl,function(x) x$nodes[[i]])
+            tryl[[i]] <- nodelist
+        }
     }
-  }
-      
-      
-      
     if (timetrace) {
-      t2 <- proc.time()
-      cat((t2-t1)[1],"]\n")
+        t2 <- proc.time()
+        cat((t2-t1)[1],"]\n")
     }
     tryl
-  }
+}
 
 

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Oct 31 21:12:56 2002
-% Update Count    : 10
+% Last Modified On: Mon Feb 03 10:06:29 2003
+% Update Count    : 23
 % Status          : Unknown, Use with caution!
 % 
 
@@ -15,33 +15,33 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
-\title{Collection of networks}
+\title{Generates and learns all networks for a set of variables.}
 
-\description{Methods for handling a range of networks. These may be
-  plottet, printed or output in LaTeX format. Also functions for sorting
-  and thinning on the basis of the network-score is defined.
-}
+\description{Method for generating and learning all networks that are
+possible for a given set of variables. These may be
+  plotted or printed. Also, functions for
+sorting according to the network score (see \code{nwfsort}) and for 
+making a network family unique (see \code{nwfunique}) are available.  }
 
 \usage{
 networkfamily(data,nw=network(data), prior=jointprior(nw),
               trylist=rep(list(NULL),nw$n), timetrace=TRUE) 
 
 \method{print}{networkfamily}(x,...)
-\method{plot}{networkfamily}(x,
-        layout=rep(min(1+floor(sqrt(length(nwf))),5),2),
+\method{plot}{networkfamily}(x,layout=rep(min(1+floor(sqrt(length(nwf))),5),2),
         cexscale=5,arrowlength=0.1,scale=10,sscale=.7*scale,...) 
 }
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{nw}{The inital (often without arrows) network from which the
-    full networkfamily is generated.}
-  \item{data}{Dataframe used for learning the parameters in each network.}
+  \item{nw}{The inital network from which the
+    full network family is generated.}
+  \item{data}{Data frame used for learning the parameters in each network.}
   \item{prior}{A joint prior. See \code{\link{jointprior}}.}
   \item{trylist}{Used internally for reusing learning of nodes. See
     \code{\link{maketrylist}}. }
   \item{timetrace}{For timing purposes.}
-  \item{x}{A networkfamily.}
+  \item{x}{A network family.}
   \item{layout}{2-dimensional vector of the number of plots in the rows
     and columns of each plotting page.}
   \item{cexscale}{See \code{\link{plot.network}}}
@@ -55,25 +55,22 @@ networkfamily(data,nw=network(data), prior=jointprior(nw),
   \code{networkfamily} generates and learns all possible networks with
   the nodes given as in the initial network \code{nw}. This is done by
   successively trying to generate the networks with all possible arrows
-  to/from each node (see \code{\link{addarrows}}). If there is a banlist
+  to/from each node (see \code{\link{addarrows}}). If there is a ban list
   present in \code{nw} (see \code{\link{network}}), then this is
   respected.
 
   After generation of all possible networks, a test for cycles (see
   \code{\link{cycletest}}) is performed and only networks with directed
-  acyclic graphs are returned.
+  acyclic graphs are returned and learned.
 
 }
 
 \value{The function \code{networkfamily} returns list with two components
-  \item{nw}{The networkfamily.}
+  \item{nw}{The network family.}
   \item{trylist}{An updated trylist (see \code{\link{maketrylist}}).}
 }
 
-\note{No checks are made as to whether the networks have the same number
-  of nodes, the same node-names, etc. It is indeed possible to define
-  networkfamilies with networks with different structures.
-
+\note{
   Generating all possible networks can be \emph{very} time consuming!
 }
 

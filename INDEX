@@ -1,40 +1,40 @@
 addarrow                Adding/Turning/Removing arrows
 addarrows               Add arrows to/from node
 addrandomarrow          Adding/Turning/Removing random arrows
-autosearch              Autosearch
+autosearch              Greedy search
 conditional             Calculate conditional distribution
 cycletest               Test if network contains a cycle
 drawnetwork             Graphical interface for manipulation of
                         networks
 elementin               Is a network element in a list of networks?
-findex                  Translation between indices in a multiway array
-genlatex                From a networkfamily, generate LaTeX output
-heuristic               Heuristic greedy search with random restart
+findex                  Translation between indices in a multiway
+                        array
+genlatex                From a network family, generate LaTeX output
 insert                  Insert/remove an arrow in network
-jointprior              Setup a joint prior distribution for the
-                        parameters
+jointprior              Calculates the joint prior and the quantities
+                        needed to specify local parameter priors
 ksl                     Health and social characteristics
-learn                   Learning networks and nodes
+learn                   Estimates the parameters in the local
+                        probability distributions from data
 line                    Prints a line of symbols
 localmaster             Local master
 makesimprob             Make a suggestion for simulation probabilities
-maketrylist             Create the full trylist
+maketrylist             Creates the full trylist
 network                 Bayesian network data structure
-networkfamily           Collection of networks
+networkfamily           Generates and learns all networks for a set of
+                        variables.
 node                    Nodes
-numbermixed             The number of distinct networks
+numbermixed             The number of possible networks
 nwequal                 Test if the graphs of two networks are equal
-nwfsort                 Sort a list of networks
-nwfunique               Thin a list of networks
-perturb                 Perturb a network
+nwfsort                 Sorts a list of networks
+nwfunique               Makes a network family unique.
+perturb                 Perturbs a network
 post                    Calculation of parameter posteriors for
                         continuous node
 postdist                Calculate mean of posterior parameters and
                         create probability distribution
 rats                    Weightloss of rats
-readnet                 Read .net file
-savenet                 Save Bayesian network as .net file
-simulation              Simulation of datasets with a given dependency
-                        structure
-splash                  Show a splash screen
-timeslice               Prepare time series data for analysis with Deal
+readnet                 Reads .net file
+savenet                 Saves Bayesian network as .net file
+simulation              Simulation of data sets with a given
+                        dependency structure

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Thu Sep 26 15:19:02 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Oct 30 14:57:14 2002
-## Update Count    : 78
+## Last Modified On: Sat May 24 17:10:18 2003
+## Update Count    : 84
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -26,7 +26,6 @@
 
 savenet <- function(nw,filename="default.net") {
     ## save network to .net file that can be read by eg. Hugin
-    ##
     
     fn <- filename
     
@@ -40,7 +39,7 @@ savenet <- function(nw,filename="default.net") {
     cat("net\n",file=fn,append=TRUE)
     cat("{\n",file=fn,append=TRUE)
     
-    cat("\tnode_size = (100 40);\n",file=fn,append=TRUE)
+    cat("\tnode_size = (40 40);\n",file=fn,append=TRUE)
     
     cat("}\n\n",file=fn,append=TRUE)
     
@@ -63,9 +62,6 @@ savenet <- function(nw,filename="default.net") {
                 file=fn,append=TRUE)
         }
         cat("\tlabel = \"", nd$name,"\";\n",sep="",file=fn,append=TRUE)
-        
-        unit <- 2*pi/nw$n
-        rotate <- pi/4
         
         cat("\tposition = (",
             nd$position,
@@ -309,5 +305,6 @@ savenet <- function(nw,filename="default.net") {
     }
     
     cat("File",filename,"created\n")
+#    unlink(filename)
     invisible()
 }

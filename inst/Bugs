@@ -14,11 +14,6 @@ In genpicfiles, the pictex() does not use colors of nodes.
 
 ----------------------------------------------------------------------
 
-The position of the nodes should be stored in the node. In the
-graphical interface, you should be able to move nodes around and
-adjust the position.
-
-
 When creating a network from a dataframe and arrows are specified so
 that the data actually is sparse in the configuration of the discrete
 parents, then an error like 
@@ -64,4 +59,7 @@ learning: names on parameter matrices on cont. nodes.
 prior: remove irrelevant parameters that currently are returned as NA.
 
 Memory problems: Apparently the memory used in the C-programs are not
-	         released. 
+	         released. This is possibly the issue that makes
+		 especially heuristic() slow.
+
+

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Sep 25 17:39:49 2002
-% Update Count    : 26
+% Last Modified On: Thu Jan 16 13:55:23 2003
+% Update Count    : 31
 % Status          : Unknown, Use with caution!
 % 
 
@@ -15,14 +15,15 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
-\title{Setup a joint prior distribution for the parameters}
+\title{Calculates the joint prior and the quantities needed to specify local parameter priors}
 
 \description{Given a network with a \code{prob} attribute for each node, the
-  joint prior distribution of the parameters is derived.
-}
+  joint probability distribution is derived. Then the quantities needed in
+the local master procedure for finding the local parameter priors are
+deduced.}
 
 \usage{
-jointprior(nw,N=NA,phiprior="bottcher",timetrace=FALSE,smalldf=NA) 
+jointprior(nw,N=NA,phiprior="bottcher",timetrace=FALSE) 
 jointdisc(nw,timetrace=FALSE)
 jointcont(nw,timetrace=FALSE)
 }
@@ -32,37 +33,36 @@ jointcont(nw,timetrace=FALSE)
   \item{nw}{A network. Each node must have a \code{prob}
     attribute to describe the local probability distribution, see
     \code{\link{network}}.}
-  \item{N}{The size of the imaginary database. If this is too small,
+  \item{N}{The size of the imaginary data base. If this is too small,
     errors might occur. If no \code{N} is given, the procedure tries to
     set a value as low as possible.}
   \item{phiprior}{The way of specifying the prior for phi. Either
     \code{phiprior="bottcher"} or \code{phiprior="heckerman"} can be used.}
   \item{timetrace}{If \code{TRUE}, prints some timing information on the
     screen.} 
-  \item{smalldf}{Used for analysing networks with time-varying nodes,
-    see \code{\link{timeslice}}.}
+%  \item{smalldf}{Used for analysing networks with time varying nodes,
+%    see \code{\link{timeslice}}.}
 }
 
-\details{For the discrete part of the network, the joint distribution is
+\details{For the discrete part of the network, the joint probability distribution is
   calculated by multiplying together the local probability
   distributions. Then, \code{jointalpha} is determined by multiplying
   each entry in the joint probability distribution by the size of the
-  imaginary database \code{N}. 
+  imaginary data base \code{N}. 
 
   For the mixed part of the network, for each configuration of the discrete
   variables, the joint (Gaussian) distribution of the continuous
-  variables are constructed and is represented by \code{jointmu} (one
+  variables is constructed and represented by \code{jointmu} (one
   row for each configuration of the discrete parents) and
   \code{jointsigma} (a list of matrices -- one for each configuration of
-  the discrete parentes). The configurations of the discrete parents are
+  the discrete parents). The configurations of the discrete parents are
   ordered according to \code{\link{findex}}. The algorithm for
   constructing the joint distribution of the continuous variables is
-  described in eg. Shachter and Kenley (1989). 
+  described in e.g. Shachter and Kenley (1989). 
 
-  Then, the joint distribution of the
-  parameters are deduced and expressed by \code{jointalpha} for the
-  Dirichlet distribution; \code{jointnu}, \code{jointrho}, \code{mu} and
-  \code{jointphi} for the Gaussian-inverse Wishart distribution.
+  Then, \code{jointalpha}, \code{jointnu}, \code{jointrho}, \code{mu} and
+  \code{jointphi} are deduced. These quantities are later used for
+deriving local parameter priors.
 
   For the configuration \code{i} of the discrete variables,
   \deqn{\nu_i=\rho_i=\alpha_i}{nu_i=rho_i=jointalpha_i} and
@@ -74,12 +74,12 @@ jointcont(nw,timetrace=FALSE)
 
 \value{
   A list with the following elements
-  \item{jointalpha}{The joint prior for the discrete variables.}
-  \item{jointnu}{Joint prior for nu.}
-  \item{jointrho}{Joint prior for rho.}
-  \item{jointmu}{Joint prior for mu.}
+  \item{jointalpha}{Used in local master procedure for discrete variables.}
+  \item{jointnu}{Used in local master procedure for continuous variables.}
+  \item{jointrho}{Used in local master procedure for continuous variables.}
+  \item{jointmu}{Used in local master procedure for continuous variables.}
   \item{jointsigma}{Sigma matrices (not used in further calculations).}
-  \item{jointphi}{Joint prior for phi.}
+  \item{jointphi}{Used in local master procedure for continuous variables.}
 }
 
 \seealso{\code{\link{network}}

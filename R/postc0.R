@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Mar 12 06:52:02 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:18:39 2002
-## Update Count    : 96
+## Last Modified On: Wed Jun 04 11:33:16 2003
+## Update Count    : 97
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -101,7 +101,8 @@ postc0c <- function(mu,tau,rho,phi,y,timetrace=FALSE) {
               phi=as.double(phi),
               loglik=as.double(0),
               as.double(y),
-              as.integer(length(y))
+              as.integer(length(y)),
+              package="deal"
               )
     
     

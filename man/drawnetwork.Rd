@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:44 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sun Nov 03 16:57:52 2002
-% Update Count    : 14
+% Last Modified On: Thu Jan 16 13:54:57 2003
+% Update Count    : 21
 % Status          : Unknown, Use with caution!
 % 
 
@@ -17,13 +17,13 @@
 
 \title{Graphical interface for manipulation of networks}
 
-\description{
+\description{\code{drawnetwork} allows the user to specify a Bayesian network through a point and click interface.
 }
 
 \usage{
 drawnetwork(nw,df,prior,trylist=rep(list(NULL),nw$n),
             scale=10,unitscale=20,cexscale=8,
-            arrowlength=.25,nocalc=FALSE,smalldf=NA,
+            arrowlength=.25,nocalc=FALSE,
             yr=c(0,350),xr=yr,...)
 
 inspectprob(nw,scale=10,unitscale=20,cexscale=8,
@@ -34,14 +34,14 @@ inspectprob(nw,scale=10,unitscale=20,cexscale=8,
 %- maybe also `usage' for other objects documented here.
 \arguments{
   \item{nw}{The initial network, see \code{\link{network}}.}
-  \item{df}{Dataframe used for learning the network, see \code{\link{network}}.}
+  \item{df}{Data frame used for learning the network, see \code{\link{network}}.}
   \item{prior}{A joint prior, see \code{\link{jointprior}}.}
   \item{trylist}{Used internally for reusing learning of nodes, see \code{\link{maketrylist}}.}
   \item{cexscale}{Passed to \code{\link{plot.network}}.}
   \item{arrowlength}{Passed to \code{\link{plot.network}}.}
   \item{nocalc}{Used when no learning is wanted, see eg. \code{\link{simulation}}.}
-  \item{smalldf}{Used for analysing networks with time-varying nodes,
-    see \code{\link{timeslice}}.}
+%  \item{smalldf}{Used for analysing networks with time varying nodes,
+%    see \code{\link{timeslice}}.}
   \item{unitscale}{Passed to \code{\link{plot.network}}.}
   \item{scale}{Passed to \code{\link{plot.network}}.}
   \item{xr}{Range on x-axis.}
@@ -50,18 +50,18 @@ inspectprob(nw,scale=10,unitscale=20,cexscale=8,
 }
 
 \details{
-To insert an arrow from node 'A' to node 'B' first click node 'A' and
+To insert an arrow from node 'A' to node 'B', first click node 'A' and
 then click node 'B'. When the graph is finished, click 'stop'.
 
 To specify, that an arrow must not be present, press 'ban' (a toggle)
 and draw the arrow. This is shown as a red dashed arrow. It is possible
-to ban both directions between nodes. The banlist is stored with the
+to ban both directions between nodes. The ban list is stored with the
 network in the attribute \code{banlist}. It is a matrix with two
 columns. Each row is the 'from' node index and the 'to' node index,
-where the indices are the column number in the dataframe.
+where the indices are the column number in the data frame.
 
 Note that the network score changes as the network is re-learned
-whenever a change is made. (Unless nocalc is TRUE).
+whenever a change is made. (Unless \code{nocalc} is \code{TRUE}).
 
 \code{inspectprob} draws the network and makes it possible to inspect
 the \code{prob} attributes of the nodes by clicking on them. The result
@@ -69,8 +69,8 @@ is shown in the output window.
 }
 
 \value{A list with two elements
-  \item{nw}{A networkfamily with all created networks.}
-  \item{trylist}{Updated.}
+  \item{nw}{A network family with all created networks.}
+  \item{trylist}{Updated, see \code{\link{learn}}.}
 }
 
 \seealso{\code{\link{network}}

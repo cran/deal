@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:19 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue May 28 13:01:07 2002
-% Update Count    : 4
+% Last Modified On: Tue Jan  7 09:25:26 2003
+% Update Count    : 6
 % Status          : Unknown, Use with caution!
 % 
 
@@ -26,7 +26,7 @@ addarrows(nw, node, data, prior,trylist=rep(list(NULL),nw$n))
 \arguments{
   \item{nw}{Network in which arrows are inserted.}
   \item{node}{The index of the node in focus.}
-  \item{data}{Dataframe used for learning the network, see \code{\link{network}}.}
+  \item{data}{Data frame used for learning the network, see \code{\link{network}}.}
   \item{prior}{A joint prior, see \code{\link{jointprior}}.}
   \item{trylist}{Used internally for reusing learning of nodes, see \code{\link{maketrylist}}.}
 }
@@ -38,7 +38,7 @@ addarrows(nw, node, data, prior,trylist=rep(list(NULL),nw$n))
 }
 
 \value{A list with two elements
-  \item{nw}{A networkfamily with all created networks. All networks have
+  \item{nw}{A network family with all created networks. All networks have
   been learned.}
   \item{trylist}{Updated.}
 }

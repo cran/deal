@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:00:53 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Sep 18 08:36:41 2002
-% Update Count    : 5
+% Last Modified On: Thu Jan 16 13:52:58 2003
+% Update Count    : 9
 % Status          : Unknown, Use with caution!
 % 
 
@@ -20,19 +20,19 @@
 }
 
 \usage{
-addarrow   (nw,df,prior,trylist=rep(list(NULL),nw$n),smalldf=NA) 
-turnarrow  (nw,df,prior,trylist=rep(list(NULL),nw$n),smalldf=NA) 
-removearrow(nw,df,prior,trylist=rep(list(NULL),nw$n),smalldf=NA) 
+addarrow   (nw,df,prior,trylist=rep(list(NULL),nw$n)) 
+turnarrow  (nw,df,prior,trylist=rep(list(NULL),nw$n)) 
+removearrow(nw,df,prior,trylist=rep(list(NULL),nw$n)) 
 }
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
   \item{nw}{The network from which arrows are added/removed/turned.}
-  \item{df}{Dataframe used for learning the network, see \code{\link{network}}.}
+  \item{df}{Data frame used for learning the network, see \code{\link{network}}.}
   \item{prior}{A joint prior, see \code{\link{jointprior}}.}
   \item{trylist}{Used internally for reusing learning of nodes, see \code{\link{maketrylist}}.}
-  \item{smalldf}{Used for analysing networks with time-varying nodes,
-    see \code{\link{timeslice}}.}
+%  \item{smalldf}{Used for analysing networks with time varying nodes,
+%    see \code{\link{timeslice}}.}
 }
 
 \details{
@@ -52,7 +52,7 @@ removearrow(nw,df,prior,trylist=rep(list(NULL),nw$n),smalldf=NA)
   }
 
 \value{A list with two elements
-  \item{nw}{A networkfamily with all created networks. All networks have
+  \item{nw}{A network family with all created networks. All networks have
   been learned.}
   \item{trylist}{Updated.}
 }

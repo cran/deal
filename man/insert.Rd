@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:17 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 18:48:10 2002
-% Update Count    : 3
+% Last Modified On: Thu Jan 16 14:20:03 2003
+% Update Count    : 8
 % Status          : Unknown, Use with caution!
 % 
 
@@ -20,8 +20,8 @@
 }
 
 \usage{
-insert (nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n),smalldf=NA) 
-remover(nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n),smalldf=NA) 
+insert (nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n)) 
+remover(nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n)) 
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -29,12 +29,12 @@ remover(nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n),smalldf=NA)
   \item{nw}{A network.}
   \item{j}{The 'from' node.}
   \item{i}{The 'to' node.}
-  \item{df}{Dataframe used for learning the network, see \code{\link{network}}.}
+  \item{df}{Data Frame used for learning the network, see \code{\link{network}}.}
   \item{prior}{A joint prior, see \code{\link{jointprior}}.}
   \item{nocalc}{If TRUE, learning is not called.}
   \item{trylist}{Used internally for reusing learning of nodes, see \code{\link{maketrylist}}.}
-  \item{smalldf}{Used for analysing networks with time-varying nodes,
-    see \code{\link{timeslice}}.}
+%  \item{smalldf}{Used for analysing networks with time varying nodes,
+%    see \code{\link{timeslice}}.}
 }
 
 \details{
@@ -42,10 +42,10 @@ remover(nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n),smalldf=NA)
   the following criteria
   \item{1.}{Arrows from/to the same node are not legal.}
   \item{2.}{Arrows from continous nodes to discrete nodes are not legal.}
-  \item{3.}{Arrows from time-varying nodes to non-time-varying nodes are not
-    legal, see \code{\link{timeslice}}.}
-  \item{4.}{Arrows banned in banlist are not legal, see \code{\link{drawnetwork}}.}
-  \item{5.}{Arrows already existing in the network are not legal.}
+%  \item{3.}{Arrows from time varying nodes to static nodes are not
+%    legal, see \code{\link{timeslice}}.}
+  \item{3.}{Arrows banned in ban list are not legal, see \code{\link{drawnetwork}}.}
+  \item{4.}{Arrows already existing in the network are not legal.}
 
   If the arrow is not legal, a \code{NULL} network is returned. Otherwise, the
   arrow is inserted/removed, the network is re-learned (if
@@ -53,7 +53,7 @@ remover(nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n),smalldf=NA)
 }
 
 \value{A list with two elements
-  \item{nw}{A networkfamily with all created networks.}
+  \item{nw}{A network family with all created networks.}
   \item{trylist}{Updated.}
 }
 
