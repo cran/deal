@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Jan 13 10:16:01 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Jan 16 11:58:18 2003
-## Update Count    : 92
+## Last Modified On: Thu Jul 24 14:49:56 2003
+## Update Count    : 100
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,7 +24,7 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-perturb <- function(nw,data,prior,degree=nw$n,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=TRUE) {
+perturb <- function(nw,data,prior,degree=nw$n,trylist=vector("list",nw$n),nocalc=FALSE,timetrace=TRUE) {
   ## change nw by randomly adding, deleting or turning arrows.
   ## In 'degree' steps, one of the three actions is taken. Note that
   ## adding, deleting or turning may not be possible due to an empty
@@ -32,7 +32,7 @@ perturb <- function(nw,data,prior,degree=nw$n,trylist=rep(list(NULL),nw$n),nocal
   ## identical to the input network. (is this wanted?) If nw is
   ## {empty,complete},
   ## the returned network is slightly likely to be {empty,complete}
-  ## nocalc=T: do not learn network (data+prior is not used)
+  ## nocalc=T: do not learn network (data+prior are not used)
   if (timetrace) {t1 <- proc.time();cat("[Perturb ")}
 
   for (i in 1:degree) {
@@ -56,10 +56,9 @@ perturb <- function(nw,data,prior,degree=nw$n,trylist=rep(list(NULL),nw$n),nocal
   list(nw=nw,trylist=trylist)
 }
 
-addrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=FALSE) {
+addrandomarrow <- function(nw,data,prior,trylist=vector("list",nw$n),nocalc=FALSE,timetrace=FALSE) {
   ## add an arrow at random. Continue until one arrow is added or the
   ## graph is complete.
-  ## cat("adding arrow\n")
   if (timetrace) {t1 <- proc.time();cat("[addrandomarrow ")}
 
   n <- nw$n
@@ -77,7 +76,7 @@ addrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FAL
   for (r in order) {
     from <- possible[r,1]
     to <- possible[r,2]
-#    cat("from=",from,"to=",to,"\n")
+
     newnet <- insert(nw, from,to,data,prior,trylist=trylist,nocalc=nocalc)
     trylist <- newnet$trylist
     newnet <- newnet$nw
@@ -102,9 +101,8 @@ addrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FAL
   list(nw=nw,trylist=trylist)
 }
 
-turnrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=FALSE) {
+turnrandomarrow <- function(nw,data,prior,trylist=vector("list",nw$n),nocalc=FALSE,timetrace=FALSE) {
   ## continue until an arrow is turned or it is not possible
-  ## cat("turning arrow\n")
 
   if (timetrace) {t1 <- proc.time();cat("[turnrandomarrow ")}
 
@@ -130,10 +128,10 @@ turnrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FA
   for (r in order) {
     to <- parentlist[r,1]
     from   <- parentlist[r,2]
-#cat("from",from,"to",to,"\n")
+
     newnet <- nw
     newnet$nodes[[to]]$parents <-  setdiff(newnet$nodes[[to]]$parents,from)
-#    print(newnet)
+
     if (!nocalc) {
       newnet <- learn(newnet,data,prior,to,trylist=trylist)
       trylist <- newnet$trylist
@@ -142,7 +140,6 @@ turnrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FA
     newnet <- insert(newnet, to, from,data,prior,trylist=trylist,nocalc=nocalc)
     trylist <- newnet$trylist
     newnet <- newnet$nw
-    ##    print(newnet)
 
     if (length(newnet)>0)
       if (!cycletest(newnet)) {
@@ -165,9 +162,8 @@ turnrandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FA
   list(nw=nw,trylist=trylist)
 }
 
-deleterandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=FALSE,timetrace=timetrace) {
+deleterandomarrow <- function(nw,data,prior,trylist=vector("list",nw$n),nocalc=FALSE,timetrace=FALSE) {
   ## delete an arrow at random. Return nw, if the graph is empty.
-  ##  cat("deleting arrow\n")
 
   if (timetrace) {t1 <- proc.time();cat("[deleterandomarrow ")}
 
@@ -206,12 +202,3 @@ deleterandomarrow <- function(nw,data,prior,trylist=rep(list(NULL),nw$n),nocalc=
   list(nw=nw,trylist=trylist)
 }
 
-## test:
-
-##par(mfrow=c(3,3))
-##palle <- newrat
-##plot(palle)
-##for (i in 1:8) {
-##  palle <- perturb(palle,1)
-##  plot(palle)
-##}

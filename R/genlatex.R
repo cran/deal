@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue May 07 10:10:39 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Sep 16 18:43:52 2002
-## Update Count    : 43
+## Last Modified On: Mon Jul 28 10:41:22 2003
+## Update Count    : 47
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -85,8 +85,7 @@ genlatex <-  function(nwl,
     
     dir.create(outdir)
     
-    ff <- paste(outdir,prefix,".tex",sep="") ## output filename
-    
+    ff <- file(paste(outdir,prefix,".tex",sep=""),"w") ## output filename
     ## filename of picfile i
     pf <- function(i)  paste(picdir,picpre,i,".tex",sep="")
     
@@ -102,43 +101,44 @@ genlatex <-  function(nwl,
     finished <- FALSE
     
     cat("%% generated automatically",date(),"- Don't edit by hand\n",file=ff)
-    cat("%% A master file:\n",file=ff,append=TRUE)
-    cat("%% \documentclass{article}\n",file=ff,append=TRUE)
-    cat("%% \usepackage{array,pictex}\n",file=ff,append=TRUE)
-    cat("%% \begin{document}\n",file=ff,append=TRUE)
-    cat("%% \input{scoretable}\n",file=ff,append=TRUE)
-    cat("%% \end{document}\n",file=ff,append=TRUE)
+    cat("%% A master file:\n",file=ff)
+    cat("%% \documentclass{article}\n",file=ff)
+    cat("%% \usepackage{array,pictex}\n",file=ff)
+    cat("%% \begin{document}\n",file=ff)
+    cat("%% \input{scoretable}\n",file=ff)
+    cat("%% \end{document}\n",file=ff)
     fig <- 1
     
     while (!finished) {
         ## header
         if (fig %% (ncol*nrow) == 1 || fig == 1) {
-            cat("\\begin{tabular}{",file=ff,append=TRUE)
+            cat("\\begin{tabular}{",file=ff)
             for (i in 1:ncol)
-                cat("|m{",width,"cm}",sep="",file=ff,append=TRUE)
-            cat("|}\\hline\n",file=ff,append=TRUE)
+                cat("|m{",width,"cm}",sep="",file=ff)
+            cat("|}\\hline\n",file=ff)
         }
         
         ## figs
         for (i in 1:ncol) {
             if (fig==length(nwl)) {
-                cat(putfig(fig),"\\\\ \n\\hline",file=ff,append=TRUE)
+                cat(putfig(fig),"\\\\ \n\\hline",file=ff)
                 finished <- TRUE; break }
             if (i %% ncol == 0) {
-                cat(putfig(fig),"\\\\",file=ff,append=TRUE)
-                if (fig %% (ncol*nrow) != 0) cat("[-9mm]",sep="",file=ff,append=TRUE)
-                cat("\n\\hline",file=ff,append=TRUE)
+                cat(putfig(fig),"\\\\",file=ff)
+                if (fig %% (ncol*nrow) != 0) cat("[-9mm]",sep="",file=ff)
+                cat("\n\\hline",file=ff)
             }
             else 
-                cat(putfig(fig),"&\n",sep="",file=ff,append=TRUE)
+                cat(putfig(fig),"&\n",sep="",file=ff)
             fig <- fig + 1
         }
         
         ## footer
         if (fig %% (ncol*nrow) == 1 || finished) 
-            cat("\\end{tabular}\\clearpage\n",file=ff,append=TRUE)
+            cat("\\end{tabular}\\clearpage\n",file=ff)
         
     }
+    close(ff)
     invisible()
 }
 
@@ -172,7 +172,7 @@ genpicfile <- function(nwl,outdir="pic/",prefix="pic",w=1.6,h=1.6,bigscale=3) {
     for (i in 1:length(nwl)) {
         name <- paste(outdir,prefix,i,".tex",sep="")
         pictex(name,width=w,height=h)
-        plot(nwl[[i]],cexscale=3,length=0.05,notext=TRUE)
+        plot(nwl[[i]],cexscale=3,arrowlength=0.05,notext=TRUE)
         dev.off()
     }
     cat("complete\n")

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Jan 07 13:33:35 2003
-## Update Count    : 86
+## Last Modified On: Thu Jul 24 14:08:32 2003
+## Update Count    : 88
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -28,25 +28,9 @@
 
 line <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 
-##prob <- function(object,...) {
-##  UseMethod("prob")
-##}
-
-##cond <- function(node,...) {
-##  UseMethod("cond")
-##}
-
-##learn <- function(object,...) {
-##  UseMethod("learn")
-##}
-
 .First.lib <- function(lib, pkg)
 {
     library.dynam("deal", package = pkg, lib.loc = lib)
-    ##    if (!exists("nosplash")) {
-    ##        if (interactive()) splash()
-    ##        nosplash <<- TRUE
-    ##    }
     cat("\n")
     cat("-------------------------------------------------------------\n")
     cat(package.description("deal", lib = lib, field="Title"))
@@ -55,7 +39,7 @@ line <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
     maint<- package.description("deal", lib = lib, field="Maintainer")
     built<- package.description("deal", lib = lib, field="Built")
     URL  <- package.description("deal", lib = lib, field="URL")
-    cat(paste("DEAL, version", ver,  "is now loaded\n"))
+    cat(paste("deal, version", ver,  "is now loaded\n"))
     cat("Copyright (C) 2002-2003, Susanne G. Bøttcher and Claus Dethlefsen\n")
     cat("Maintained by",maint,"\n")
     cat("Webpage:",URL,"\n")

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Feb 26 13:25:44 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Dec 10 19:24:33 2002
-## Update Count    : 141
+## Last Modified On: Wed Jul 23 13:25:29 2003
+## Update Count    : 143
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -23,11 +23,6 @@
 ##    along with this program; if not, write to the Free Software
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
-
-## SKAL OGSÅ FÅ SSH TIL AT AFHÆNGE AF idx og j
-## Det skal ikke være j. Man skal lave findex og få niveauerne af de
-## diskrete variable og bruge dem (!). Mere tænkearbejde!
-
 
 makesimprob <- function(nw,
                         s2=function(idx,cf) {
@@ -63,11 +58,6 @@ makesimprob <- function(nw,
         else dparents <- c()
         if (nw$nc>0)    cparents<- sort(intersect(parents,nw$continuous))
         
-        ##    line()
-        ##    cat("Node: ",node$name,"\n")
-
-        ##    cat("dparents=",dparents,"\t cparents=",cparents,"\n")
-        
         if (length(dparents)>0) {
             Dim <- c()
             dnames <- list(node$levelnames)
@@ -77,7 +67,7 @@ makesimprob <- function(nw,
             }
             TD <- prod(Dim)
             
-            ## dan alle teksterne i den rigtige rækkefølge
+            ## create labels
             lvek <- c()
             for (i in 1:TD) {
                 cf <- findex( i, Dim, FALSE)
@@ -124,7 +114,7 @@ makesimprob <- function(nw,
             
             nw$nodes[[nid]]$simprob <- simtab
         }
-        else stop("Type is wrong")
+        else stop("makesimprob: Type is wrong")
     }
     
     nw

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:20:16 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Jan 16 11:49:18 2003
-## Update Count    : 305
+## Last Modified On: Mon Jul 28 10:05:38 2003
+## Update Count    : 310
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -71,11 +71,6 @@ network <- function(df,specifygraph=FALSE,inspectprob=FALSE,
         }
     }
     
-#    if (!is.na(tvar)) {
-#        for (j in tvar)
-#            nw$nodes[[j]]$tvar <- TRUE
-#    }
-    
     nw$nd <- length(nw$discrete)
     nw$nc <- length(nw$continuous)
     stopifnot(nw$nd+nw$nc==nw$n) # invariant
@@ -88,7 +83,6 @@ network <- function(df,specifygraph=FALSE,inspectprob=FALSE,
         nw <- drawnetwork(nw,nocalc=TRUE)$nw
     }
     
-    
     if (doprob) 
         nw <- prob.network(x=nw,df=df)
     
@@ -100,7 +94,7 @@ network <- function(df,specifygraph=FALSE,inspectprob=FALSE,
 
 
 
-print.network <- function(x,filename=NA,master=FALSE,condposterior=FALSE,
+print.network <- function(x,filename=NA,condposterior=FALSE,
                           condprior=FALSE,...) {
     nw <- x
     str <- paste("## ",nw$n,"(",nw$nd,"discrete+",nw$nc,") nodes;score=",
@@ -109,12 +103,12 @@ print.network <- function(x,filename=NA,master=FALSE,condposterior=FALSE,
     else cat(str,file=filename)
     
     for (i in 1:nw$n)
-        print(nw$nodes[[i]],filename=filename,master,condposterior,condprior)
+        print(nw$nodes[[i]],filename=filename,condposterior,condprior)
     invisible(nw)
 }
 
-plot.network <- function(x,scale=10,arrowlength=.25,
-                         notext=FALSE,sscale=.7*scale,showban=TRUE,
+plot.network <- function(x,arrowlength=.25,
+                         notext=FALSE,sscale=7,showban=TRUE,
                          yr=c(0,350),xr=yr
                          ,unitscale=20,cexscale=8,...) {
     
@@ -131,7 +125,7 @@ plot.network <- function(x,scale=10,arrowlength=.25,
     ## show nodes
     for (i in 1:nw$n) 
         plot(nw$nodes[[i]],
-             cexscale=cexscale,notext=notext,scale=scale,...)
+             cexscale=cexscale,notext=notext,...)
     
     ## show score and relscore
     if (length(nw$score)>0 && !notext) {
@@ -165,9 +159,6 @@ plot.network <- function(x,scale=10,arrowlength=.25,
     
     ##< show arrows
     
-    ## Skal lige skaleres ved at lave en enhedsvektor i pilens retning
-    ## og så trække radius fra i begge ender
-    
     for (i in 1:nw$n) {
         ni <- nw$nodes[[i]]    # node i
         if (length(ni$parents)>0) {
@@ -195,3 +186,6 @@ prob.network <- function(x,df) {
 }
 
 
+banlist <- function(x) { x$banlist }
+
+"banlist<-" <- function(x,value) {x$banlist <- value;x}

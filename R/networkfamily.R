@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Oct 30 16:43:05 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Dec 10 19:31:10 2002
-## Update Count    : 415
+## Last Modified On: Sun Jul 27 16:15:42 2003
+## Update Count    : 427
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,7 +25,7 @@
 ######################################################################
 
 networkfamily <- function(data,nw=network(data),prior=jointprior(nw),
-                          trylist=rep(list(NULL),nw$n),timetrace=TRUE) {
+                          trylist=vector("list",nw$n),timetrace=TRUE) {
     ## Creator class for networkfamily
     ##
     ## Generates all possible networks with the restriction that
@@ -64,7 +64,6 @@ networkfamily <- function(data,nw=network(data),prior=jointprior(nw),
         }
     }
     
-    
     cat("Created",length(nwl),"networks, ")
     
     if (ndiscrete>2|ncontinuous>2) {
@@ -88,14 +87,14 @@ networkfamily <- function(data,nw=network(data),prior=jointprior(nw),
 
 
 plot.networkfamily <- function(x,
-                               layout=rep(min(1+floor(sqrt(length(nwf))),5),2),
+                               layout=rep(min(1+floor(sqrt(length(x))),5),2),
                                cexscale=5,arrowlength=0.1,
-                               scale=10,sscale=.7*scale,...) {
+                               sscale=7,...) {
     nwf <- x
     par(mfrow=layout)
     for (i in 1:length(nwf)) {
         par(mar=c(0,0,0,0))
-        plot(nwf[[i]],cexscale=cexscale,arrowlength=arrowlength,scale=scale,sscale=sscale,showban=FALSE,...)
+        plot(nwf[[i]],cexscale=cexscale,arrowlength=arrowlength,sscale=sscale,showban=FALSE,...)
     }
     par(mfrow=c(1,1))
 }
@@ -176,3 +175,4 @@ print.networkfamily <- function(x,...) {
     } ## for
     invisible(nwf)
 }
+

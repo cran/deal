@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:39 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sat May 25 23:01:39 2002
-% Update Count    : 1
+% Last Modified On: Tue Jul 22 15:34:03 2003
+% Update Count    : 4
 % Status          : Unknown, Use with caution!
 % 
 
@@ -17,8 +17,8 @@
 \title{Test if network contains a cycle}
 
 \description{The graph in a Bayesian network must be a directed acyclic
-  graph. The procedure \code{cycletest} returns TRUE or FALSE if it is
-  cyclic or not.}
+  graph. The procedure \code{cycletest} returns \code{TRUE} or
+  \code{FALSE} if it is cyclic or not. This is used in \code{\link{autosearch}}}
 
 \usage{
 cycletest(nw)
@@ -28,7 +28,7 @@ findleaf (nw)
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{nw}{The network to test if it contains a cycle.}
+  \item{nw}{an object of class \code{\link{network}}}
 }
 
 \details{
@@ -42,13 +42,13 @@ findleaf (nw)
 }
 
 \value{
-  \code{cycletest} returns TRUE if nw contains a cycle, FALSE if not.
+  \code{cycletest} returns \code{TRUE} if \code{nw} contains a cycle, \code{FALSE} if not.
 
   \code{findleaf} returns an index of a leaf, or 0 if no leaf is found.
 }
 
 \references{
-  Further information about \bold{Deal} can be found at:\cr
+  Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.auc.dk/novo/deal}.
 }
 

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:42 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue May 28 14:00:40 2002
-% Update Count    : 7
+% Last Modified On: Thu Jul 24 10:10:22 2003
+% Update Count    : 10
 % Status          : Unknown, Use with caution!
 % 
 
@@ -25,17 +25,18 @@ nwequal(nw1,nw2)
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{nw1}{First network}
-   \item{nw2}{Second network}
+  \item{nw1}{an object of class \code{\link{network}}}
+   \item{nw2}{an object of class \code{\link{network}}}
 }
 
 \details{The networks are assumed to have the same number of nodes and
   the nodes are assumed to represent the same stochastic
-  variables. Sequentially the nodes' parents are compared and if they
-  differ, FALSE is returned. 
+  variables. Sequentially the parents of the nodes are compared and if they
+  differ, \code{FALSE} is returned. 
 }
 
-\value{TRUE if the network graphs are equal, FALSE otherwise.}
+\value{a logical. \code{TRUE} if the network graphs are equal,
+  \code{FALSE} otherwise.} 
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
@@ -43,7 +44,7 @@ nwequal(nw1,nw2)
 }
 
 \references{
-  Further information about \bold{Deal} can be found at:\cr
+  Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.auc.dk/novo/deal}.
 }
 

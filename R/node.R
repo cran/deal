@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:18:50 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Jan 16 14:25:49 2003
-## Update Count    : 382
+## Last Modified On: Mon Jul 28 11:01:58 2003
+## Update Count    : 401
 ## Status          : OK
 ###############################################################################
 ##
@@ -24,7 +24,10 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-node <- function(idx,parents,type,name=paste(idx),
+nodes <- function(nw) nw$nodes
+"nodes<-" <- function(nw,value) {nw$nodes<-value;nw}
+
+node <- function(idx,parents,type="discrete",name=paste(idx),
                  levels=2,levelnames=paste(1:levels), position=c(0,0)) {
     ## creator for class 'node'
     
@@ -51,7 +54,7 @@ node <- function(idx,parents,type,name=paste(idx),
     nd
 }
 
-print.node <- function(x,filename=NA,master=FALSE,condposterior=TRUE,condprior=TRUE,...) {
+print.node <- function(x,filename=NA,condposterior=TRUE,condprior=TRUE,...) {
     
     nd <- x
     str <- paste(nd$idx,nd$name,nd$type,sep="\t")
@@ -62,18 +65,6 @@ print.node <- function(x,filename=NA,master=FALSE,condposterior=TRUE,condprior=T
     }
     if (is.na(filename)) cat(str,"\n")
     else cat(str,"\n",file=filename,append=TRUE)
-    
-    if (master) {
-        line()
-        cat("Family:",nd$name," ")
-        if (length(nd$parents)>0) {
-            for (j in 1:length(nd$parents))
-                cat(nd$parents[j]," ")
-        }
-        cat("\n")
-        
-        print(nd$master)
-    }
     
     if (condprior)   {
         line()
@@ -103,7 +94,7 @@ print.node <- function(x,filename=NA,master=FALSE,condposterior=TRUE,condprior=T
     invisible(nd)
 }
 
-plot.node <- function(x,cexscale=10,notext=FALSE,scale=10,...) {
+plot.node <- function(x,cexscale=10,notext=FALSE,...) {
     
     if (x$type=="discrete") {tt <- 19;col <- "white"} 
     else {tt <- 21;col <- "black"}
@@ -129,22 +120,11 @@ prob.node <- function(x,nw,df) {
     ##          of the discrete parents and value:
     ##          if equalcases=T  1/xx, where xx is
     ##                           the product of the levels.
-    ## obsolete         if equalcases=F  y/x, where x is the number of data and
-    ##                           y is the number of cases for each level
     
-#    if (is.null(node$tvar)&!is.na(smalldf))
-#        data <- smalldf
     
     nodelist <- nw$nodes
     
-    if (FALSE) {
-        cat("Analysing node",node$idx,"\n")
-    }
-    
     if (node$type=="discrete") {
-        ##        cat("(node.prob): rækkefølge af knuder i prob-tabel\n")
-        ##        cat("(node.prob): og så skal vi lige summe rigtigt til 1\n")
-        
         
         vek <- rep(NA,length(node$parents)+1)
         vek[1] <- node$levels
@@ -160,60 +140,12 @@ prob.node <- function(x,nw,df) {
         dimnames(node$prob) <- dnames
         if (length(node$parents)>0)
             node$prob <- prop.table(node$prob,2:(length(node$parents)+1))
-
-        ## OBSOLETE
-        ##        if (equalcases==FALSE) {
-        if (FALSE) {
             
-            ##      family      <- sort( c(node$idx, node$parents) )
-            ##      familytable <- table( data[,family] )
-            ##      nodetable   <- marginal( familytable, 1 )
-            ##      node$prob   <- nodetable/sum(nodetable)
-            ##      node$prob  <- familytable/sum(familytable)
-            
-            ## changed 4/3 2002
-            
-            family <- c(node$idx, node$parents) # node must be first index
-            familytable <- table( data[,family] )
-            
-            node$prob <- familytable/sum(familytable)
-            
-            ## changed 5/3 2002
-            ## changed back 6/3 2002
-            ##       if (length(node$parents)>0)
-            ##        node$prob <- node$prob/apply(node$prob,1,sum)
-            if (length(node$parents)>0)
-                node$prob <- prop.table(node$prob,2:(length(node$parents)+1))
-            
-            if (FALSE) {
-                line()
-                cat("Initial probability distribution:\n")
-                cat("family=",family,"\n")
-                cat("familytable=\n")
-                print(familytable)
-                ##        cat("nodetable=\n")
-                ##        print(nodetable)
-                cat("node$prob=\n")
-                print(node$prob)
-                line()
-            } ## print
-        } ## equalcases==FALSE
     } ## type=="discrete"
     
     if (node$type=="continuous") {
         ## for each product level of discrete parents, calculate
         ## mean and variance from the data.
-        
-        ## first figure out the discrete parents
-        ##    if (length(node$parents)>0) {
-        ##      vek  <- c()
-        ##      parv <- c()
-        ##      for (i in 1:length(node$parents)) {
-        ##        if (nodelist[[node$parents[i]]]$type=="discrete") {
-        ##          parv <- c(parv,node$parents[i])
-        ##          vek <- c(vek,nodelist[[node$parents[i]]]$levels)
-        ##        }
-        ##      }
         
         if (length(node$parents)>0) {
             
@@ -222,15 +154,6 @@ prob.node <- function(x,nw,df) {
             if (nw$nd>0)    dparents<- sort(intersect(parents,nw$discrete))
             else dparents <- c()
             if (nw$nc>0)    cparents<- sort(intersect(parents,nw$continuous))
-            
-            if (FALSE) {
-                line()
-                cat("node:",node$name,"\n")
-                cat("parents=",parents,"\n")
-                cat("dparents=",dparents,"\n")
-                cat("cparents=",cparents,"\n")
-                line()
-            }
             
             if (length(cparents)>0) {
                 
@@ -251,7 +174,7 @@ prob.node <- function(x,nw,df) {
                     }
                     TD <- prod(Dim)
                     
-                    ## dan alle teksterne i den rigtige rækkefølge
+                    ## create labels
                     lvek <- c()
                     for (i in 1:TD) {
                         cf <- findex( i, Dim, FALSE)
@@ -271,7 +194,6 @@ prob.node <- function(x,nw,df) {
                     
                     for (i in 1:TD) {
                         config <- findex(i,Dim,config=FALSE)
-                        ##            cat("config=",config,"\n")
                         obs <- data[,c(dparents,cparents,node$idx)]
                         for (k in 1:ncol(config)) {
                             j <- config[1,k]
@@ -289,7 +211,6 @@ prob.node <- function(x,nw,df) {
                         
                         M[i,] <- c(s2,beta)
                         
-                        ## print(obs)
                     }
                     
                     node$prob <- M
@@ -319,7 +240,7 @@ prob.node <- function(x,nw,df) {
                 }
                 TD <- prod(Dim)
                 
-                ## dan alle teksterne i den rigtige rækkefølge
+                ## create labels
                 lvek <- c()
                 for (i in 1:TD) {
                     cf <- findex( i, Dim, FALSE)
@@ -339,9 +260,8 @@ prob.node <- function(x,nw,df) {
                 for (i in 1:TD) {
                     ## Find configuration of discrete parents
                     ## Find the data that fits
-                    ##     (how should I handle if no data fits?)
                     ## mean,var of these variables
-                    ##     if no data: mean=0, var=big
+                    ##     if no data: mean=0, var=100
                     config <- findex(i,Dim,config=FALSE)
                     
                     obs <- data[,c(dparents,node$idx)]
@@ -367,7 +287,6 @@ prob.node <- function(x,nw,df) {
         } ## if parents
         else { ## no parents
             n <- dim(data)[1]
-            ##    node$prob <- c(mean(data[,node$idx]),var(data[,node$idx])*(n-1)/n)
             node$prob <- c(var(data[,node$idx])*(n-1)/n,mean(data[,node$idx]))
             names(node$prob) <- c("s2",paste("Intercept",node$name,sep=":"))
             
@@ -380,28 +299,14 @@ prob.node <- function(x,nw,df) {
 cond.node <- function(node,nw,nw.prior=jointprior(nw)) {
     ## make conditional prior for this node and attach it
     
-    if (FALSE) {
-        cat("cond.node\n")
-    }
-    
     thismaster <- localmaster(sort(c(node$idx,node$parents)),
                               nw,nw.prior)
-    if (FALSE) {
-        print(thismaster)
-    }
-    
-    if (length(node$parents)>0) {
-        if (FALSE) {
-            cat("Ready to conditional\n")
-        }
+    if (length(node$parents)>0) { ## parents are present
         thiscond <- conditional(node$idx,thismaster,nw)
-        if (FALSE) {
-            cat("Finished conditional\n")
-        }
         
         if (node$type=="continuous") {
             contparents <- intersect(node$parents,nw$continuous)
-            if (length(contparents)<1) {
+            if (length(contparents)<1) { ## no cont. parents
                 for (k in 1:length(thiscond)) {
                     thiscond[[k]]$tau <- thismaster$nu[k]
                     thiscond[[k]]$mu  <- thismaster$mu[k]
@@ -411,16 +316,13 @@ cond.node <- function(node,nw,nw.prior=jointprior(nw)) {
             }
         }
     }
-    else {
+    else { ## no parents, so thiscond is just the master
         thiscond <- list(thismaster)
         thiscond[[1]]$tau <- thismaster$nu
     }
     
     ##  node$master  <- thismaster ## only used for debugging
     node$condprior    <- thiscond
-    if (FALSE) {
-        cat("Exiting cond.node\n")
-    }
     node
 }
 

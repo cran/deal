@@ -1,11 +1,11 @@
-readnet <- function(fn) {
+readnet <- function(filename) {
     ## read from .net file and create a network object.
     ## note: not all info from the .net file is used, so information
     ## may be lost (!) if overwriting the .net file with savenet(nw)
     ## The function is not foolproof if the .net files do not have the
     ## same structure as the deal generated .net files or the hugin
     ## net files we have seen after manipulating a Deal net file.
-    
+    fn <- filename
     zz <- file(fn,"r")
     l <- readLines(zz)
     lno <- length(l)
@@ -21,12 +21,10 @@ readnet <- function(fn) {
         poteptr <- grep("potential ",l[lcount],value=TRUE)
         if (length(nodeptr)>0) {
             ## we have a node definition
-#            cat(lcount, nodeptr,"\n")
             ss <- unlist(strsplit(l[lcount]," "))
             ss <- ss[ss!=""]
             nd         <- list()
             nd$idx     <- nodecount
-#            nd$parents <- parents ## to be filled out by 'potential'
             nd$type    <- ss[1]
             nd$name    <- ss[3]
             nnames <- c(nnames,ss[3])
@@ -39,7 +37,6 @@ readnet <- function(fn) {
                 posstr <- grep("position",l[lcount+i],value=TRUE)
                 if (length(posstr)>0) slut <- TRUE
             }
-#            cat(lcount+i,posstr,"\n")
 
             ## extract coordinates from posstr
             c1 <- regexpr("[(]",posstr)
@@ -59,7 +56,6 @@ readnet <- function(fn) {
                     statestr <- grep("states",l[lcount+i],value=TRUE)
                     if (length(statestr)>0) slut <- TRUE
             }
-#            cat(lcount+i,statestr,"\n")
                 
                 ## extract states from statestr
                 c1 <- regexpr("[(]",statestr)
@@ -78,9 +74,7 @@ readnet <- function(fn) {
         }
         if (length(poteptr)>0) {
             ## we have a potential definition
-#            cat(lcount, poteptr, "\n")
             str <- poteptr
-#            cat("str=",str,"\n")
             
             c1 <- regexpr("[(]",str)
             c2 <- regexpr("[)]",str)
@@ -95,17 +89,11 @@ readnet <- function(fn) {
             else { ## potentials
                 lhs <- gsub(" ","",substr(x,1,c3-1))
                 nodenumber <- match(lhs,nnames)
-#                cat("lhs=",lhs,"\n")
-#                print(lhs)
-#                print(nnames)
-#                cat("node:",nodenumber,"\n")
                 
                 rhs <- substr(x,c3+1,nchar(x))
                 rhsy <- unlist(strsplit(rhs," "))
                 rhsy <- rhsy[rhsy!=""]
-#                cat("rhsy=",rhsy,"\n")
                 parents <- match(rhsy,nnames)
-#                cat("parents:",parents,"\n")
                 nodes[[nodenumber]]$parents <- parents
             }
         }
@@ -122,6 +110,7 @@ readnet <- function(fn) {
     nw$nd <- length(nw$discrete)
     nw$nc <- length(nw$continuous)
     class(nw) <- "network"
-#    unlink(fn)
+
+    close(zz)
     nw
 }

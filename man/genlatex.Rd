@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:07 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue Jan  7 09:25:25 2003
-% Update Count    : 3
+% Last Modified On: Thu Jul 24 16:45:56 2003
+% Update Count    : 11
 % Status          : Unknown, Use with caution!
 % 
 
@@ -28,31 +28,31 @@ genpicfile (nwl,outdir="pic/",prefix="pic",w=1.6,h=1.6,bigscale=3)
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{nwl}{Object of class \code{networkfamily} containing a list of
+  \item{nwl}{object of class \code{networkfamily} containing a list of
     objects of class \code{network}.}
-  \item{outdir}{Directory for storing output.}
-  \item{prefix}{The filename (without extension) of the LaTeX file. The
+  \item{outdir}{character string, the directory for storing output.}
+  \item{prefix}{character string, the filename (without extension) of the LaTeX file. The
     filenames of the picfiles begin with the given prefix.} 
-  \item{picdir}{Directory where pic-files are stored.}
-  \item{picpre}{Prefix for pic-files.}
-  \item{ncol}{Number of columns in LaTeX table.}
-  \item{nrow}{Number of rows in LaTeX table.}
-  \item{width}{Width of each cell in the LaTeX table.}
-  \item{vadjust}{Vertical adjustment in LaTeX table.}
-  \item{w}{Width of pictex objects}
-  \item{h}{Height of pictex objects}
-  \item{bigscale}{Scaling of the best network, which is output in 'nice.tex'}
+  \item{picdir}{character string, the directory where pic-files are stored.}
+  \item{picpre}{character string, prefix for pic-files.}
+  \item{ncol}{integer, the number of columns in LaTeX table.}
+  \item{nrow}{integer, the number of rows in LaTeX table.}
+  \item{width}{numeric, the width of each cell in the LaTeX table.}
+  \item{vadjust}{numeric, the vertical adjustment in LaTeX table.}
+  \item{w}{numeric, the width of pictex objects}
+  \item{h}{numeric, the height of pictex objects}
+  \item{bigscale}{numeric, the scaling of the best network, which is output in 'nice.tex'}
   
 }
 
 \value{Files:
 
-  \{outdir\}\{picpre\}xx.tex : one pictex file for each network in the
-  network family, indexed by xx.
+  \item{\{outdir\}\{picpre\}xx.tex}{one pictex file for each network in the
+  network family, indexed by xx.}
 
-  \{outdir\}\{prefix\}.tex   : LaTeX file with table including all pictex files.
+  \item{\{outdir\}\{prefix\}.tex}{LaTeX file with table including all pictex files.}
 
-  \{outdir\}nice.tex       : pictex file with the best network.
+  \item{\{outdir\}\{picpre\}nice.tex}{pictex file with the best network.}
 }
 
 \seealso{\code{\link{networkfamily}}}
@@ -71,16 +71,16 @@ data(rats)
 allrats <- networkfamily(rats,network(rats))$nw
 allrats <- nwfsort(allrats)
 
-## delete # to run the following three commands
-#dir.create("c:/temp")
-#genpicfile(allrats,outdir="c:/temp/pic/")
-#genlatex(allrats,outdir="c:/temp/pic/",picdir="c:/temp/pic/")
+\dontrun{dir.create("c:/temp")}
+\dontrun{genpicfile(allrats,outdir="c:/temp/pic/")}
+\dontrun{genlatex(allrats,outdir="c:/temp/pic/",picdir="c:/temp/pic/")}
 
 ## LATEX FILE:
 #\documentclass{article}
 #\usepackage{array,pictex}
 #\begin{document}
 #\input{scoretable}
+#\input{picnice}
 #\end{document}
 }
 

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:02:07 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon May 12 10:36:53 2003
-## Update Count    : 193
+## Last Modified On: Tue Jul 22 11:35:12 2003
+## Update Count    : 194
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,7 +25,7 @@
 ######################################################################
 
 
-addarrows <- function(nw, node, data, prior,trylist=rep(list(NULL),nw$n)) {
+addarrows <- function(nw, node, data, prior,trylist=vector("list",nw$n)) {
     ## Create all possible networks with arrows to/from node from/to
     ## nodes with smaller index.
     ##
@@ -61,7 +61,7 @@ addarrows <- function(nw, node, data, prior,trylist=rep(list(NULL),nw$n)) {
 
 
 insert <- function(nw,j,i,df,prior,nocalc=FALSE,
-                   trylist=rep(list(NULL),nw$n)) {
+                   trylist=vector("list",nw$n)) {
     ## insert one arrow from node j to node i in network nw
     ## df: dataframe
     ## prior: jointprior
@@ -77,7 +77,7 @@ insert <- function(nw,j,i,df,prior,nocalc=FALSE,
     ##                     nw$banlist, nodes[[]]$tvar
     
     ## examines if the arrow is legal (no continuous parents for discrete
-    ## node), is not banned and is not from tvar to non-tvar nodes (obsolete).
+    ## node), is not banned.
 
     if (i==j) {
         ##        cat("Arrow (",i,"<-",j,") illegal\n")
@@ -90,11 +90,6 @@ insert <- function(nw,j,i,df,prior,nocalc=FALSE,
         ##      cat("Arrow (",i,"<-",j,") illegal\n")
         return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
     }
-#    else if (!is.null(nw$nodes[[j]]$tvar) & is.null(nw$nodes[[i]]$tvar) ) {
-        ##      cat("nw$nodes[[i]]$tvar=",nw$nodes[[i]]$tvar,
-        ##          "nw$nodes[[j]]$tvar=",nw$nodes[[j]]$tvar,"\n")
-#        return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
-#    }
     else if (!is.na(match(j,nw$nodes[[i]]$parents))) {
         ##      cat("Arrow (",i,"<-",j,") already exists\n")
         return(list(nw=NULL,trylist=trylist))  # RETURNS a NULL network
@@ -126,7 +121,7 @@ insert <- function(nw,j,i,df,prior,nocalc=FALSE,
 }
 
 remover <- function(nw,j,i,df,prior,nocalc=FALSE,
-                    trylist=rep(list(NULL),nw$n)) {
+                    trylist=vector("list",nw$n)) {
     ## remove one arrow from node j to node i in network nw
     ## df: dataframe
     ## prior: jointprior

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Feb 03 10:05:52 2003
-% Update Count    : 32
+% Last Modified On: Mon Jul 28 10:05:16 2003
+% Update Count    : 71
 % Status          : Unknown, Use with caution!
 % 
 
@@ -13,6 +13,8 @@
 \alias{plot.network}
 \alias{prob.network}
 \alias{print.network}
+\alias{banlist}
+\alias{"banlist<-"}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
@@ -26,72 +28,74 @@
 \usage{
 network(df,specifygraph=FALSE,inspectprob=FALSE,
         doprob=TRUE,yr=c(0,350),xr=yr) 
-\method{print}{network}(x,filename=NA,master=FALSE,condposterior=FALSE,
+\method{print}{network}(x,filename=NA,condposterior=FALSE,
                           condprior=FALSE,...) 
-\method{plot}{network} (x,scale=10,arrowlength=.25,
+\method{plot}{network} (x,arrowlength=.25,
                         notext=FALSE,
-                        sscale=.7*scale,showban=TRUE,yr=c(0,350),xr=yr,
+                        sscale=7,showban=TRUE,yr=c(0,350),xr=yr,
                         unitscale=20,cexscale=8,...)
 
-prob.network (x,df) 
+prob.network (x,df)
+
+banlist(x)
+"banlist<-"(x,value)
+
 }
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{df}{A data frame, where the columns define the variables. A
+  \item{df}{a data frame, where the columns define the variables. A
     continuous variable should have type \code{numeric} and discrete varibles
     should have type \code{\link[base]{factor}}.}
-  \item{specifygraph}{Interactively specify a directed acyclic graph and
-    possibly a ban list (see below).}
-  \item{inspectprob}{Inspect the calculated probability
-    distribution using a graphical interface.}
-%  \item{equalcases}{When calculating the probability distribution for
-%    discrete variables,(if \code{TRUE}) set the probability
-%    equal for all configurations of a node given its parents. If
-%\code{FALSE}, observed frequencies are used. }
-%  \item{vif}{Variance inflation factor. Can be used to adjust the variance for the continuous variables.}
-  \item{doprob}{If \code{TRUE}, do not calculate a probability distribution. Used
+  \item{specifygraph}{a logical. If \code{TRUE}, provides a call to
+    \code{\link{drawnetwork}} to interactively specify a directed
+    acyclic graph and possibly a ban list (see below).}
+  \item{inspectprob}{a logical. If \code{TRUE}, provides a plot of the
+    graph and possibility to inspect the calculated probability
+    distribution by clicking on the nodes.}
+  \item{doprob}{a logical. If \code{TRUE}, do not calculate a
+    probability distribution. Used 
     for example in \code{\link{simulation}}. }
-%  \item{tvar}{Vector of indices of time varying nodes, see \code{\link{timeslice}}.}
-%  \item{smalldf}{For use with time varying networks, see \code{\link{timeslice}}.}
-  \item{x}{The network.}
-  \item{filename}{If a string argument is given, output is printed to a file.}
-  \item{condprior}{Print condprior? \code{TRUE}/\code{FALSE}}
-  \item{condposterior}{Print condposterior? \code{TRUE}/\code{FALSE}}
-  \item{master}{Print master? \code{TRUE}/\code{FALSE}.}
-  \item{scale}{The axes in network plots are from \code{-scale} to
-    \code{scale}. }
-  \item{sscale}{The nodes are placed on a circle with radius \code{sscale}.}
-  \item{unitscale}{Scale parameter for chopping off arrow heads.}
-  \item{cexscale}{The size of the nodes.}
-  \item{arrowlength}{The length of the arrow heads.}
-  \item{xr}{Range of x-axis.}
-  \item{yr}{Range of y-axis.}
-  \item{notext}{No text is displayed in the nodes on the plot if notext
-    is \code{TRUE}}
-  \item{rotate}{The nodes are placed on a circle and they may be rotated
-  by this number (in radians).}
-  \item{showban}{If banned arrows should be shown (they are shown in red).}
-  \item{\dots}{Passed to \code{\link{plot.node}}.}
+  \item{x}{an object of class \code{\link{network}}.}
+  \item{filename}{a string or \code{NA}. If not \code{NA}, output is
+    printed to a file.} 
+  \item{condprior}{a logical. If \code{TRUE}, the conditional prior is
+    printed, see \code{\link{conditional}}.}
+  \item{condposterior}{a logical. If \code{TRUE}, the conditional posterior is
+    printed, see \code{\link{learn}}.}
+  \item{sscale}{a numeric. The nodes are initially placed on a circle
+    with radius \code{sscale}.} 
+  \item{unitscale}{a numeric. Scale parameter for chopping off arrow heads.}
+  \item{cexscale}{a numeric. Scale parameter to set the size of the nodes.}
+  \item{arrowlength}{a numeric containing the length of the arrow heads.}
+  \item{xr}{a numeric vector with two components containing the range on x-axis.}
+  \item{yr}{a numeric vector with two components containing the range on y-axis.}
+  \item{notext}{a logical. If \code{TRUE}, no text is displayed in the nodes on the plot.}
+  \item{showban}{a logical. If \code{TRUE}, banned arrows are shown in red.}
+  \item{\dots}{additional plot arguments, passed to \code{\link{plot.node}}.}
+  \item{value}{a numeric matrix with two columns. Each row contains the
+    indices \code{i -> j} of arrows that may not be allowed in the
+    directed acyclic graph.}
 }
 
 
 \value{
-  A network object with attributes
-  \item{nodes}{A list of nodes. If \code{doprob==TRUE}, the nodes are given the
-    attribute \code{prob} which is the initial probability distribution used
-    by \code{\link{jointprior}}.}% Arguments \code{equalcases} and
-%    \code{vif} are used to calculate \code{prob}.}
-  \item{n}{The number of nodes.}
-  \item{discrete}{A vector of indices of discrete nodes.}
-  \item{continuous}{A vector of indices of continuous nodes.}
-  \item{banlist}{A matrix with two columns. Each row contains the
+  An object of class \code{network}, which is a list with the following
+  elements (properties),
+  \item{nodes}{a list of objects of class \code{node}. If
+    \code{doprob} is \code{TRUE}, the nodes are given the 
+    property \code{prob} which is the initial probability distribution used
+    by \code{\link{jointprior}}.}
+  \item{n}{an integer containing the number of nodes in the network.}
+  \item{discrete}{a numeric vector of indices of discrete nodes.}
+  \item{continuous}{a numeric vector of indices of continuous nodes.}
+  \item{banlist}{a numeric matrix with two columns. Each row contains the
     indices \code{i -> j} of arrows that may not be allowed in the
     directed acyclic graph.}
-  \item{score}{Added by \code{\link{learn}} and is the log network
+  \item{score}{a numeric added by \code{\link{learn}} and is the log network
     score.}
-  \item{relscore}{Added by \code{\link{nwfsort}} and is the relative
-    log network score -- compared with the best network in a network family.}
+  \item{relscore}{a numeric added by \code{\link{nwfsort}} and is the relative
+     network score -- compared with the best network in a network family.}
 }
 
 \seealso{\code{\link{networkfamily}},
@@ -105,7 +109,7 @@ prob.network (x,df)
   }
 
 \references{
-  Further information about \bold{Deal} can be found at:\cr
+  Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.auc.dk/novo/deal}.
 }
 
@@ -122,6 +126,31 @@ prob.network (x,df)
 A <- factor(rep(c("A1","A2"),50))
 B <- factor(rep(rep(c("B1","B2"),25),2))
 thisnet <- network( data.frame(A,B) )
+
+set.seed(109)
+sex     <- gl(2,4,label=c("male","female"))
+age     <- gl(2,2,8)
+yield   <- rnorm(length(sex))
+weight  <- rnorm(length(sex))
+mydata  <- data.frame(sex,age,yield,weight)
+mynw    <- network(mydata)
+
+# adjust prior probability distribution
+mynw$nodes$sex$prob[1:2]   <- c(0.4,0.6)
+mynw$nodes$age$prob[1:2]   <- c(0.6,0.4)
+mynw$nodes$yield$prob[1:2] <- c(2,0)
+mynw$nodes$weight$prob[1:2]<- c(1,0)
+
+print(mynw)
+plot(mynw)
+
+prior <- jointprior(mynw)
+mynw  <- learn(mynw,mydata,prior)$nw
+thebest <- autosearch(mynw,mydata,prior)$nw
+
+print(mynw,condposterior=TRUE)
+
+\dontrun{savenet(mynw,"yield.net")}
 }
 
 \keyword{models}

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:38 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue Jan  7 09:32:04 2003
-% Update Count    : 3
+% Last Modified On: Thu Jul 24 09:35:59 2003
+% Update Count    : 7
 % Status          : Unknown, Use with caution!
 % 
 
@@ -15,8 +15,8 @@
 
 \title{The number of possible networks}
 
-\description{Calculates the number of different DAG's for a set of
-discrete and continuous nodes. }
+\description{Calculates the number of different directed acyclic graphs
+  for a set of discrete and continuous nodes. }
 
 \usage{
 numbermixed(nd,nc)
@@ -24,8 +24,8 @@ numbermixed(nd,nc)
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{nd}{The number of discrete nodes.}
-  \item{nc}{The number of continuous nodes.}
+  \item{nd}{an integer, which gives the number of discrete nodes.}
+  \item{nc}{an integer, which gives the number of continuous nodes.}
 }
 
 \details{
@@ -38,17 +38,17 @@ numbermixed(nd,nc)
 }
 
 \value{
-  The number of DAG's with the given node configuration.
+  A numeric containing the number of directed acyclic graphs with the given node
+  configuration. 
 }
 
 \references{
-  Bøttcher, S.G. (2002). Learning Bayesian Networks with Mixed
-  Variables.
+  Bøttcher, S.G. (2003). Learning Conditional Gaussian Networks.
 
-  Robinson, R.W. (1977). Counting unlabeled acyclic digraphs, Lecture
-  Notes in Mathematics, 622: Combinatorial Mathematics.
+  Robinson, R.W. (1977). Counting unlabeled acyclic digraphs, {\em Lecture
+  Notes in Mathematics}, 622: Combinatorial Mathematics.
 
-  Further information about \bold{Deal} can be found at:\cr
+  Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.auc.dk/novo/deal}.
 
 }

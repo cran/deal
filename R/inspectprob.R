@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Feb 03 15:02:14 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Dec 10 19:16:13 2002
-## Update Count    : 31
+## Last Modified On: Tue Jul 22 16:38:27 2003
+## Update Count    : 34
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,20 +24,20 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-inspectprob <-  function(nw,scale=10,unitscale=20,cexscale=8,
+inspectprob <-  function(nw,unitscale=20,cexscale=8,
                          arrowlength=.25,xr=c(0,350),yr=xr,...) {
 
     ## arguments are the same as for plot.network.
   
     par(mfrow=c(1,1))  
-    plot(x=nw,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
+    plot(x=nw,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
     title("Inspect/Change initial probability distribution")
     
     xc <- mean(xr)
     yc <- mean(yr)
     
     points(xc,yc,cex=cexscale+4,pch=5)
-    text(xc,yc,"Click here to stop")
+    text(xc,yc,"Stop")
     
     mode <- "Inspect"
     
@@ -93,14 +93,13 @@ inspectprob <-  function(nw,scale=10,unitscale=20,cexscale=8,
         }
         
         
-        plot(newnet,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
+        plot(newnet,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
         title("Inspect/Change initial probability distribution")
         points(xc,yc,cex=cexscale+4,pch=5)
-        text(xc,yc,"Click here to stop")
+        text(xc,yc,"Stop")
         
-        ##    switch(menu(c("stop","continue?\n"))+1,quit<-T,quit<-T,quit<-F)
     }
-    plot(newnet,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
+    plot(newnet,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
     
     newnet
 }

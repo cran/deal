@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:04:28 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Tue Jan  7 12:19:13 2003
-% Update Count    : 14
+% Last Modified On: Fri Jul 25 14:32:06 2003
+% Update Count    : 20
 % Status          : Unknown, Use with caution!
 % 
 
@@ -16,7 +16,8 @@
 \title{Simulation of data sets with a given dependency structure}
 
 \description{
-  Given a network with nodes having the 'simprob'-attribute, simulates
+  Given a network with nodes having the \code{simprob} property,
+  \code{simulation} simulates
 a data set.  }
 
 \usage{
@@ -25,18 +26,18 @@ simulation(nw, n=24, file="")
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{nw}{A network where each node have the attribute \code{simprob} (see
-    \code{\link{makesimprob}}).}
-  \item{n}{The number of cases to simulate.}
-  \item{file}{If a file name is given, the data set is stored there.}
+  \item{nw}{an object of class \code{\link{network}}, where each node
+    has the property \code{simprob} (see \code{\link{makesimprob}}).}
+  \item{n}{an integer, which gives the number of cases to simulate.}
+  \item{file}{a string. If non-empty, the data set is stored there.}
 }
 
 \details{
   The variables are simulated one at a time in an order that ensures
   that the parents of the node have already been simulated. For discrete
   variables a multinomial distribution is used and for continuous
-  variables, a normal distribution is used, according to the
-  \code{simprob} attribute in each node.
+  variables, a Gaussian distribution is used, according to the
+  \code{simprob} property in each node.
 }
 
 \value{
@@ -45,7 +46,7 @@ simulation(nw, n=24, file="")
 }
 
 \references{
-  Further information about \bold{Deal} can be found at:\cr
+  Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.auc.dk/novo/deal}.
 }
 
@@ -66,11 +67,11 @@ c1 <- NA
 c2 <- NA
 df <- data.frame(A,B,c1,c2)
 
-nw <- network(df,specifygraph=FALSE,doprob=FALSE) # doprob must be False
-nw <- makesimprob(nw)                     # create simprob attributes
+nw <- network(df,doprob=FALSE) # doprob must be FALSE
+nw <- makesimprob(nw)          # create simprob properties
 
 set.seed(944) 
-sim <- simulation(nw,n=100)               # create simulated data frame
+sim <- simulation(nw,n=100)    # create simulated data frame
 }
 
 \keyword{models}

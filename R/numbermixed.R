@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sat Mar 02 11:37:20 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Mar 14 10:47:48 2002
-## Update Count    : 13
+## Last Modified On: Thu Jul 24 09:56:07 2003
+## Update Count    : 24
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -31,13 +31,12 @@ numbermixed <- function(nd,nc) {
 
     robinson <- function(n) {
         ## The Robinson (1977) recursive formula for the number of possible
-        ## DAG's that contain n nodes
-        if (n==0) return(1)
-        if (n==1) return(1)
+        ## DAGs that contain n nodes
+        if (n<=1) return(1)
         else {
             res <- 0
             for (i in 1:n) {
-                res <- res + (-1)^(i+1) * choose(n,i) * 2^(i*(n-i)) * robinson(n-i)
+                res <- res + (-1)^(i+1) * choose(n,i) * 2^(i*(n-i)) * Recall(n-i)
             }
         }
         res
@@ -46,3 +45,4 @@ numbermixed <- function(nd,nc) {
     
     robinson(nd)*robinson(nc)*2^(nd*nc)
 }
+

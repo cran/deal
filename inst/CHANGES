@@ -1,4 +1,13 @@
-1.1-14: relaese on CRAN
+1.2-1:  New revision on CRAN for R 1.7.1
+1.1-22: Documentation fixes and minor fixes.
+1.1-21: Documentation fixes and minor fixes.
+1.1-20: Documentation fixes and minor fixes.
+1.1-19: Fixed bug in jointcont, when more than 2 cont. variables, the
+        jointsigma and jointphi was wrong.
+1.1-18: fixed bug in jointprior (N was NA if no cont.var). fixed bug
+	makenw.
+1.1-17: fixes until it ran on CRAN
+1.1-14: release on CRAN
 1.1-11: release. Changed structure of 'trylist' and the output from
 	autosearch and heuristic. Introduced makenw, as.network, modelstreng.
 1.1-10: Tried to resolve memory problem in heuristic(). 

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Thu Sep 26 15:19:02 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sat May 24 17:10:18 2003
-## Update Count    : 84
+## Last Modified On: Mon Jul 28 10:41:46 2003
+## Update Count    : 91
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -27,21 +27,20 @@
 savenet <- function(nw,filename="default.net") {
     ## save network to .net file that can be read by eg. Hugin
     
-    fn <- filename
-    
-    cat("%Created by DEAL,",date(),"\n",file=fn) # create empty file
-    cat("%DEAL is Copyright (C) 2002  Susanne Gammelgaard Bøttcher, Claus Dethlefsen\n",file=fn,append=TRUE)
-    cat(rep("%",60),"\n\n",sep="",file=fn,append=TRUE)
+    fn <- file(filename,"w")
+    cat("%Created by deal,",date(),"\n",file=fn) # create empty file
+    cat("%deal is Copyright (C) 2002-2003  Susanne Gammelgaard Bøttcher, Claus Dethlefsen\n",file=fn)
+    cat(rep("%",60),"\n\n",sep="",file=fn)
     ## ########################################
     ## Global information
     ## ########################################
     
-    cat("net\n",file=fn,append=TRUE)
-    cat("{\n",file=fn,append=TRUE)
+    cat("net\n",file=fn)
+    cat("{\n",file=fn)
     
-    cat("\tnode_size = (40 40);\n",file=fn,append=TRUE)
+    cat("\tnode_size = (40 40);\n",file=fn)
     
-    cat("}\n\n",file=fn,append=TRUE)
+    cat("}\n\n",file=fn)
     
     ## ########################################
     ## DEFINE NODES
@@ -53,22 +52,22 @@ savenet <- function(nw,filename="default.net") {
             "node",
             nd$name,
             "\n",
-            file=fn,append=TRUE)
-        cat("{\n",file=fn,append=TRUE)
+            file=fn)
+        cat("{\n",file=fn)
         if (nd$type=="discrete") {
             cat("\tstates = (",
                 paste("\"",nd$levelnames,"\"",sep=""),
                 ");\n",
-                file=fn,append=TRUE)
+                file=fn)
         }
-        cat("\tlabel = \"", nd$name,"\";\n",sep="",file=fn,append=TRUE)
+        cat("\tlabel = \"", nd$name,"\";\n",sep="",file=fn)
         
         cat("\tposition = (",
             nd$position,
-            ");\n",file=fn,append=TRUE)
+            ");\n",file=fn)
         
         
-        cat("}\n\n",file=fn,append=TRUE)
+        cat("}\n\n",file=fn)
         
     }
     ## ########################################
@@ -79,22 +78,22 @@ savenet <- function(nw,filename="default.net") {
         nd <- nw$nodes[[i]]
         
         cat("\npotential (",
-            nd$name, file=fn,append=TRUE)
+            nd$name, file=fn)
         
         if (length(nd$parents)>0) {
-            cat(" | ",file=fn,append=TRUE)
+            cat(" | ",file=fn)
             ##            for (j in nd$parents)
-            ##                cat(nw$nodes[[j]]$name," ",file=fn,append=TRUE)
+            ##                cat(nw$nodes[[j]]$name," ",file=fn)
             ## apparently, discrete parents must appear before cont.
             for (j in intersect(nd$parents,nw$discrete))
-                cat(nw$nodes[[j]]$name," ",file=fn,append=TRUE)
+                cat(nw$nodes[[j]]$name," ",file=fn)
             for (j in intersect(nd$parents,nw$continuous))
-                cat(nw$nodes[[j]]$name," ",file=fn,append=TRUE)
+                cat(nw$nodes[[j]]$name," ",file=fn)
             
         }
-        cat(" )\n",file=fn,append=TRUE)
+        cat(" )\n",file=fn)
         
-        cat("{\n",file=fn,append=TRUE)
+        cat("{\n",file=fn)
         
         ## # parameters defining local distribution
 
@@ -103,13 +102,13 @@ savenet <- function(nw,filename="default.net") {
         ## ##################################################################
         if (nd$type=="discrete") {
 
-            cat("\tdata=(",file=fn,append=TRUE)
+            cat("\tdata=(",file=fn)
             
             
             ## the distribution of nd|parents in row-major layout
             if (length(nd$parents)>0) {
 
-                cat("\n\t",file=fn,append=TRUE)
+                cat("\n\t",file=fn)
                 
                 if (FALSE) {
                     cat("nd$prob\n")
@@ -182,15 +181,15 @@ savenet <- function(nw,filename="default.net") {
                     cat("c(nd$levels,Dim)=\n");print(c(nd$levels,Dim))
                     cat("idx=\n");print(idx)
                 }
-                    cat(nd$prob[idx],"\t",file=fn, append=TRUE)
-                    cat("\t%",lablist[i],"\n\t",file=fn,append=TRUE)
+                    cat(nd$prob[idx],"\t",file=fn)
+                    cat("\t%",lablist[i],"\n\t",file=fn)
                 }
                 
             }
             else { 
-                cat(nd$prob,file=fn, append=TRUE)
+                cat(nd$prob,file=fn)
             }
-            cat(");\n",file=fn,append=TRUE)
+            cat(");\n",file=fn)
             
             
         } # discrete
@@ -199,7 +198,7 @@ savenet <- function(nw,filename="default.net") {
     ## continuous nodes
 ####################################################################
     if (nd$type=="continuous") {
-        cat("\tdata=(\n\t",file=fn,append=TRUE)
+        cat("\tdata=(\n\t",file=fn)
         
         
         ## skal skelne mellem kont. og disk. forældre
@@ -267,44 +266,44 @@ savenet <- function(nw,filename="default.net") {
                         else
                             i <- j
                         
-                        cat("\tnormal ( ",nd$prob[i,2],file=fn,append=TRUE)
+                        cat("\tnormal ( ",nd$prob[i,2],file=fn)
                         
                         if (length(nd$prob[i,])>2) { #cont.parents
                             for (j in 1:(length(nd$prob[i,])-2)) {
                                 if (nd$prob[i,j+2]>=0)
-                                    cat("+",file=fn,append=TRUE)
+                                    cat("+",file=fn)
                                 cat(nd$prob[i,j+2],"*",
-                                    nw$nodes[[(intersect(nd$parents,nw$continuous))[j]]]$name,file=fn,append=TRUE)
+                                    nw$nodes[[(intersect(nd$parents,nw$continuous))[j]]]$name,file=fn)
                             }
                         }
                         ## print remark in file with the config of disc.par.
-                        cat(", ",nd$prob[i,1],")","\t%",lablist[i],"\n",file=fn,append=TRUE)
+                        cat(", ",nd$prob[i,1],")","\t%",lablist[i],"\n",file=fn)
                     }
                 }
                 else {
-                    cat("normal ( ",nd$prob[2],file=fn,append=TRUE)
+                    cat("normal ( ",nd$prob[2],file=fn)
                     
                     for (j in 1:(length(nd$prob)-2)) {
                         if (nd$prob[j+2]>=0)
-                            cat("+",file=fn,append=TRUE)                  
+                            cat("+",file=fn)                  
                         cat(nd$prob[j+2],"*",
-                            nw$nodes[[(intersect(nd$parents,nw$continuous))[j]]]$name,file=fn,append=TRUE)
+                            nw$nodes[[(intersect(nd$parents,nw$continuous))[j]]]$name,file=fn)
                             }
-                    cat(", ",nd$prob[1],")\n",file=fn,append=TRUE)                    
+                    cat(", ",nd$prob[1],")\n",file=fn)                    
                 }
             }
             else {
-                cat("normal ( ",nd$prob[2],", ",nd$prob[1],")\n",file=fn,append=TRUE)
+                cat("normal ( ",nd$prob[2],", ",nd$prob[1],")\n",file=fn)
             }
             
-            cat("\t);\n",file=fn,append=TRUE)
+            cat("\t);\n",file=fn)
         }
         
-        cat("}\n",file=fn,append=TRUE)
+        cat("}\n",file=fn)
                 
     }
     
     cat("File",filename,"created\n")
-#    unlink(filename)
+    close(fn)
     invisible()
 }

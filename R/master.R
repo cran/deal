@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Thu Nov 29 21:28:29 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Dec 10 19:27:30 2002
-## Update Count    : 297
+## Last Modified On: Wed Jul 23 19:22:41 2003
+## Update Count    : 299
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -54,11 +54,6 @@ localmaster <- function(family,nw,prior=jointprior(nw)) {
     cidx <- match(family,nw$continuous)
     cidx <- cidx[!is.na(cidx)]
     
-    if (FALSE) {
-        line();line()
-        cat("didx=",didx,"cidx=",cidx,"\n")
-    }
-    
     ## initialize
     alpha <- NA
     nu    <- NA
@@ -68,50 +63,22 @@ localmaster <- function(family,nw,prior=jointprior(nw)) {
     
     if (!length(cidx)>=1) { ## no cont. nodes
         alpha <- apply(prior$jointalpha,didx,sum)
-        if (FALSE) {
-            cat("No cont. nodes\n")
-            print(didx)
-        }
     }
     else if(!length(didx)>=1) { ## no disc. nodes
-        if (FALSE) {
-            cat("No disc. nodes\n")
-            print(didx)
-        }
         
         nu <- sum(prior$jointnu)
         rho<- sum(prior$jointrho)
         
-        if (FALSE) {
-            cat("prior$jointmu[,cidx]:\n");print(prior$jointmu[,cidx])
-            cat("prior$jointnu:\n");print(prior$jointnu)
-            cat("as.matrix(prior$jointmu[,cidx]*c(prior$jointnu))\n")
-            print(as.matrix(
-                            prior$jointmu[,cidx]*c(prior$jointnu)
-                            ))
-        }
         M <- as.matrix(prior$jointmu[,cidx]*c(prior$jointnu))
         if (nrow(prior$jointmu)==1)
             dim(M) <- c(1,length(prior$jointmu[,cidx]))
         
         mu <- apply( M ,2,sum )/nu
         
-        if (FALSE) {
-            cat("mu=\n"); print(mu)
-            cat("prior$jointmu:\n");print(prior$jointmu)
-        }
-        
         ss <- matrix(0,length(cidx),length(cidx))
         for (i in 1:nrow(prior$jointmu)) {
-            if (FALSE) {
-                cat("i=",i,"\n")
-            }
             thismu <- as.matrix(prior$jointmu[i,cidx])
             mumean <- as.matrix(mu)
-            if (FALSE) {
-                cat("thismu=","\n"); print(thismu)
-                cat("mumean=","\n"); print(mumean)
-            }
             
             ss <- ss+prior$jointnu[i]*(thismu-mumean)%*%t(thismu-mumean)
         }
@@ -120,9 +87,6 @@ localmaster <- function(family,nw,prior=jointprior(nw)) {
     }
     
     else { ## mixed
-        if (FALSE) {
-            cat("Mixed nodes\n")
-        }
         nu    <- apply(prior$jointnu   ,didx, sum)
         rho   <- apply(prior$jointrho  ,didx, sum)
         nconfig <- length(nu) # number of configs.
@@ -130,15 +94,6 @@ localmaster <- function(family,nw,prior=jointprior(nw)) {
         phi    <- list()
         for (i in 1:nconfig) phi[[i]] <- matrix(0,length(cidx),length(cidx))
         
-        if (FALSE) {
-            line()
-            cat("nu=\n");print(nu)
-            cat("rho=\n");print(rho)
-            cat("nconfig=\n");print(nconfig)
-            cat("mu=\n");print(mu)
-            cat("phi=\n");print(phi)
-            line()
-        }    
         ## find dimension from  levels of discrete nodes
         D <- c()
         for (i in 1:length(didx)) {
@@ -146,29 +101,11 @@ localmaster <- function(family,nw,prior=jointprior(nw)) {
         }
         jmu <- prior$jointmu
 
-        if (FALSE) {
-      cat("D=\n");print(D)
-      cat("jmu=\n");print(jmu)
-    }
-    
         for (i in 1:nrow(jmu)) {
-            if (FALSE) {
-                line()
-                cat("Analysing tilstand",i,"ud af",nrow(jmu),"\n")
-                cat("Jointalpha=\n")
-                print(prior$jointalpha)
-            }
             ## the corresp. configuration of the disc. variables in the
             ## joint distribution
             idx <- findex(i,dim(prior$jointalpha),config=FALSE)
-            if (FALSE) {
-                cat("idx=\n");print(idx)
-                cat("didx=\n");print(didx)
-            }
             y   <- findex(matrix(idx[didx],1),D,config=TRUE)
-            if (FALSE) {
-                cat("y=\n");print(y)
-            }
             mu[y,] <- mu[y,] + jmu[i,cidx]*prior$jointnu[i]
             phi[[y]][,] <- phi[[y]][,] +
                 prior$jointphi[[i]][cidx,cidx]
@@ -196,25 +133,3 @@ localmaster <- function(family,nw,prior=jointprior(nw)) {
 
 
 
-printmaster <- function(nw,prior=jointprior(nw)) {
-    ## find all families and run 'localmaster' on them
-    ## print them.
-    
-    for (i in 1:nw$n) {
-        cat("Family:",nw$nodes[[i]]$name," ")
-        if (length(nw$nodes[[i]]$parents)>0) {
-            for (j in 1:length(nw$nodes[[i]]$parents))
-                cat(nw$nodes[[nw$nodes[[i]]$parents[j]]]$name," ")
-        }
-        cat("\n")
-        print(
-              localmaster(
-                          sort(c(nw$nodes[[i]]$idx,
-                                 nw$nodes[[i]]$parents)),
-                          nw,prior)
-              )
-        line()
-    }
-    
-    invisible()
-}

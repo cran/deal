@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Thu Nov 29 10:15:11 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:06:23 2002
-## Update Count    : 66
+## Last Modified On: Tue Jul 22 16:53:14 2003
+## Update Count    : 67
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -61,7 +61,7 @@ findex <- function(i, dim, config=TRUE) {
         for (k in 1:length(i)) {
             j <- i[k]
             res[k,1] <- mymod(j,dim[1])
-            if (D>1) { ## added 13/12
+            if (D>1) { 
                 for (s in 2:D) 
                     res[k,s] <-  roundup(mymod(j,prod(dim[1:s]))/
                                          prod(dim[1:(s-1)]))
@@ -72,8 +72,3 @@ findex <- function(i, dim, config=TRUE) {
     res
 }
 
-## Et par smaating: Hvis man giver for store tal til config=F, saa
-## starter den bare forfra.
-## Min floor virker ikke helt efter hensigten. Jeg laegger .99 til
-## fremfor een fordi graensen ikke lige du'r. Ved ikke lige om jeg
-## burde laegge f.eks. 0.9999999 til istedet.

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Jan 11 10:54:00 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue May 27 08:37:50 2003
-## Update Count    : 286
+## Last Modified On: Mon Aug 25 11:34:11 2003
+## Update Count    : 296
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -25,9 +25,9 @@
 ######################################################################
 
 autosearch <- function(initnw,data,prior=jointprior(network(data)),
-                       maxiter=50,trylist= rep(list(NULL),initnw$n),
+                       maxiter=50,trylist= vector("list",initnw$n),
                        trace=TRUE,timetrace=TRUE,
-                       showban=FALSE,saveall=FALSE) {
+                       showban=FALSE,saveall=FALSE,removecycles=FALSE) {
     ## Greedy search
     
     ## initnw: initial network with conditionals calculated
@@ -38,12 +38,13 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
     ## uses: addarrow,removearrow,turnarrow,nwfsort,cycletest
     ##       initnw$score
     
-    ## Algoritme:
-    ## Dan alle netværk med een extra pil         (addarrow)
-    ## Dan alle netværk med en pil, der vender om (turnarrow)
-    ## Dan alle net med een pil mindre            (removearrow)
-    ## Beregn likelihood for nye netværk
-    ## Vælg den, der øger likelihooden mest muligt eller stop.
+    ## Algorithm:
+    ## Create all networks with one arrow added (addarrow)
+    ## Create all networks with one arrow turned (turnarrow)
+    ## Create all networks with one arrow removed (removearrow)
+    ## Calculated scores for all networks
+    ## Choose the non-cyclic network that increases the score the most,
+    ## or stop. 
     
     if (timetrace) {t1 <- proc.time();cat("[Autosearch ")
                     tadd <- 0
@@ -54,7 +55,6 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
                 }
     
     
-#    nwl <- list(initnw)
     nw <- initnw
 
     model <- modelstreng(initnw)
@@ -92,17 +92,14 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
         thisnwl <- c(thisnwl.add,thisnwl.rem,thisnwl.tur)
         class(thisnwl) <- "networkfamily"
 
-#        cat("sorting\n")
-#        print.default(thisnwl)
         thisnwl <- nwfsort(thisnwl)
-#        cat("nu\n")
         if (timetrace) {s5 <- proc.time()[1];
                         tsor <- tsor+s5-s4
                     }
         
         
         ## remove cycles and then choose the best
-        if (saveall)
+        if (removecycles)
         {
             thisnwl <- thisnwl[!unlist(lapply(thisnwl,cycletest))]
             nwcand <- thisnwl[[1]]
@@ -110,7 +107,7 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
         }
         else
         {
-            ## new strategy: choose the 'best' and then check for cycle.
+            ## choose the 'best' and then check for cycle.
             kk <- 1
             while (TRUE) {
                 nwcand <- thisnwl[[kk]]
@@ -123,9 +120,6 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
                         tcho <- tcho+s6-s5
                     }
         
-#        if (saveall) nwl <- c(nwl,thisnwl)
-#        else nwl <- list(nw)
-
         model <- c(model,unlist(lapply(thisnwl,modelstreng)))
         score <- c(score,unlist(lapply(thisnwl,function(x) x$score)))
         
@@ -134,7 +128,6 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
             hiscore <- nwcand$score
             nw <- nwcand
             if (trace) {plot(nw,showban=showban)
-                        #print(nw)
                     }
             cat("(",it,") ",hiscore," ",modelstreng(nw),"\n",sep="")
         }
@@ -143,19 +136,7 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
             slut <- TRUE
         }
         
-        if (FALSE) {
-            cat("Conditions:\n")
-            c1 <- !slut
-            c2 <- it<maxiter
-            cat("!slut=",c1,"\n")
-            cat("it<maxiter=",c2,"\n")
-            cat("c1 & c2 = ", c1 & c2,"\n")
-            cat("c1 | c2 = ", c1 | c2,"\n")
-        }
     } ## end while
-    
-    ##  nwl <- nwfsort(nwl) 
-#    class(nwl) <- "networkfamily"
     
     if (timetrace) {
         t2 <- proc.time()
@@ -164,7 +145,6 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),
         
     }
     
-#    list(nwl=nwl,trylist=trylist)
     tabel <- cbind(model,score)
     tabel <- tabel[sort.list(tabel[,2]),]
     list(nw=learn(nw,data,prior)$nw,tabel=tabel,trylist=trylist)
@@ -229,12 +209,12 @@ as.network <- function(x,template) {
         else
             nw$nodes[[i]]$parents <- c()
     }
-    nw$score <- score
+    nw$score <- as.numeric(score)
     nw
 }
 
 
-addarrow <- function(nw,df,prior,trylist=rep(list(NULL),nw$n)) {
+addarrow <- function(nw,df,prior,trylist=vector("list",nw$n)) {
     ## Create all networks with one extra arrow
     ## return list of networks (nwl) (Possibly NULL)
     ## trylist: a list of networks wherefrom some learning may be reused
@@ -252,7 +232,6 @@ addarrow <- function(nw,df,prior,trylist=rep(list(NULL),nw$n)) {
                          trylist=trylist)
         
         if ( !is.null(newnet$nw) ) { # prevent NULL networks
-            ## cat("Add",nw$nodes[[i]]$name,"->",nw$nodes[[j]]$name,"\n")
             nwl[length(nwl)+1] <- list(newnet$nw)
             trylist <- newnet$trylist
         }
@@ -264,7 +243,7 @@ addarrow <- function(nw,df,prior,trylist=rep(list(NULL),nw$n)) {
 
 
 
-removearrow <- function(nw,df,prior,trylist=rep(list(NULL),nw$n)) {
+removearrow <- function(nw,df,prior,trylist=vector("list",nw$n)) {
     ## create all networks with one arrow less
     ## return list of networks (possibly NULL)
     ## trylist: a list of networks wherefrom some learning may be reused
@@ -276,7 +255,6 @@ removearrow <- function(nw,df,prior,trylist=rep(list(NULL),nw$n)) {
     for (i in 1:nw$n) {
         if (length(nw$nodes[[i]]$parents) > 0) {
             for (j in 1:length(nw$nodes[[i]]$parents)) {
-                ##        cat("Remove:",nw$nodes[[nw$nodes[[i]]$parents[j]]]$name,"/->",nw$nodes[[i]]$name,"\n")
                 newnet <- nw
                 newnet$nodes[[i]]$parents <- newnet$nodes[[i]]$parents[-j]
                 newnet <- learn(newnet,df,prior,i,trylist=trylist)
@@ -290,7 +268,7 @@ removearrow <- function(nw,df,prior,trylist=rep(list(NULL),nw$n)) {
     list(nw=nwl,trylist=trylist)
 }
 
-turnarrow <- function(nw,df,prior,trylist=rep(list(NULL),nw$n)) {
+turnarrow <- function(nw,df,prior,trylist=vector("list",nw$n)) {
     ## create all networks with one arrow turned
     ## return list of networks (possibly NULL)
     ## trylist: a list of networks wherefrom some learning may be reused
@@ -313,7 +291,6 @@ turnarrow <- function(nw,df,prior,trylist=rep(list(NULL),nw$n)) {
                 trylist <- newnet$trylist
                 newnet  <- newnet$nw
                 if (length(newnet) > 0) { # prevent NULL networks
-                    ##          cat("Turn:",nw$nodes[[i]]$name,"<-",nw$nodes[[nw$nodes[[i]]$parents[j]]]$name,"\n")
                     nwl[length(nwl)+1] <- list(newnet) 
                 }
             }

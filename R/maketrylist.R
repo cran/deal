@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Jan 11 10:54:00 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Dec 10 19:25:43 2002
-## Update Count    : 194
+## Last Modified On: Wed Jul 23 13:35:14 2003
+## Update Count    : 196
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -30,19 +30,8 @@ maketrylist <- function(initnw,data,prior=jointprior(network(data)),
     
     if (timetrace) {t1 <- proc.time();cat("[Maketrylist ")}
     
-    tryl <- list()
-    for (i in 1:initnw$n) {
-        nwl <- list(initnw)
-        for (j in setdiff(1:initnw$n,i)) {
-            newnet <- lapply(nwl,insert,j,i,data,prior)
-            newnet <- lapply(newnet,function(x) x$nw)
-            
-            nwl <- c(nwl,newnet[!unlist(lapply(newnet,is.null))])
-            
-            nodelist <- lapply(nwl,function(x) x$nodes[[i]])
-            tryl[[i]] <- nodelist
-        }
-    }
+    tryl <- networkfamily(data,initnw,prior,timetrace=timetrace)$trylist
+
     if (timetrace) {
         t2 <- proc.time()
         cat((t2-t1)[1],"]\n")

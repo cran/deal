@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sat Sep 28 17:15:47 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Dec 05 11:48:26 2002
-## Update Count    : 16
+## Last Modified On: Thu Jul 24 15:21:36 2003
+## Update Count    : 17
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -23,10 +23,6 @@
 ##    along with this program; if not, write to the Free Software
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
-
-#postdist <- function(object,...) {
-#    UseMethod("postdist")
-#}
 
 postdist <- function(nw) {
     ## calculate means of parameters and overwrite the prob attributes

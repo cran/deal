@@ -4,18 +4,16 @@ addrandomarrow          Adding/Turning/Removing random arrows
 autosearch              Greedy search
 conditional             Calculate conditional distribution
 cycletest               Test if network contains a cycle
-drawnetwork             Graphical interface for manipulation of
-                        networks
+drawnetwork             Graphical interface for editing networks
 elementin               Is a network element in a list of networks?
 findex                  Translation between indices in a multiway
                         array
 genlatex                From a network family, generate LaTeX output
 insert                  Insert/remove an arrow in network
-jointprior              Calculates the joint prior and the quantities
-                        needed to specify local parameter priors
+jointprior              Calculates the joint prior distribution
 ksl                     Health and social characteristics
-learn                   Estimates the parameters in the local
-                        probability distributions from data
+learn                   Estimation of parameters in the local
+                        probability distributions
 line                    Prints a line of symbols
 localmaster             Local master
 makesimprob             Make a suggestion for simulation probabilities
@@ -23,18 +21,17 @@ maketrylist             Creates the full trylist
 network                 Bayesian network data structure
 networkfamily           Generates and learns all networks for a set of
                         variables.
-node                    Nodes
+node                    Representation of nodes
 numbermixed             The number of possible networks
 nwequal                 Test if the graphs of two networks are equal
 nwfsort                 Sorts a list of networks
-nwfunique               Makes a network family unique.
+unique.networkfamily    Makes a network family unique.
 perturb                 Perturbs a network
 post                    Calculation of parameter posteriors for
                         continuous node
-postdist                Calculate mean of posterior parameters and
-                        create probability distribution
+postdist                Calculate point estimate of posterior
+                        parameters and create probability distribution
 rats                    Weightloss of rats
-readnet                 Reads .net file
-savenet                 Saves Bayesian network as .net file
+readnet                 Reads/saves .net file
 simulation              Simulation of data sets with a given
                         dependency structure

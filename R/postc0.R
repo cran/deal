@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Mar 12 06:52:02 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Jun 04 11:33:16 2003
-## Update Count    : 97
+## Last Modified On: Thu Jul 24 15:12:23 2003
+## Update Count    : 100
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -29,30 +29,11 @@ post0 <- function(mu,tau,rho,phi,y,timetrace=FALSE) {
     ## Posterior for continuous node with 0 parents
     if (timetrace) {t1 <- proc.time();cat("[post0 ")}
     
-    if (FALSE) {
-        cat("mu=\n"); print(mu)
-        cat("tau=\n");print(tau)
-        cat("rho=\n");print(rho)
-        cat("phi=\n");print(phi)
-        cat("y=\n");print(y)
-    }
-
     mu.n  <- (tau*mu+sum(y))/(tau+length(y))
     tau.n <- tau + length(y)
     rho.n <- rho + length(y)    
     phi.n <- phi + (y - mu.n)%*%y + (mu - mu.n)*tau*mu
 
-    if (FALSE) {
-        print(mu.n)
-        print(tau.n)
-        print(rho.n)
-        print(phi.n)
-    }
-    ##    print(phi)
-    ##    print(rho)
-    ##    print(diag(length(y)))
-    ##    print(matrix(1/tau,length(y),length(y)))
-        
     s <- as.numeric(phi)/rho*(diag(length(y)) + matrix(1/tau,length(y),length(y)))
     k <- lgamma( (rho + length(y))/2 ) - lgamma(rho/2)-0.5*log(det(rho*s*pi))
     ind <- log( 1 + (mahalanobis(y,center=mu,cov=s,inverted=FALSE))/rho)
@@ -73,27 +54,6 @@ postc0c <- function(mu,tau,rho,phi,y,timetrace=FALSE) {
     
     
     ## call to C
-    if (FALSE) {
-    cat("Ready to call C:\n")
-    cat("mu=\n");print(as.double(mu))
-    cat("tau=\n");print(as.double(tau))
-    cat("rho=\n");print(as.double(rho))
-    cat("phi=\n");print(as.double(phi))
-    cat("loglik=\n");print(as.double(0))
-    cat("y=\n");print(as.double(y))
-    cat("n=\n");print(as.integer(length(y)))
-
-    if (FALSE) {
-    cat("mu=\n");print(mu)
-    cat("tau=\n");print(tau)
-    cat("rho=\n");print(rho)
-    cat("phi=\n");print(phi)
-    cat("loglik=\n");print(0)
-    cat("y=\n");print(y)
-    cat("n=\n");print(length(y))
-}
-}
-    
     res <- .C("postc0",
               mu =as.double(mu),
               tau=as.double(tau),
@@ -102,7 +62,7 @@ postc0c <- function(mu,tau,rho,phi,y,timetrace=FALSE) {
               loglik=as.double(0),
               as.double(y),
               as.integer(length(y)),
-              package="deal"
+              PACKAGE="deal"
               )
     
     

@@ -22,9 +22,11 @@ or
 "Error in cbind(...) : cannot create a matrix from these types"
 occur. (eg. in ksl data with arrows from all nodes pointing to FEV)
 
-The log-score may be positive!! Theoretically this is
-nonsense. Apparently, it is due to numeric instability and may be
-handled by scaling the observations.
+The log-score may become positive!  Apparently, it is due to numeric
+instability and may be handled by scaling the observations.
+
+The score may breakdown if the img.data base size is not large enough
+or if the s2 in the prob-attribute is too small.
 
 print.node: Conditionals are printed as indices of parents and not
 	    names. This is not very pretty... 

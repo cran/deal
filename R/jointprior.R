@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Nov 27 09:03:14 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Jan 16 14:22:41 2003
-## Update Count    : 190
+## Last Modified On: Wed Jul 23 10:12:21 2003
+## Update Count    : 195
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -41,8 +41,6 @@ jointprior <- function(nw,N=NA,phiprior="bottcher",
     
     if (timetrace) {t1 <- proc.time();cat("[Jointprior ")}
     
-    ##  cat("Using",phiprior,"prior\n")
-    
     ## ##############################################
     ## Parameters for discrete variables
     ## ##############################################
@@ -54,16 +52,13 @@ jointprior <- function(nw,N=NA,phiprior="bottcher",
         ## determine smallest possible imaginary sample size
         ## and reset it if too small.
         
-        ## Instead of calculating jointalpha, I could find the minN by
-        ## taking the min(prob) of each discrete node and multiply together.
-        if (nw$nc>0) {
             minN <- min(2/jointprob)
             if (is.na(N)) N <- minN
             if (N<minN) {
-                cat("Warning: Your choice of imaginary sample size is very low\n")
-                cat("We advice you to set the imaginary sample size to",minN,"\n")
+   cat("Warning: Your choice of imaginary sample size is very low\n")
+   cat("We advice you to set the imaginary sample size to more than",minN,"\n")
             }
-        }
+
         cat("Imaginary sample size:",N,"\n")
         jointalpha <- jointprob * N
         
@@ -76,17 +71,14 @@ jointprior <- function(nw,N=NA,phiprior="bottcher",
         jointalpha <- N
     }
 
-    if (FALSE) cat("Ready for cont. variables\n")
-  
     ## ##############################################
     ## Parameters for continuous variables
     ## ##############################################
 
     if (nw$nc>0) { ## at least one cont. node
         NN <- prod(dim(jointalpha))
-        if (FALSE) cat("NN=",NN,"\n")
         
-        ## dan alle teksterne i den rigtige rækkefølge
+        ## create labels
         if (nw$nd>0) {
             Dim <- dim(jointalpha)
             dparents <- nw$discrete
@@ -102,7 +94,6 @@ jointprior <- function(nw,N=NA,phiprior="bottcher",
             }
         }
         
-        if (FALSE) cat("setting up matrices\n")
         jointmu    <- matrix(NA,NN,nw$nc)
         jointsigma <- list()
         jointphi   <- list()
@@ -113,14 +104,6 @@ jointprior <- function(nw,N=NA,phiprior="bottcher",
         jointsigma <- jcont$sigma2
         dnames <- colnames(jointmu)
 
-        if (FALSE) {
-            line()
-            cat("(jointprior:)\n")
-            cat("jointmu:\n");print(jointmu)
-            cat("jointsigma=\n");print(jointsigma)
-            cat("dnames=\n");print(dnames)
-        }
-    
         for (i in 1:NN) {
             
             if (phiprior=="bottcher") {
@@ -144,7 +127,7 @@ jointprior <- function(nw,N=NA,phiprior="bottcher",
             rownames(jointphi[[i]])   <- dnames
         }
         
-        ## ALSO SET NAMES ON THE LIST
+        ## Set names on the list
         if (nw$nd>0) {
             names(jointsigma) <- lvek
             names(jointphi)   <- lvek

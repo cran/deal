@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Wed Mar 06 12:52:57 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Dec 10 19:18:00 2002
-## Update Count    : 260
+## Last Modified On: Sun Jul 27 15:57:54 2003
+## Update Count    : 333
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -31,7 +31,6 @@ jointcont <- function(nw,timetrace=FALSE) {
     ## If eg. x|y,z, y|z, z are given, the joint distribution of x,y,z
     ## is returned
     ##
-    if (FALSE) cat("Joint cont. entered\n")
     
     if (timetrace) {t1 <- proc.time();cat("[jointcont ")}
     
@@ -45,8 +44,7 @@ jointcont <- function(nw,timetrace=FALSE) {
         TD <- prod(Dim)
     }
 
-    if (FALSE) cat("Running\n")
-    ## dan alle teksterne i den rigtige rækkefølge
+    ## create labels for the configurations of the discrete variables
     lablist <- c()
     if (nw$nd>0) {
         for (i in 1:TD) {
@@ -60,15 +58,6 @@ jointcont <- function(nw,timetrace=FALSE) {
         }
     }
     
-    
-    if (FALSE) {
-        line()
-        cat("(jointcont:)\n")
-        cat("TD=",TD,"\n")
-        cat("Dim=",Dim,"\n")
-        cat("length(unlist(lablist))=",length(lablist),"\n")
-        cat("lablist:\n");print(lablist)
-    }
     
     ## determine the continuous nodes
     lab <- c()
@@ -84,26 +73,16 @@ jointcont <- function(nw,timetrace=FALSE) {
     for (i in 1:TD) sigma2list[[i]] <- sigma2
     names(sigma2list) <- lablist
     
-    if (FALSE) {
-        cat("Ready to roll\n")
-        cat("sigma2list=\n");print(sigma2list)
-        cat("mu=\n");print(mu)
-    }
-    
     calclist <- c()
     allnodes <- c(nw$continuous)
     
     nidx <- 0
     while ( length( setdiff(allnodes,calclist) )>0 ) {
+        ## the main loop. Evaluates nodes sequentially so that the
+        ## parents of the current node has already been evaluated
         
         nidx <- nidx%%(nw$nc)+1
         nid  <- nw$continuous[nidx]
-        
-        if (FALSE) {
-            cat("calclist=",calclist,"\n")
-            cat("mangler: ", setdiff(allnodes,calclist),"\n")
-            cat("trying nidx=",nidx,"nid=",nid,"\n")
-        }
         
         if ( length(intersect(nid,calclist))>0) {
             next
@@ -120,40 +99,17 @@ jointcont <- function(nw,timetrace=FALSE) {
         if ( length( setdiff(cparents,calclist) ) > 0  ) {
             next
         }
-        if (FALSE) {
-            line()
-            cat("(jointcont)\n")
-            cat("node:",node$name,"\n")
-            cat("Pn=\n");print(Pn)
-            cat("parents:",parents,"\n")
-            cat("cparents:",cparents,"\n")
-            cat("dparents:",dparents,"\n")
-        }
         
         
         ## calculate unconditional mu, sigma2 from node|parents
         if (!length(cparents)>0) {
-            if (FALSE) 
-                cat("No continuous parents\n")
-            ## her skal vi bestemme konfigurationerne af de diskrete
-            ## forældre
-            ## dernæst skal disse 'blæses op' og indexer beregnes så det er
-            ## de rigtige steder i mu og sigma2list vi retter.
-            ##        line()
-            ##        cat("(jointcont:)\n")
             M <- array(1:TD,dim=Dim)
             if (length(dparents)>0) {
-                if (FALSE) cat("diskrete parents\n")
                 
                 mdim <- c()
                 for (i in dparents) 
                     mdim <- c(mdim,nw$nodes[[i]]$levels)
-                m <- array(1:TD,dim=mdim) # skal der stå TD her?
-                
-                if (FALSE) {
-                    cat("mdim=",mdim,"\n")
-                    cat("m=\n"); print(m)
-                }
+                m <- array(1:TD,dim=mdim) 
                 
                 ## inflate
                 ## first, permute Dim appropriately
@@ -161,75 +117,32 @@ jointcont <- function(nw,timetrace=FALSE) {
                           match(setdiff(nw$discrete,dparents),nw$discrete))
                 jDim <- Dim[ivek]
                 bigM <- array(m,jDim)
-                if (FALSE) {
-                    cat("ivek=",ivek,"\n")
-                    cat("jDim=",jDim,"\n")
-                    cat("bigM=\n"); print(bigM)
-                }
-                
+
                 ## permute back
                 permvek <- match(1:nw$nd,ivek)
                 bigM <- aperm(bigM, permvek)
-                if (FALSE) {
-                    cat("permvek:",permvek,"\n")
-                    cat("bigM\n");         print(bigM)
-                }
-                for (i in 1:length(unique(c(bigM)))) { ## not nice
+                for (i in 1:length(unique(c(bigM)))) { 
                     theidx <- M[bigM==i]
                     cf <- findex(theidx,Dim,config=FALSE)
                     cfm<- cf[,match(dparents,nw$discrete)]
-                    if (FALSE) {
-                        line()
-                        cat("i=",i,"\n")
-                        cat("theidx=",theidx,"\n")
-                        cat("cf=\n");print(cf)
-                        cat("cfm=",cfm,"\n");print(cfm)
-                    }
                     cfm <- matrix(cfm,nrow=length(theidx))
                     theidxm <- findex(cfm,mdim,config=TRUE)
                     paridx  <- match(1:nw$nc,c(nid,cparents))
-                    if (FALSE) {
-                        cat("theidxm=",theidxm,"\n")
-                        cat("Pn:\n");print(Pn)
-                        cat("mu=\n");print(mu)
-                        cat("theidx=",theidx,"nidx=",nidx,"\n")
-                        cat("paridx=",paridx,"\n")
-                    }
                     for (k in 1:length(theidx)) {
-                        if (FALSE) {
-                            cat("mu[",theidx,",",nidx,"]=\n")
-                            print(mu[theidx,nidx])
-                            cat("Pn[",theidxm[k],",",paridx+1,"]=\n")
-                            print(Pn[theidxm[k],2])
-                        }
                         mu[theidx,nidx] <- Pn[theidxm[k],2]
                         sigma2list[[theidx[k]]][nidx,nidx] <- Pn[theidxm[k],1]
-                    }
-                    if (FALSE) {
-                        print(mu)
-                        print(sigma2list)
-                        cat("slutprut\n")
                     }
                 }
             }
             else { ## no discrete parents
-                ##        cat("no discrete parents\n")
                 for (i in 1:TD) {
                     mu[i,nidx] <- Pn[2]
                     sigma2list[[i]][nidx,nidx] <- Pn[1]
                 }
             } ## end else (no discrete parents)
             
-            if (FALSE) {
-                print(mu)
-                print(sigma2list)
-            }
         }
         else { # we have continuous (and possibly discrete) parents
-            ##      cat("Continuous parents\n")
-            ##      if (!length(dparents)>0) {
-            ##        cat("Continuous and no discrete parents\n")
-            
             
             for (k in 1:TD) {
                 if (length(dparents)>0) {
@@ -248,64 +161,46 @@ jointcont <- function(nw,timetrace=FALSE) {
                 }
                 else
                     kidx <- 1
-                ##      parentidx <- cparents
+                ## parentidx: index in mu,sigma2list of parents
+                ## calcidx:   index in mu,sigma2list of processed nodes
                 parentidx <- match(cparents,nw$continuous)
-                ##        cat("parentidx=",parentidx,"\n")
+                calcidx <- match(sort(calclist),nw$continuous)
                 if (!length(dparents)>0) {        
                     m.ylx <- Pn[2]
                     s2.ylx<- Pn[1]
                     b.ylx <- Pn[3:length(Pn)]
                 }
                 else {
-                    ##          cat("Pn=\n");print(Pn)
                     m.ylx <- Pn[kidx,2]
                     s2.ylx<- Pn[kidx,1]
                     b.ylx <- Pn[kidx,3:ncol(Pn)]
                 }
                 m.x   <- mu[k,parentidx]
                 s2.x  <- sigma2list[[k]][parentidx,parentidx]
+
+                pid <- match(parentidx,sort(calclist))
+                pid <- pid[!is.na(pid)]
+                b.calc <- rep(0,length(calcidx))
+                b.calc[pid] <- b.ylx
+                s2.calc <- sigma2list[[k]][calcidx,calcidx]
+
+                s.xycalc <- s2.calc %*% b.calc
                 
                 s.xy  <- s2.x %*% b.ylx
                 s2.y  <- s2.ylx + c(s.xy)%*%b.ylx
                 
                 m.y   <- m.ylx + b.ylx%*%m.x
                 
-                if (FALSE) {
-                    cat("(jointcont)\n")
-                    cat("m.ylx=",m.ylx,"\n")
-                    cat("s2.ylx=",s2.ylx,"\n")
-                    cat("b.ylx=",b.ylx,"\n")
-                    cat("m.x=\n");print(m.x)
-                    cat("s2.x=\n");print(s2.x)
-                    cat("s.xy=\n");print(s.xy)
-                    cat("s2.y=\n");print(s2.y)
-                    cat("m.y=\n");print(m.y)
-                }
-                
                 mu[k,nidx] <- m.y 
                 
                 sigma2list[[k]][nidx,nidx] <- s2.y
-                sigma2list[[k]][parentidx,nidx] <- s.xy
-                sigma2list[[k]][nidx,parentidx] <- t(s.xy)
+                sigma2list[[k]][calcidx,nidx] <- s.xycalc
+                sigma2list[[k]][nidx,calcidx] <- t(s.xycalc)
             }
         }
         
         
         calclist <- c(calclist,nid)
-        
-        if (FALSE) {
-            ##      line()
-            ##      cat("(disccont:)\n")
-            ##      cat("Node ", node$name,"\n")
-            ##      cat("Continuous parents:", cparents,"\n")
-            ##      cat("Discrete parents:", dparents,"\n")
-            ##      cat("Pn:\n");print(Pn)
-            cat("calclist:",calclist,"\n")
-            cat("nid=",nid,"nidx=",nidx,"\n")
-            ##      cat("TD=",TD,"\n")
-            cat("mu=\n");print(mu)
-            cat("sigma2list\n");print(sigma2list)
-        }
         
     } ## while
     
@@ -314,13 +209,6 @@ jointcont <- function(nw,timetrace=FALSE) {
         cat((t2-t1)[1],"]")
     }
     
-    if (FALSE) {
-        cat("(jointcont RESULT\n")
-        cat("mu\n")
-        print(mu)
-        cat("sigma2list\n")
-        print(sigma2list)
-    }
     list(mu=mu,sigma2=sigma2list)
 } ## function discjoint
 

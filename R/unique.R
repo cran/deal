@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Jan 15 17:06:23 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:20:38 2002
-## Update Count    : 65
+## Last Modified On: Thu Jul 24 10:23:42 2003
+## Update Count    : 68
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,22 +24,22 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-nwfunique <- function(nwf,equi=FALSE,timetrace=FALSE,epsilon=1e-12) {
+unique.networkfamily <- function(x,incomparables=FALSE,equi=FALSE,timetrace=FALSE,epsilon=1e-12,...) {
   ## returns a nwf with redundant networks removed
   ## nwf must be sorted
   ## equi=T: just one representative for each equivalence class (note
   ## that an equivalence class here is defined as all networks with
   ## the same score).
 
-  ## lav vektor af scores
-  ## lav unik vektor af scores
-  ## for hver unik score (=ækvivalens-klasse)
-  ##     udtag alle netværk med denne score
-  ##     for hvert af disse netværk
-  ##     check om vi har det med, ellers sæt det ind
-
-  ##  nwf <- nwfsort(nwf) ## ensure they are sorted
-
+    ## Algorithm:
+    ## create vector of scores
+    ## create unique vector of scores
+    ## for each unique score (=equivalence-class)
+    ##     find all networks with this score
+    ##     for each of these networks
+    ##     check if it is already in the list. If not, put it in.
+    nwf <- x
+    
   if (timetrace) {t1 <- proc.time();cat("[Unique ")}
   n <- length(nwf)
 
@@ -47,12 +47,9 @@ nwfunique <- function(nwf,equi=FALSE,timetrace=FALSE,epsilon=1e-12) {
   for (i in 1:n)
     tab[i] <- nwf[[i]]$score
 
-  utab <- unique(tab) ## no. May differ by an epsilon
+  utab <- unique(tab) 
 
   if (equi) {
-#      ens <- abs(diff(tab)) < epsilon
-#      ensidx <- (1:n)[ens]
-#      utab <- tab[-(ensidx+1)]
       ens <- abs(diff(tab)) < epsilon
       idx <- (1:(n-1))[!ens]
       if (!ens[n-1]) idx <- c(idx,n)
@@ -68,8 +65,6 @@ nwfunique <- function(nwf,equi=FALSE,timetrace=FALSE,epsilon=1e-12) {
     ntab <- c(nwf[[1]]$score)
     
     for (i in 2:length(nwf)) {
-#      cat("i=",i,"\n")
-#      print(ntab)
       try <- nwf[[i]]
       same <- nwl[(1:length(nwl))[ntab==c(try$score)]]
       jump <- FALSE

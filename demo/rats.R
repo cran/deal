@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Mar 11 15:22:48 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Nov 03 16:43:08 2002
-## Update Count    : 44
+## Last Modified On: Mon Jul 28 10:10:44 2003
+## Update Count    : 45
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -45,7 +45,7 @@ rats.prior <- jointprior(rats,12)
 
 rats <- learn(rats,rats.df,rats.prior)$nw
 rats.empty <- learn(network(rats.df),rats.df,rats.prior)$nw
-rats.empty$banlist <- rats$banlist
+banlist(rats.empty) <- banlist(rats)
 ## transfer node positions
 for (i in 1:rats$n) rats.empty$nodes[[i]]$position <- rats$nodes[[i]]$position
 
@@ -68,7 +68,7 @@ print(hiscorelist$nw)
 plot(hiscorelist$nw)
 
 par(op)
-rats.empty$banlist <- newrat$banlist
+banlist(rats.empty) <- banlist(newrat)
 for (i in 1:rats$n) rats.empty$nodes[[i]]$position <- newrat$nodes[[i]]$position
 allrats <- networkfamily(rats.df,rats.empty,rats.prior)
 op <- par(ask=TRUE)

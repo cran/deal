@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Wed Mar 06 12:52:57 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Dec 10 19:19:18 2002
-## Update Count    : 27
+## Last Modified On: Wed Jul 23 11:22:58 2003
+## Update Count    : 28
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -76,21 +76,6 @@ jointdisc <- function(nw,timetrace=FALSE) {
         bigPn <- aperm(bigPn, permvek)
         
         jointprob <- jointprob * bigPn
-        if (FALSE) {
-            line()
-            cat("(discjoint:)\n")
-            cat("Node ", node$name,"\n")
-            cat("Discrete parents:", dparents,"\n")
-            cat("Pn:\n");print(Pn)
-            cat("idx in Pn:",idx,"\n")
-            cat("pidx in Pn:",pidx,"\n")
-            cat("jidx in joint:",jidx,"\n")
-            cat("nDim=",nDim,"\n")
-            ##      cat("TD=",TD,"\n")
-            cat("jDim=\n");print(jDim)
-            cat("permvek:",permvek,"\n")
-            cat("bigPn:\n");print(bigPn)
-        }
     } ## for
     
     if (timetrace) {

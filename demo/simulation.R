@@ -52,4 +52,4 @@ res <- nwfsort(networkfamily(sim,simprior.nw,simprior)$nw)
 plot(res)
 
 ## remove equivalent networks
-nwfunique(res,equi=TRUE)
+plot( unique(res,equi=TRUE) )

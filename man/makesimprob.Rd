@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:48 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Sep 18 08:45:35 2002
-% Update Count    : 14
+% Last Modified On: Fri Jul 25 14:35:47 2003
+% Update Count    : 18
 % Status          : Unknown, Use with caution!
 % 
 
@@ -16,7 +16,7 @@
 \title{Make a suggestion for simulation probabilities}
 
 \description{Creates local probability distributions reflecting the
-  graph of the network. These are attached as a \code{simprob} attribute
+  graph of the network. These are attached as a \code{simprob} property
   to each node in the network and can be edited and used for
   \code{\link{simulation}}. 
 }
@@ -42,19 +42,20 @@ makesimprob(nw,
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{nw}{The network.}
-  \item{s2}{Function that returns the variance as a function of the node
+  \item{nw}{an object of class \code{\link{network}}.}
+  \item{s2}{function that returns the variance as a function of the node
     index and the configuration of the discrete variables.}
-  \item{m0}{Function that returns the intercept  as a function of the node
-    index and the configuration of the discrete variables..}
-  \item{m1}{Function that returns the regression coefficients as a function of the node
-    index and the configuration of the discrete variables..}
+  \item{m0}{function that returns the intercept  as a function of the node
+    index and the configuration of the discrete variables.}
+  \item{m1}{function that returns the regression coefficients as a
+    function of the node 
+    index and the configuration of the discrete variables.}
 }
 
 \details{
   For each node, the local \code{simprob} is determined. If the node is
   discrete, the probability distribution is uniform (and thus not
-  reflecting the dependence in the graph as it should). If the node is
+  reflecting the dependence in the graph, as it should). If the node is
   continuous, one mean and variance is attached per configuration of the
   discrete parents. The mean depends on the continuos parents and is the
   regression coefficients determined by the functions \code{m0}
@@ -62,11 +63,11 @@ makesimprob(nw,
   determined by the function \code{s2}.
 }
 
-\value{The network where each node has attached the attribute
-  \code{simprob}.}
+\value{The network object \code{nw}, where each node has attached the
+  property  \code{simprob}.}
 
 \references{
-  Further information about \bold{Deal} can be found at:\cr
+  Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.auc.dk/novo/deal}.
 }
 

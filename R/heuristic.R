@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Jan 13 11:23:16 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun May 25 07:15:29 2003
-## Update Count    : 139
+## Last Modified On: Mon Aug 25 11:30:45 2003
+## Update Count    : 141
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -27,8 +27,8 @@
 heuristic <-
   function(initnw,data,prior=jointprior(network(data)),
            maxiter=100,restart=10,degree=initnw$n,
-           trylist= rep(list(NULL),initnw$n),trace=TRUE,
-           timetrace=TRUE,saveall=FALSE)
+           trylist= vector("list",initnw$n),trace=TRUE,
+           timetrace=TRUE,saveall=FALSE,removecycles=FALSE)
 {
     ## Heuristic search with random restart
     ## initnw: an initial network (already learned)
@@ -50,7 +50,8 @@ heuristic <-
                       data,prior,
                       maxiter,
                       trylist,
-                      trace=trace,timetrace=TRUE,saveall=saveall)
+                      trace=trace,timetrace=TRUE,saveall=saveall,
+                      removecycles=removecycles)
     
     nw <- nwl$nw
     trylist <- nwl$trylist
@@ -87,7 +88,7 @@ heuristic <-
             if (timetrace)
                 s5 <- proc.time()[3]
             newnwl <- autosearch(nw,data,prior,maxiter,
-                                 trylist=trylist,trace=trace,timetrace=TRUE,saveall=saveall)
+                                 trylist=trylist,trace=trace,timetrace=TRUE,saveall=saveall,removecycles=removecycles)
             trylist <- newnwl$trylist
 #            newnwl <- newnwl$nwl
             tabel <- rbind(tabel,newnwl$tabel)

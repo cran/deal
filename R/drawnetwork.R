@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 30 22:05:59 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sat May 24 17:00:49 2003
-## Update Count    : 288
+## Last Modified On: Tue Jul 22 15:58:25 2003
+## Update Count    : 291
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -28,8 +28,7 @@
 drawnetwork <- function(nw,
                         df,
                         prior,
-                        trylist=rep(list(NULL),nw$n),
-                        scale=10,
+                        trylist=vector("list",nw$n),
                         unitscale=20,
                         cexscale=8,
                         arrowlength=.25,
@@ -43,7 +42,7 @@ drawnetwork <- function(nw,
     ## nocalc=T: don't calculate scores (for use with 'specifynetwork')
     
     par(mfrow=c(1,1))  
-    plot(nw,scale=scale,unitscale=unitscale,
+    plot(nw,unitscale=unitscale,
          cexscale=cexscale,arrowlength=arrowlength,
          showban=TRUE,xr=xr,yr=yr,...)
     
@@ -61,8 +60,6 @@ drawnetwork <- function(nw,
         banlist <- nw$banlist
     else
         banlist <- matrix(0,0,2)
-    
-    ##  print(banlist)
     
     newnet <- nw
     quit   <- FALSE
@@ -85,8 +82,6 @@ drawnetwork <- function(nw,
         where <- rbind(where,c(2*xc-buttonx,2*yc-3*buttony))
         
         
-        ##      print(newnet$banlist)
-      
         if (mode=="Add") {
             bgadd <- "black"; fgadd <- "white";
             bgrem <- "white"; fgrem <- "black";
@@ -130,7 +125,6 @@ drawnetwork <- function(nw,
         if (from==nw$n+4) { banmode <- !banmode;next }
         if (from==nw$n+5) { movemode <- !movemode;next }
         
-##        if (!movemode) ##cat(mode, "arrow from",nlist[from],"to ")
         if (movemode) 
             to <- unlist(locator(1))
         else
@@ -141,9 +135,6 @@ drawnetwork <- function(nw,
         if (to==nw$n+3) { mode <- "Remove"; next }
         if (to==nw$n+4) { banmode <- !banmode;next }
         if (to==nw$n+5) { movemode <- !movemode;next }
-        
-##        if (!movemode)
-            ##cat(nlist[to],"\n")
         
         if (!movemode) {
             if (!banmode) {
@@ -158,8 +149,6 @@ drawnetwork <- function(nw,
                 
                 
                 if (length(tempnet$nw)>0) {
-                    ## cat("going to test for cycles:",
-                    ## cycletest(tempnet$nw),"\n")
                     if (!cycletest(tempnet$nw)) {
                         newnet <- tempnet
                         trylist <- newnet$trylist
@@ -220,12 +209,12 @@ drawnetwork <- function(nw,
         
         
         newnet$banlist <- banlist
-        plot(newnet,scale=scale,unitscale=unitscale,cexscale=cexscale,
+        plot(newnet,unitscale=unitscale,cexscale=cexscale,
              arrowlength=arrowlength,showban=TRUE,xr=xr,yr=yr,...)
         points(xc,yc,cex=cexscale+4,pch=5)
         text(xc,yc,"Stop")
     }
-    plot(newnet,scale=scale,unitscale=unitscale,
+    plot(newnet,unitscale=unitscale,
          cexscale=cexscale,arrowlength=arrowlength,
          showban=TRUE,xr=xr,yr=yr,...)
 

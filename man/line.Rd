@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:30 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon May 27 13:27:46 2002
-% Update Count    : 2
+% Last Modified On: Wed Jul 23 11:58:46 2003
+% Update Count    : 4
 % Status          : Unknown, Use with caution!
 % 
 
@@ -22,8 +22,8 @@ line(s="-",n=60)
 
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{s}{Symbol.}
-  \item{n}{Number of symbols.}
+  \item{s}{a string giving the symbol.}
+  \item{n}{an integer, giving the number of symbols.}
 }
 
 \author{
@@ -32,7 +32,7 @@ line(s="-",n=60)
 }
 
 \references{
-  Further information about \bold{Deal} can be found at:\cr
+  Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.auc.dk/novo/deal}.
 }
 
