@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Fri Apr 02 13:25:11 2004
-## Update Count    : 95
+## Last Modified On: Tue Apr 27 09:18:38 2004
+## Update Count    : 97
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -26,7 +26,7 @@
 
 
 
-line <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
+printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 
 .First.lib <- function(lib, pkg)
 {
@@ -39,12 +39,12 @@ line <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 
     cat("\n")
     cat("-------------------------------------------------------------\n")
-    cat(package.description("deal", lib = lib, field="Title"))
+    cat(packageDescription("deal", lib = lib, field="Title"))
     cat("\n")
-    ver <- package.description("deal", lib = lib, field="Version")
-    maint<- package.description("deal", lib = lib, field="Maintainer")
-    built<- package.description("deal", lib = lib, field="Built")
-    URL  <- package.description("deal", lib = lib, field="URL")
+    ver <- packageDescription("deal", lib = lib, field="Version")
+    maint<- packageDescription("deal", lib = lib, field="Maintainer")
+    built<- packageDescription("deal", lib = lib, field="Built")
+    URL  <- packageDescription("deal", lib = lib, field="URL")
     cat(paste("deal, version", ver,  "is now loaded\n"))
     cat("Copyright (C) 2002-2003, Susanne G. Bøttcher and Claus Dethlefsen\n")
     cat("Maintained by",maint,"\n")

@@ -1,4 +1,5 @@
 autosearch              Greedy search
+deal-internal           deal internal functions
 drawnetwork             Graphical interface for editing networks
 genlatex                From a network family, generate LaTeX output
 insert                  Insert/remove an arrow in network
@@ -20,6 +21,6 @@ perturb                 Perturbs a network
 prob                    Local probability distributions
 rats                    Weightloss of rats
 readnet                 Reads/saves .net file
-rnetwork                Simulation of data sets with a given
-                        dependency structure
+rnetwork                Simulation of data sets with a given dependency
+                        structure
 score                   Network score

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Oct 30 16:43:05 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Jan 12 14:32:36 2004
-## Update Count    : 428
+## Last Modified On: Tue Apr 27 09:19:09 2004
+## Update Count    : 429
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -154,7 +154,7 @@ print.networkfamily <- function(x,...) {
     else cat("\n")
     
     cat("  log(Score)\t|Relscore\t|Network\n")
-    line()
+    printline()
     for (i in 1:length(nwf)) {
         nw <- nwf[[i]]
         cat(i,". ",nw$score,"\t",nw$relscore,sep="")

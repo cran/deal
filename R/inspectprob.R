@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Feb 03 15:02:14 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Jul 22 16:38:27 2003
-## Update Count    : 34
+## Last Modified On: Tue Apr 27 09:19:02 2004
+## Update Count    : 35
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -79,7 +79,7 @@ inspectprob <-  function(nw,unitscale=20,cexscale=8,
         
         if (mode=="Change")
         {
-            line()
+          printline()
             cat(mode, "node",nlist[from],"\n")
             print(nw$nodes[[from]]$prob)
             cat("Want to change node",nlist[from],"\n")
@@ -87,7 +87,7 @@ inspectprob <-  function(nw,unitscale=20,cexscale=8,
         }
         else if(mode=="Inspect")
         {
-            line()
+          printline()
             cat(mode, "node",nlist[from],"\n")
             print(nw$nodes[[from]]$prob)
         }

@@ -3,13 +3,13 @@
 % Author          : Claus Dethlefsen
 % Created On      : Wed Jan 07 10:32:46 2004
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Apr 02 14:35:21 2004
-% Update Count    : 25
+% Last Modified On: Tue Apr 27 09:20:00 2004
+% Update Count    : 26
 % Status          : Unknown, Use with caution!
 % 
 \name{deal-internal}
 
-\alias{line}
+\alias{printline}
 \alias{post}
 \alias{post0}
 \alias{postc}
@@ -75,7 +75,7 @@
 }
 
 \usage{
-line(s="-",n=60)
+printline(s="-",n=60)
 
 post   (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 postM  (mu,tau,rho,phi,y,z,timetrace=FALSE) 

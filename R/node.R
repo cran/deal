@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:18:50 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Jan 07 14:50:10 2004
-## Update Count    : 409
+## Last Modified On: Tue Apr 27 09:19:23 2004
+## Update Count    : 410
 ## Status          : OK
 ###############################################################################
 ##
@@ -77,7 +77,7 @@ print.node <- function(x,filename=NA,condposterior=TRUE,condprior=TRUE,...) {
     else cat(str,"\n",file=filename,append=TRUE)
     
     if (condprior)   {
-        line()
+      printline()
         cat("Conditional Prior:",nd$name)
         if (length(nd$parents)>0) {
             cat("| ")
@@ -90,7 +90,7 @@ print.node <- function(x,filename=NA,condposterior=TRUE,condprior=TRUE,...) {
     
     
     if (condposterior)   {
-        line()
+      printline()
         cat("Conditional Posterior:",nd$name)
         if (length(nd$parents)>0) {
             cat("| ")
