@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Jan 07 10:30:33 2004
-## Update Count    : 89
+## Last Modified On: Fri Apr 02 13:25:11 2004
+## Update Count    : 95
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -30,7 +30,13 @@ line <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 
 .First.lib <- function(lib, pkg)
 {
+#    require(methods)
+#    require(dynamicGraph)
     library.dynam("deal", package = pkg, lib.loc = lib)
+
+      if((R.version$major == 1) && (as.numeric(R.version$minor) < 9))
+        packageDescription <- package.description
+
     cat("\n")
     cat("-------------------------------------------------------------\n")
     cat(package.description("deal", lib = lib, field="Title"))
@@ -46,6 +52,7 @@ line <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
     cat("\nBuilt:",built,"\n")
     cat("-------------------------------------------------------------\n")
     cat("\n")
+
   return(invisible(0))
 }
 

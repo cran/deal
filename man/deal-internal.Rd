@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Wed Jan 07 10:32:46 2004
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Jan 09 10:25:40 2004
-% Update Count    : 17
+% Last Modified On: Fri Apr 02 14:35:21 2004
+% Update Count    : 25
 % Status          : Unknown, Use with caution!
 % 
 \name{deal-internal}
@@ -41,6 +41,31 @@
 \alias{postdist.node}
 \alias{nwequal}
 \alias{inspectprob}
+
+\alias{Autosearch}
+\alias{dealEdges}
+\alias{DealLabelAllEdges}
+\alias{dealVariableDescription}
+\alias{Menus}
+\alias{newDealTestObject}
+\alias{newnetwork}
+\alias{recovernetwork}
+\alias{dynamic.Graph}
+\alias{testEdge}
+\alias{fun}
+\alias{modifyModel}
+
+\alias{DealTestClass-class}
+\alias{networkclass-class}
+
+\alias{label,DealTestClass-method}
+\alias{width,DealTestClass-method}
+\alias{dynamic.Graph-methods}
+\alias{dynamic.Graph,networkclass-method}
+\alias{testEdge-methods}
+\alias{modifyModel-methods}
+\alias{modifyModel,networkclass-method}
+\alias{testEdge,networkclass-method}
 
 \title{deal internal functions}
 
