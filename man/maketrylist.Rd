@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:52 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Jan 07 08:58:09 2004
-% Update Count    : 20
+% Last Modified On: Sun Nov 14 18:01:13 2004
+% Update Count    : 21
 % Status          : Unknown, Use with caution!
 % 
 
@@ -58,13 +58,13 @@ maketrylist(initnw,data,prior=jointprior(network(data)),timetrace=FALSE)
 
 \references{
   Further information about \bold{Deal} can be found at:\cr
-  \url{http://www.math.auc.dk/novo/deal}.
+  \url{http://www.math.aau.dk/novo/deal}.
 }
 
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.auc.dk}.
+  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Claus Dethlefsen \email{dethlef@math.aau.dk}.
 }
 
 \seealso{ 

@@ -2,9 +2,9 @@
 ##
 ##
 
-.load.deal.networkclass <- function() {
+#.load.deal.networkclass <- function() {
 
-  require(methods)
+#  require(methods)
   setClassUnion("integerOrNULL", c("NULL","integer"))
   
   setClass("networkclass", representation(
@@ -17,10 +17,18 @@
                                           banlist = "matrix",
                                           score = "numeric",
                                           data = "data.frame",
-                                          prior = "list"
-                                          )
+                                          prior = "list",
+                                          name             =     "character",
+                                          visibleVertices  = "numeric",
+                                          visibleBlocks    = "numeric",
+                                          extraVertices    = "dg.VertexList",
+                                          vertexEdges      = "dg.VertexEdgeList",
+                                          blockEdges       = "dg.BlockEdgeList",
+                                          factorVertices   = "dg.FactorVertexList",
+                                          factorEdges      = "dg.FactorEdgeList",
+                                          extraEdges       = "dg.ExtraEdgeList")
            )
-}
+#}
 newnetwork <- function(nw,data,prior) {
 
   if(!is.null(nw$banlist))
@@ -38,7 +46,15 @@ newnetwork <- function(nw,data,prior) {
                 banlist = ban,
                 score = nw$score,
                 data = data,
-                prior = prior
+                prior = prior,
+                name=modelstring(nw),
+                  extraVertices  = .emptyDgList("dg.VertexList"),
+                  vertexEdges    = .emptyDgList("dg.VertexEdgeList"),
+                  blockEdges     = .emptyDgList("dg.BlockEdgeList"),
+                  factorVertices = .emptyDgList("dg.FactorVertexList"),
+                  factorEdges    = .emptyDgList("dg.FactorEdgeList"),
+                  extraEdges     = .emptyDgList("dg.ExtraEdgeList")
+                
                 )
   return(result)
 }
@@ -82,18 +98,21 @@ Autosearch <- function(object,...) {
                          vertices=env$vertexList,
                          oriented=TRUE
                          )
-    env$redrawGraphWindow(
-                       env$graphLattice,
-                          edgeList=ArgEdges,
-                       factorVertexList = env$factorVertexList,
-                       factorEdgeList = env$factorEdgeList,
-                       visibleVertices = env$visibleVertices,
-                       object = object.new,
-                       title = "Result from Search",
-                       transformation = NULL,  
-                       background = "white",
-                       vertexColor = "black", width = 400,  
-                                    height = 400)                                     
+    DynamicGraph(addModel = TRUE, frameModels = env$frameModels, 
+                 frameViews = env$frameViews, graphWindow = env$graphWindow, edgeList = ArgEdges, oriented=TRUE,
+                 object = object.new, factorVertexList = env$factorVertexList, 
+                 factorEdgeList = env$FactorEdgeList, blockEdgeList = env$BlockEdgeList, 
+                 title = "Result from Autosearch", Arguments = env)
+    
+#    env$redrawView(graphWindow = env$graphWindow,
+#                   edgeList=ArgEdges,
+#                   factorEdgeList = env$factorEdgeList,
+#                   blockEdgeList = env$blockEdgeList,
+#                   object = object.new,
+#                   title = "Result from Search",
+#                   Arguments = env
+#                   )
+                   
     result <- list(object=object.new)
     return(result)
 }

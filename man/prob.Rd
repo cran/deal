@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:31 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Jan 09 13:51:28 2004
-% Update Count    : 13
+% Last Modified On: Sun Nov 14 18:01:12 2004
+% Update Count    : 14
 % Status          : Unknown, Use with caution!
 % 
 
@@ -74,12 +74,12 @@ localposterior(node)
   }
 \references{
   Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.auc.dk/novo/deal}.
+  \url{http://www.math.aau.dk/novo/deal}.
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.auc.dk}.
+  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Claus Dethlefsen \email{dethlef@math.aau.dk}.
 }
 
 %\note{ ~~further notes~~ }

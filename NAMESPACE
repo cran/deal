@@ -1,0 +1,203 @@
+import(methods,dynamicGraph)
+
+
+export("addarrow",
+       "addarrows",
+       "addrandomarrow",
+       "as.network",
+       "autosearch",
+       "Autosearch",
+       "banlist",
+       "banlist<-",              
+       "cond.node",
+       "conditional",           
+       "conditional.cont",
+       "conditional.disc",      
+       "cycletest",
+       "dealEdges",             
+       "DealLabelAllEdges",
+       "dealVariableDescription",
+       "deleterandomarrow",
+       "drawnetwork",           
+       "dynamic.Graph",
+       "elementin",             
+       "findex",
+       "findleaf",              
+       "fun",
+       "genlatex",              
+       "genpicfile",
+       "getnetwork",            
+       "gettable",
+       "gettrylist",            
+       "heuristic",
+       "insert",                
+       "inspectprob",
+       "jointcont",             
+       "jointdisc",
+       "jointprior",            
+       "learn",
+       "learnnode",             
+       "localmaster",
+       "localposterior",        
+       "localprior",
+       "localprob",             
+       "localprob<-",
+       "makenw",                
+       "makesimprob",
+       "maketrylist",           
+       "Menus",
+       "modelstring",           
+       "modifyModel",
+       "network",               
+       "networkfamily",
+       "newnetwork",            
+       "node",
+       "nodes",                 
+       "nodes<-",
+       "numbermixed",           
+       "nwequal",
+       "nwfsort",               
+       "perturb",
+       "plot.network",          
+       "plot.networkfamily",
+       "plot.node",             
+       "post",
+       "post0",                 
+       "postc",
+       "postc0c",               
+       "postcc",
+       "postdist",              
+       "postdist.node",
+       "postM",                 
+       "print.network",
+       "print.networkfamily",   
+       "print.node",
+       "printline",             
+       "prob",
+       "prob.network",          
+       "prob.node",
+       "readnet",               
+       "recovernetwork",
+       "removearrow",           
+       "remover",
+       "rnetwork",              
+       "savenet",
+       "score",                 
+       "score.network",
+       "score.node",            
+       "size",
+       "testEdge",              
+       "turnarrow",
+       "turnrandomarrow",       
+       "udisclik",
+       "unique.networkfamily")   
+
+useDynLib(deal)
+
+exportClasses("integerOrNULL",
+              "networkclass","DealTestClass")
+
+exportMethods("label", "width",
+              "testEdge", "modifyModel", "dynamic.Graph",
+              "setGraphComponents", "graphComponents")
+
+
+#export(       "newCoCoTestObject",
+#              "label", "width",
+#              "testEdge", "subModifyModel", "modifyModel", "dynamic.Graph")
+#exportClasses("CoCoTestClass")
+#exportMethods("label", "width",
+#              "testEdge", "subModifyModel", "modifyModel", "dynamic.Graph",
+#              "setGraphComponents", "graphComponents", "vertexEdges")
+
+#import(methods)
+#import(dynamicGraph)
+
+#S3method(terms,hllm)
+#S3method(terms,hllmloglm)
+
+#S3method(deviance,hllm)
+#S3method(deviance,hllmloglm)
+
+#S3method(extractAIC,hllm)
+#S3method(extractAIC,hllmloglm)
+#S3method(resid,hllmloglm)
+#S3method(fitted,hllmloglm)
+
+#export(#".Load.gRbase", 
+       #".Load.gRbase.hllm",
+       #".Load.gRbase.hllmfit",
+       #".Load.gRbase.hllmodify",
+       #".Load.dynamicgraph",
+       #".Load.gRbase.general",
+#       "LabelAllEdges",
+#       "dynamic.gR.Graph",
+#       "gREdges",
+#       "gRVariableDescription",
+#       "UserMenus",
+#       "all.subsets",
+#       "selectOrder",
+#       "extract.power",
+#       "process.formula",
+#       "subsetof",
+#       "showg",
+#       "readg",
+#       "showf",
+#       "readf",
+#       "varset",
+#       "in.list",
+#       "is.cont",
+#       "contains",
+#       "remove.redundant",
+#       "dual.rep",
+#       "delete.edge",
+#       "add.edge",
+#       "is.graphical",
+#       "validVarTypes"
+#       )
+
+
+#exportClasses("gmData",
+#              "dataOrNULL",
+#              "gModel",
+#              "hllm",
+#              "hllmTestClass",
+#              "hllmengine",
+#              "hllmloglin",
+#              "hllmloglm"
+#              )
+
+              
+#exportMethods("description",
+#              "description<-",
+#              "varTypes",
+#              "varTypes<-",
+#              "varNames",
+#              "varNames<-",
+#              "numberLevels",
+#              "numberLevels<-",
+#              "latent",
+ #             "latent<-",
+ #             "valueLabels",
+ #             "valueLabels<-",
+ #             "observations",
+ #             "observations<-",
+ #             "Formula",
+ #             "Formula<-",
+ #             "dropEdge",
+ #             "addEdge",
+ #             "dropVertex",
+ #             "addVertex",
+ #             "getFit",
+ #             "summary",
+ #             "fit",
+ #             "modifyModel",
+ #             "testEdge",
+ #             "label",
+ #             "width",
+ #             "dynamic.Graph",
+ #             "initialize",
+ #             "coerce",
+ #             "gmData"
+ #             )
+

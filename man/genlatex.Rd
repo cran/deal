@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:07 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Jan 07 09:16:22 2004
-% Update Count    : 12
+% Last Modified On: Sun Nov 14 18:01:13 2004
+% Update Count    : 13
 % Status          : Unknown, Use with caution!
 % 
 
@@ -58,8 +58,8 @@ genpicfile (nwl,outdir="pic/",prefix="pic",w=1.6,h=1.6,bigscale=3)
 \seealso{\code{\link{networkfamily}}}
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.auc.dk}.
+  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Claus Dethlefsen \email{dethlef@math.aau.dk}.
 }
 
 %\note{ ~~further notes~~ }

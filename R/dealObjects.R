@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Wed Dec 10 09:29:14 2003
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Aug 04 10:51:19 2004
-## Update Count    : 102
+## Last Modified On: Wed Nov 10 14:18:31 2004
+## Update Count    : 123
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 
@@ -38,8 +38,144 @@ dealEdges <- function(object)
       return(cbind(From,To))
   }
 
-.load.dynamicgraph <- function() {
-  require(methods)
+
+if (!isGeneric("graphComponents")) {
+  if (is.function("graphComponents"))
+    fun <- graphComponents
+  else
+    fun <- function(object, viewType = NULL, ...)
+    standardGeneric("graphComponents")
+  setGeneric("graphComponents", fun)
+}
+
+setMethod("graphComponents", "networkclass",
+          function(object, viewType = NULL, ...)
+          { # print(viewType); print ("graphComponents")
+            args <- list(...)
+            Args <- args$Arguments
+            Edges <- object@vertexEdges
+            Vertices <- Args$vertexList
+            VisibleVertices <- object@visibleVertices
+            if (viewType == "Factor") {
+              # require(ggm)
+              # e <- NodeIndices(Edges)
+              # if (length(e) > 0) {
+              #   e <- lapply(e, function(egde) if (sum(abs(egde)) > 0) egde)
+              #   e <- .removeNull(e)
+              # } else
+              #   e <- NULL
+              # factors <- NULL
+              # if (length(e) < 2) {
+              #   if (length(e) == 1)
+              #     factors <- append(e, as.list(VisibleVertices))
+              #   else if (length(VisibleVertices) > 0)
+              #     factors <- as.list(VisibleVertices)
+              # } else {
+              #   n <- Names(Vertices)
+              #   X <- matrix(rep(0, length(n)^2), ncol = length(n))
+              #   lapply(e, function(i) { X[i[1], i[2]] <<- 1 ;
+              #             X[i[2], i[1]] <<- 1 } )
+              #   dimnames(X) <- list(n, n)
+              #   X <- X[VisibleVertices, VisibleVertices]
+              #   # print ("graphComponents: ")
+              #   # print(X)
+              #   factors <- cliques(X)
+              # }
+              factors <- .cliquesFromEdges(Edges, Vertices, VisibleVertices)
+              # print(factors)
+              if (is.null(factors) || (length(factors) == 0)) {
+                FactorVertices  <- .emptyDgList("dg.FactorVertexList")
+                FactorEdges     <- .emptyDgList("dg.FactorEdgeList")
+              } else {
+                result <- returnFactorVerticesAndEdges(Vertices, factors)
+                FactorVertices  <- result$FactorVertices
+                FactorEdges     <- result$FactorEdges
+              }
+              list(vertexEdges     = object@vertexEdges, 
+                   blockEdges      = object@blockEdges, 
+                   factorVertices  = FactorVertices,
+                   factorEdges     = FactorEdges,
+                   visibleVertices = object@visibleVertices, 
+                   visibleBlocks   = object@visibleBlocks, 
+                   extraVertices   = object@extraVertices, 
+                   extraEdges      = object@extraEdges)
+            } else if (viewType == "Moral") {
+              message("Moral view not implemented; ")
+              list(vertexEdges     = object@vertexEdges, 
+                   blockEdges      = .emptyDgList("dg.BlockEdgeList"),
+                   factorVertices  = .emptyDgList("dg.FactorVertexList"),
+                   factorEdges     = .emptyDgList("dg.FactorEdgeList"),
+                   visibleVertices = object@visibleVertices, 
+                   visibleBlocks   = numeric(), 
+                   extraVertices   = object@extraVertices, 
+                   extraEdges      = object@extraEdges)
+            } else if (viewType == "Essential") {
+              message("Essential view not implemented; ")
+              list(vertexEdges      = object@vertexEdges, 
+                   blockEdges      = .emptyDgList("dg.BlockEdgeList"),
+                   factorVertices  = .emptyDgList("dg.FactorVertexList"),
+                   factorEdges     = .emptyDgList("dg.FactorEdgeList"),
+                   visibleVertices = object@visibleVertices, 
+                   visibleBlocks   = numeric(), 
+                   extraVertices   = object@extraVertices, 
+                   extraEdges      = object@extraEdges)
+            } else if (viewType == "Simple") {
+              list(vertexEdges     = object@vertexEdges, 
+                   blockEdges      = object@blockEdges, 
+                   factorVertices  = .emptyDgList("dg.FactorVertexList"),
+                   factorEdges     = .emptyDgList("dg.FactorEdgeList"),
+                   visibleVertices = object@visibleVertices, 
+                   visibleBlocks   = object@visibleBlocks, 
+                   extraVertices   = object@extraVertices, 
+                   extraEdges      = object@extraEdges)
+            } else 
+              message("View type not implemented; ")
+          })
+
+if (!isGeneric("setGraphComponents")) {
+  if (is.function("setGraphComponents"))
+    fun <- setGraphComponents
+  else
+    fun <- function(object, viewType = NULL,
+                    visibleVertices = NULL,
+                    extraVertices   = NULL,
+                    vertexEdges     = NULL,
+                    blockEdges      = NULL,
+                    factorVertices  = NULL,
+                    factorEdges     = NULL,
+                    extraEdges      = NULL, ...)
+      standardGeneric("setGraphComponents")
+  setGeneric("setGraphComponents", fun)
+}
+
+setMethod("setGraphComponents", signature(object = "networkclass"),
+          function(object, viewType = NULL,
+                   visibleVertices = NULL,
+                   visibleBlocks   = NULL,
+                   extraVertices   = NULL,
+                   vertexEdges     = NULL,
+                   blockEdges      = NULL,
+                   factorVertices  = NULL,
+                   factorEdges     = NULL,
+                   extraEdges      = NULL, ...)
+ {
+    if (!is.null(visibleVertices)) object@visibleVertices <- visibleVertices
+    if (!(viewType == "Moral"))
+      if (!is.null(visibleBlocks  )) object@visibleBlocks   <- visibleBlocks
+    if (!is.null(extraVertices  )) object@extraVertices   <- extraVertices
+    if (!is.null(vertexEdges    )) object@vertexEdges     <- vertexEdges
+    if (!is.null(blockEdges     )) object@blockEdges      <- blockEdges
+    if ((viewType == "Factor")) {
+      if (!is.null(factorVertices )) object@factorVertices  <- factorVertices
+      if (!is.null(factorEdges    )) object@factorEdges     <- factorEdges
+    }
+    return(object)
+ })
+
+
+
+#.load.dynamicgraph <- function() {
+#  require(methods)
 
   if (!isGeneric("dynamic.Graph")) {
   if (is.function("dynamic.Graph"))
@@ -60,7 +196,7 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
 #                   edgecolor = "black",  # Color set here!!
 #                   width = 400, height = 400, ...)
 #  {
-            .load.deal.dynamic()
+#            .load.deal.dynamic()
             
     VariableDescription <- dealVariableDescription(object = object)
     Edges <- dealEdges(object = object)
@@ -73,13 +209,9 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
                       UserMenus = Menus)
                       
 })
-}
-.load.deal.dynamic <- function() {
-  require(methods)
-  require(dynamicGraph)
   
-  setClass("DealTestClass", 
-           representation(bayesfactor = "numeric"))
+setClass("DealTestClass", 
+         representation(bayesfactor = "numeric"))
   
 #newDealTestObject <- function(test) {
 #    result <- new("DealTestClass",
@@ -126,6 +258,11 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
 #    message(paste("SHOULD return a test object with the edge from",
 #                  name.1, "to", name.2, "deleted from the argument object"))
               args <- list(...)
+              from.type <- args$from.type
+              to.type <- args$to.type
+              f <- function(type) if(is.null(type)) "" else paste("(",
+                                                                  type, ")")
+              
               env <- args$Arguments
               result <- NULL
               
@@ -150,6 +287,11 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
               }
 #    cat("BayesFactor: ",test,"\n")
 #    return(newDealTestObject(test))
+
+#                  message(paste("Should return an object with the edge from",
+#                  name.1, f(from.type), "to", name.2, f(to.type),
+#                  "deleted from the argument object"))
+
               return(new("DealTestClass", bayesfactor=test))
             })
 
@@ -167,9 +309,31 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
             function(object, action, name, name.1, name.2, ...)
             {
               args <- list(...)
+              Args <- args$Arguments
+              Edges <- args$newEdges$vertexEdges
+              Vertices <- Args$vertexList
               env <- args$Arguments
               result <- NULL
 
+              DoFactors <- FALSE
+              if (!is.null(args$Arguments)
+                  && !is.null(args$Arguments$factorVertexList)
+                  && (length(args$Arguments$factorVertexList) > 0)
+                  && !is.null(args$Arguments$vertexList))
+                DoFactors <- TRUE
+
+              FactorVertices  <- NULL
+              FactorEdges     <- NULL
+              BlockEdges      <- NULL
+              VisibleVertices <- Args$visibleVertices
+              VisibleBlocks   <- Args$visibleBlocks
+              ExtraVertices   <- NULL
+              ExtraEdges      <- NULL
+
+              f <- function(type) if (is.null(type)) "" else paste("(", type, ")")
+              g <- function(type) if (is.null(type)) "" else type
+
+              
               two.to.pairs <- function(from, to) {
                 edge.list <- vector("list", length(to))
                 for (j in seq(along = to)) edge.list[[j]] <- c(from[j], 
@@ -177,9 +341,6 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
                 return(edge.list)
               }
     
-              
-              FactorVertices <- NULL
-              FactorEdges <- NULL
               
               nw <- recovernetwork(object)
               
@@ -192,11 +353,11 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
                 nw2 <- remover(nw,i,j,object@data,object@prior)$nw
                 if (!is.null(nw2)) {
                   new.object <- newnetwork(nw2,object@data,object@prior)
-                  result <- list(object = new.object)
                 }
                 else {
                   cat("Failure:")
                   cat("Tried to drop edge ",i,",",j,".\n")
+                  new.object <- object
 #                  new.object <- newnetwork(nw,object@data,object@prior)
 #                    Edges <- dealEdges(object = new.object)
 #                    ArgEdges <-   
@@ -218,12 +379,12 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
                   if (!cycletest(nw2)) {
                     new.object <-
     newnetwork(nw2,object@data,object@prior)
-                  result <- list(object = new.object)
                   }
                   else {
                     cat("Failure:")
                     cat("Cycle created.\n")
-#                    new.object <-
+                  new.object <- object
+                                        #                    new.object <-
 #                      newnetwork(nw,object@data,object@prior)
 ##                    Edges <- dealEdges(object = new.object)
 ##                    ArgEdges <-   
@@ -240,7 +401,8 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
                 else {
                   cat("Failure:")
                   cat("Tried to add edge i=",i,",j=",j,".\n")
-#                  new.object <- newnetwork(nw,object@data,object@prior)
+                  new.object <- object
+                                        #                  new.object <- newnetwork(nw,object@data,object@prior)
 #                    Edges <- dealEdges(object = new.object)
 #                    ArgEdges <-   
 #                      returnEdgeList(edge.list=two.to.pairs(Edges[,1],Edges[,2]),
@@ -265,15 +427,37 @@ setMethod("dynamic.Graph", signature(object = "networkclass"),
                 new.object <- object
               }
               
+    return(list(object          = new.object,
+                BlockEdges      = BlockEdges, 
+                FactorVertices  = FactorVertices,
+                FactorEdges     = FactorEdges,
+                VisibleVertices = VisibleVertices, 
+                VisibleBlocks   = VisibleBlocks, 
+                ExtraVertices   = ExtraVertices,
+                ExtraEdges      = ExtraEdges))
+
 #              result <- list(object = new.object,
 #                             FactorVertices = FactorVertices,
 #                             FactorEdges = FactorEdges)
 
-              return(result)
+#              return(result)
             }
             )
-}  
-  
+#}  
+
+if (!isGeneric("Str")) {
+  if (is.function("Str"))
+    fun <- Str
+  else
+    fun <- function(object, setRowLabels = FALSE, title = "", ...)
+    standardGeneric("Str")
+  setGeneric("Str", fun)
+}
+
+setMethod("Str", "networkclass",
+          function(object, setRowLabels = FALSE, title = "", ...) {
+            message(object@name) })
+
 
 DealLabelAllEdges <- function(object, slave = FALSE, 
                 ...) {
@@ -311,13 +495,35 @@ DealLabelAllEdges <- function(object, slave = FALSE,
                 factorEdgeList <- visitEdges(Args$factorEdgeList)
                 blockEdgeList <- visitEdges(Args$blockEdgeList)
                 if (slave) 
-                  Args$redrawGraphWindow(graphWindow = NULL, 
-                    edgeList = edgeList, factorEdgeList = factorEdgeList, 
-                    blockEdgeList = blockEdgeList, title = "A slave window", 
-                    ...)
-                else Args$redrawGraphWindow(graphWindow = Args$graphWindow, 
+#                  DynamicGraph(overwrite=FALSE, addModel = FALSE,
+#                frameModels = Args$frameModels,  
+#                               frameViews = Args$frameViews, graphWindow = Args$graphWindow, edgeList = edgeList, oriented=TRUE,
+#                               object = object, factorVertexList = Args$factorVertexList, 
+#                               factorEdgeList = Args$FactorEdgeList, blockEdgeList = Args$BlockEdgeList, 
+#                               title = "Result from Label Edges", Arguments = Args)
+
+                  ##                  Args$redrawView(graphWindow = NULL, 
+                  ##                   edgeList = edgeList, factorEdgeList = factorEdgeList, 
+                  ##                    blockEdgeList = blockEdgeList, title = "A slave window", 
+                  ##                    ...)
+#                else
+                  Args$redrawView(graphWindow = NULL, edgeList = edgeList, 
+                    factorEdgeList = factorEdgeList, blockEdgeList = blockEdgeList, 
+                    title = "A slave window", ...)
+                else Args$redrawView(graphWindow = Args$graphWindow, 
                   edgeList = edgeList, factorEdgeList = factorEdgeList, 
                   blockEdgeList = blockEdgeList, title = "Not used!", 
                   width = NULL, height = NULL, Arguments = Args)
+#                  DynamicGraph(overwrite=FALSE, addModel = FALSE,
+#                frameModels = Args$frameModels,  
+#                               frameViews = Args$frameViews, graphWindow = Args$graphWindow, edgeList = edgeList, oriented=TRUE,
+#                               object = object, factorVertexList = Args$factorVertexList, 
+#                               factorEdgeList = Args$FactorEdgeList, blockEdgeList = Args$BlockEdgeList, 
+#                               title = "Result from Label Edges", Arguments = Args)
+
+##                  Args$redrawView(graphWindow = Args$graphWindow, 
+##                  edgeList = edgeList, factorEdgeList = factorEdgeList, 
+##                  blockEdgeList = blockEdgeList, title = "Not used!", 
+##                  width = NULL, height = NULL, Arguments = Args)
             }
                 

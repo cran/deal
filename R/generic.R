@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Aug 02 11:59:22 2004
-## Update Count    : 103
+## Last Modified On: Sun Nov 07 20:11:26 2004
+## Update Count    : 106
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -31,7 +31,7 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 .First.lib <- function(lib, pkg)
 {
 #    require(methods)
-#    require(dynamicGraph)
+    require(dynamicGraph)
     library.dynam("deal", package = pkg, lib.loc = lib)
 
       if((R.version$major == 1) && (as.numeric(R.version$minor) < 9))
@@ -54,21 +54,21 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
     cat("\n")
 
     require(methods)
-    .load.deal.networkclass()
-    .load.dynamicgraph()
+#    .load.deal.networkclass()
+#    .load.dynamicgraph()
   return(invisible(0))
 }
 
 .onAttach <- function (lib, pkg) 
 {
     require(methods)
-    .load.deal.networkclass()
+#    .load.deal.networkclass()
   }
 
 .onLoad <- function (lib, pkg) 
 {
     require(methods)
-    .load.deal.networkclass()
+#    .load.deal.networkclass()
 }
 
 

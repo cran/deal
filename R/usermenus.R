@@ -30,7 +30,7 @@
           {
             Args <- list(...)$Arguments
             ReturnVal <- modalDialog("Filename dialog", 
-                                     "Enter filename", "default.net", graphWindow = Args$graphWindow)
+                                     "Enter filename", "default.net", top = Args$top)
                     print(ReturnVal)
             
             savenet(recovernetwork(object),file(ReturnVal))

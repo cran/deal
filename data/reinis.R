@@ -13,7 +13,8 @@
 
   Reinis <- array(Reinis, dim = rep(2, 6))
   Names <- lapply(dim(Reinis), function(i) paste(1:i))
-  names(Names) <- c("A", "B", "D", "E", "F", "G")
+names(Names) <- c("smoke","mental","phys","systol","protein","family")
+#  names(Names) <- c("A", "B", "D", "E", "F", "G")
   dimnames(Reinis) <- Names
   rm(Names, Title)
 
@@ -35,7 +36,9 @@ reinis <- matrix(res,ncol=ncol(rei)-1,byrow=TRUE)
 
 reinis <- as.data.frame(reinis)
 
-names(reinis) <- LETTERS[c(1:2,4:7)]
+#names(reinis) <- LETTERS[c(1:2,4:7)]
+
+names(reinis) <- c("smoke","mental","phys","systol","protein","family")
 
 for (j in 1:ncol(reinis)) 
   reinis[,j] <- factor(reinis[,j])

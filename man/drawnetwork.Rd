@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:44 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Jan 09 10:48:16 2004
-% Update Count    : 45
+% Last Modified On: Sun Nov 14 18:01:13 2004
+% Update Count    : 46
 % Status          : Unknown, Use with caution!
 % 
 
@@ -80,12 +80,12 @@ whenever a change is made (unless \code{nocalc} is \code{TRUE}).
 
 \references{
   Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.auc.dk/novo/deal}.
+  \url{http://www.math.aau.dk/novo/deal}.
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.auc.dk}.
+  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Claus Dethlefsen \email{dethlef@math.aau.dk}.
 }
 
 

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Jan 14 08:27:43 2004
-% Update Count    : 42
+% Last Modified On: Sun Nov 14 18:01:13 2004
+% Update Count    : 43
 % Status          : Unknown, Use with caution!
 % 
 
@@ -81,13 +81,13 @@ networkfamily(data,nw=network(data), prior=jointprior(nw),
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.auc.dk}.
+  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Claus Dethlefsen \email{dethlef@math.aau.dk}.
 }
 
 \references{
   Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.auc.dk/novo/deal}.
+  \url{http://www.math.aau.dk/novo/deal}.
 }
 
 

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Jan 08 15:36:27 2004
-% Update Count    : 59
+% Last Modified On: Sun Nov 14 18:01:13 2004
+% Update Count    : 60
 % Status          : Unknown, Use with caution!
 % 
 
@@ -97,12 +97,12 @@ Shachter, R.D. and Kenley, C.R. (1989), Gaussian influence diagrams. Management
     Science {\bf 35}:527-550.
     
   Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.auc.dk/novo/deal}.
+  \url{http://www.math.aau.dk/novo/deal}.
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.auc.dk}.
+  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Claus Dethlefsen \email{dethlef@math.aau.dk}.
 }
 
 %\note{ ~~further notes~~ }

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Wed Jan 07 10:32:46 2004
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Jul 28 09:53:38 2004
-% Update Count    : 28
+% Last Modified On: Sun Nov 14 18:01:13 2004
+% Update Count    : 34
 % Status          : Unknown, Use with caution!
 % 
 \name{deal-internal}
@@ -56,9 +56,19 @@
 \alias{fun}
 \alias{modifyModel}
 
+\alias{label}
+\alias{width}
+
 \alias{DealTestClass-class}
 \alias{networkclass-class}
+\alias{integerOrNULL-class}
 
+\alias{graphComponents-methods}
+\alias{graphComponents,networkclass-method}
+\alias{setGraphComponents-methods}
+\alias{setGraphComponents,networkclass-method}
+\alias{Str-methods}
+\alias{Str,networkclass-method}
 \alias{label,DealTestClass-method}
 \alias{width,DealTestClass-method}
 \alias{dynamic.Graph-methods}
@@ -129,8 +139,8 @@ inspectprob(nw,unitscale=20,cexscale=8,
 	     }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.auc.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.auc.dk}.
+  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Claus Dethlefsen \email{dethlef@math.aau.dk}.
 }
 
 
