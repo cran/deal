@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:31 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 16:00:01 2002
-% Update Count    : 15
+% Last Modified On: Mon Nov 04 00:20:58 2002
+% Update Count    : 24
 % Status          : Unknown, Use with caution!
 % 
 
@@ -26,10 +26,10 @@
 
 \usage{
 node (idx,parents,type,name=paste(idx),
-                 levels=2,levelnames=paste(1:levels)) 
+                 levels=2,levelnames=paste(1:levels),position=c(0,0)) 
 \method{print}{node} (x,filename=NA,master=FALSE,condposterior=TRUE,condprior=TRUE,...) 
-\method{plot}{node} (x,where=c(0,0),cexscale=10,notext=FALSE,...)
-\method{prob}{node} (x,nw,df,equalcases=FALSE,vif=1.0,smalldf=NA)
+\method{plot}{node} (x,cexscale=10,notext=FALSE,scale=10,...)
+prob.node (x,nw,df,equalcases=FALSE,vif=1.0,smalldf=NA)
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -46,8 +46,8 @@ node (idx,parents,type,name=paste(idx),
   \item{levelnames}{If \code{type="discrete"} this is a vector of
     strings (as long as \code{levels}) with the names of the
     levels.}
-  \item{where}{The coordinates where the node should appear in the
-    plot. Usually set by \code{\link{plot.network}}.}
+  \item{position}{The coordinates where the node should appear in the
+    plot. Usually set by \code{\link{network}} and \code{\link{drawnetwork}}.}
   \item{df}{A dataframe, where the columns define the variables. A
     continuous variable should have type "numeric" and discrete varibles
     should have type "factor".}
@@ -63,6 +63,7 @@ node (idx,parents,type,name=paste(idx),
   \item{tvar}{Pinpoint time-varying nodes, see \code{\link{timeslice}}.}
   \item{smalldf}{For use with timevarying nodes, see \code{\link{timeslice}}.}
   \item{nw}{The network.}
+  \item{scale}{Used to position node.}
   \item{filename}{Print to file.}
   \item{condprior}{Print condprior?}
   \item{condposterior}{Print condposterior?}
@@ -92,9 +93,9 @@ node (idx,parents,type,name=paste(idx),
     \code{\link{jointprior}} using the master prior procedure (see
     \code{\link{localmaster}}). }
   \item{condposterior}{The parameter posteriors obtained from
-    \code{\link{learn.node}}.}
+    \code{\link{learnnode}}.}
   \item{loglik}{The log-likelihood contribution for this node,
-    calculated in \code{\link{learn.node}}.}
+    calculated in \code{\link{learnnode}}.}
   \item{tvar}{If missing, the node is not timevarying.}
   \item{simprob}{Added by \code{\link{makesimprob}} and used by
     \code{\link{simulation}}.}

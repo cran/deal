@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Nov 27 09:03:14 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:11:56 2002
-## Update Count    : 178
+## Last Modified On: Fri Sep 20 13:43:04 2002
+## Update Count    : 186
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,8 +24,8 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-jointprior <- function(nw,N=1,phiprior="bottcher",timetrace=FALSE,smalldf=NA) {
-  
+jointprior <- function(nw,N=NA,phiprior="bottcher",timetrace=FALSE,smalldf=NA) {
+
   ## Setup a joint prior distribution for the parameters
   ## phiprior="bottcher" or "heckerman"
   ##
@@ -63,10 +63,14 @@ jointprior <- function(nw,N=1,phiprior="bottcher",timetrace=FALSE,smalldf=NA) {
     ## Instead of calculating jointalpha, I could find the minN by
     ## taking the min(prob) of each discrete node and multiply together.
     if (nw$nc>0) {
-      minN <- min(1/jointprob)
-      if (N<=minN) {
-        N <- minN + 0.0001
-        cat("Imaginary sample size set to",N,"\n")
+##      minN <- min(1/jointprob)
+      minN <- min(2/jointprob)        ## changed 18/9-2003
+      if (is.na(N)) N <- minN
+      if (N<minN) {
+#        N <- minN + 0.0001
+#        N <- minN
+          cat("Warning: Your choice of imaginary sample size is very low\n")
+          cat("We advice you to set the imaginary sample size to",minN,"\n")
       }
     }
     ##    print(jointprob)

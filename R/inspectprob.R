@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Feb 03 15:02:14 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:08:53 2002
-## Update Count    : 17
+## Last Modified On: Thu Oct 31 21:21:05 2002
+## Update Count    : 29
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,28 +24,36 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-inspectprob <-  function(nw,scale=10,unitscale=1.3,cexscale=10,rotate=pi/4,length=.25,...) {
+inspectprob <-  function(nw,scale=10,unitscale=20,cexscale=8,arrowlength=.25,xr=c(0,350),yr=xr,...) {
 
   ## arguments are the same as for plot.network.
   
   par(mfrow=c(1,1))  
-  plot(nw,scale,unitscale,cexscale,rotate,length,...)
+  plot(x=nw,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
   title("Inspect/Change initial probability distribution")
 
-  points(0,0,cex=cexscale+4,pch=5)
-  text(0,0,"Click here to stop")
+  xc <- mean(xr)
+  yc <- mean(yr)
+  
+  points(xc,yc,cex=cexscale+4,pch=5)
+  text(xc,yc,"Click here to stop")
 
   mode <- "Inspect"
   
   newnet <- nw
   quit   <- FALSE
   unit   <- 2*pi/nw$n
-  where  <- 0.7*scale* cbind(
-                             cos(unit*(1:nw$n)+rotate),
-                             sin(unit*(1:nw$n)+rotate))
-  where <- rbind(where,c(0,0))
-  where <- rbind(where,c(scale-1,scale-1))
-  where <- rbind(where,c(scale-1,scale-3))
+#  where  <- 0.7*scale* cbind(
+#                             cos(unit*(1:nw$n)+rotate),
+#                             sin(unit*(1:nw$n)+rotate))
+  where <- t(matrix(unlist(lapply(newnet$nodes,
+                                  function(x) x$position)),nrow=2)) 
+  where <- rbind(where,c(xc,yc))
+  
+  buttonx <- 20
+  buttony <- 30
+  where <- rbind(where,c(2*xc-buttonx,2*yc))
+  where <- rbind(where,c(2*xc-buttonx,2*yc-buttony))
   
   nlist  <- names(nw$nodes)
   while(!quit) {
@@ -59,10 +67,10 @@ inspectprob <-  function(nw,scale=10,unitscale=1.3,cexscale=10,rotate=pi/4,lengt
       bgrem <- "black"; fgrem <- "white";
     }
 
-    symbols(scale-1,scale-1,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgadd)
-    text(scale-1,scale-1,"Inspect",col=fgadd)
-    symbols(scale-1,scale-3,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgrem)
-    text(scale-1,scale-3,"Change",col=fgrem)
+    symbols(2*xc-buttonx,2*yc,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgadd)
+    text(2*xc-buttonx,2*yc,"Inspect",col=fgadd)
+    symbols(2*xc-buttonx,2*yc-buttony,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgrem)
+    text(2*xc-buttonx,2*yc-buttony,"Change",col=fgrem)
 
     from <- identify(where[,1],where[,2],rep("",nw$n+3),n=1)
 
@@ -87,14 +95,14 @@ inspectprob <-  function(nw,scale=10,unitscale=1.3,cexscale=10,rotate=pi/4,lengt
       }
 
 
-    plot(newnet,scale,unitscale,cexscale,rotate,length,...)
+    plot(newnet,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
     title("Inspect/Change initial probability distribution")
-    points(0,0,cex=cexscale+4,pch=5)
-    text(0,0,"Click here to stop")
+    points(xc,yc,cex=cexscale+4,pch=5)
+    text(xc,yc,"Click here to stop")
 
     ##    switch(menu(c("stop","continue?\n"))+1,quit<-T,quit<-T,quit<-F)
   }
-  plot(newnet,scale,unitscale,cexscale,rotate,length,...)
+  plot(newnet,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,xr=xr,yr=yr,...)
 
   newnet
 }

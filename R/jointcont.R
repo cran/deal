@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Wed Mar 06 12:52:57 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:10:56 2002
-## Update Count    : 252
+## Last Modified On: Fri Oct 04 10:19:07 2002
+## Update Count    : 254
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -180,7 +180,7 @@ jointcont <- function(nw,timetrace=FALSE) {
                     cat("permvek:",permvek,"\n")
                     cat("bigM\n");         print(bigM)
                 }
-                for (i in 1:length(unique(bigM))) { ## not nice
+                for (i in 1:length(unique(c(bigM)))) { ## not nice
                     theidx <- M[bigM==i]
                     cf <- findex(theidx,Dim,config=FALSE)
                     cfm<- cf[,match(dparents,nw$discrete)]
@@ -315,7 +315,8 @@ jointcont <- function(nw,timetrace=FALSE) {
                     cat("m.y=\n");print(m.y)
                 }
                 
-                mu[,nidx] <- m.y
+##                mu[,nidx] <- m.y
+                mu[k,nidx] <- m.y                ## bug fix 20/9 02
                 ##        sigma2[nidx,nidx] <- s2.y
                 ##        sigma2[parentidx,nidx] <- s.xy
                 ##        sigma2[nidx,parentidx] <- t(s.xy)

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:04:28 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 18:48:54 2002
-% Update Count    : 8
+% Last Modified On: Fri Sep 20 09:50:36 2002
+% Update Count    : 9
 % Status          : Unknown, Use with caution!
 % 
 
@@ -13,7 +13,7 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
-\title{Simulation of datasets with a given (in)dependency structure}
+\title{Simulation of datasets with a given dependency structure}
 
 \description{
   Given a network with nodes having the 'simprob'-attribute, simulates a dataset

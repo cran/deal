@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:06:41 2002
-## Update Count    : 77
+## Last Modified On: Sun Nov 03 16:50:03 2002
+## Update Count    : 83
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -28,25 +28,25 @@
 
 line <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 
-prob <- function(object,...) {
-  UseMethod("prob")
-}
+#prob <- function(object,...) {
+#  UseMethod("prob")
+#}
 
-cond <- function(object,...) {
-  UseMethod("cond")
-}
+#cond <- function(node,...) {
+#  UseMethod("cond")
+#}
 
-learn <- function(object,...) {
-  UseMethod("learn")
-}
+#learn <- function(object,...) {
+#  UseMethod("learn")
+#}
 
 .First.lib <- function(lib, pkg)
 {
     library.dynam("deal", package = pkg, lib.loc = lib)
-    if (!exists("nosplash")) {
-        if (interactive()) splash()
-        nosplash <<- TRUE
-    }
+#    if (!exists("nosplash")) {
+#        if (interactive()) splash()
+#        nosplash <<- TRUE
+#    }
     cat("\n")
     cat("-------------------------------------------------------------\n")
     cat(package.description("deal", lib = lib, field="Title"))

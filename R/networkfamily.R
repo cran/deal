@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Oct 30 16:43:05 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:15:54 2002
-## Update Count    : 410
+## Last Modified On: Wed Oct 30 20:21:19 2002
+## Update Count    : 414
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -88,12 +88,12 @@ networkfamily <- function(data,nw=network(data),prior=jointprior(nw),trylist=rep
 
 
 
-plot.networkfamily <- function(x,layout=rep(min(1+floor(sqrt(length(nwf))),5),2),cexscale=5,length=0.1,scale=10,sscale=.7*scale,...) {
+plot.networkfamily <- function(x,layout=rep(min(1+floor(sqrt(length(nwf))),5),2),cexscale=5,arrowlength=0.1,scale=10,sscale=.7*scale,...) {
     nwf <- x
     par(mfrow=layout)
   for (i in 1:length(nwf)) {
     par(mar=c(0,0,0,0))
-       plot(nwf[[i]],cexscale=cexscale,length=length,scale=scale,sscale=sscale,showban=FALSE,...)
+       plot(nwf[[i]],cexscale=cexscale,arrowlength=arrowlength,scale=scale,sscale=sscale,showban=FALSE,...)
   }
   par(mfrow=c(1,1))
 }
@@ -119,7 +119,7 @@ nwfsort <- function(nwf) {
 #    relscore <- max(tab)/tab
 
 #  relscore <- exp( tab - tab[sl[1]] )
-  relscore <- tab - tab[sl[1]] 
+  relscore <- exp(tab - tab[sl[1]]) 
   
   ## create the sorted family
 #  snwf <- nwf

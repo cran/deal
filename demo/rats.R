@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Mar 11 15:22:48 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Sep 16 16:01:49 2002
-## Update Count    : 40
+## Last Modified On: Sun Nov 03 16:43:08 2002
+## Update Count    : 44
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -46,6 +46,8 @@ rats.prior <- jointprior(rats,12)
 rats <- learn(rats,rats.df,rats.prior)$nw
 rats.empty <- learn(network(rats.df),rats.df,rats.prior)$nw
 rats.empty$banlist <- rats$banlist
+## transfer node positions
+for (i in 1:rats$n) rats.empty$nodes[[i]]$position <- rats$nodes[[i]]$position
 
 line()
 cat("Now, draw your favorite network. Notice how the\n",
@@ -67,6 +69,7 @@ plot(hiscorelist$nw)
 
 par(op)
 rats.empty$banlist <- newrat$banlist
+for (i in 1:rats$n) rats.empty$nodes[[i]]$position <- newrat$nodes[[i]]$position
 allrats <- networkfamily(rats.df,rats.empty,rats.prior)
 op <- par(ask=TRUE)
 cat("We have now generated all",numbermixed(2,2),"networks\n")

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Jan 14 12:24:13 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:13:04 2002
-## Update Count    : 476
+## Last Modified On: Mon Nov 04 10:57:50 2002
+## Update Count    : 495
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -24,10 +24,11 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ######################################################################
 
-learn.network <- function(nw, df, prior=jointprior(nw),
+learn <- function(nw, df, prior=jointprior(nw),
                           nodelist=1:nw$n,trylist=
                           rep(list(NULL),nw$n),
-                          timetrace=FALSE,smalldf=NA
+                          timetrace=FALSE,smalldf=NA,
+                          usetrylist = nw$n<=6
                           ) {
     ## nw: network to be learned (condprior must be present in the nodes)
     ## df: dataframe with observations
@@ -41,7 +42,7 @@ learn.network <- function(nw, df, prior=jointprior(nw),
     ##           loglik: the log-likelihood contribution of the node
     ##           cond:   updated posterior parameters
     ##
-    ## Uses: reuselearn, cond, learn.node
+    ## Uses: reuselearn, cond, learnnode
     ## and network attributes: nodes, score is updated
     ## and node attributes: tvar,condprior,condposterior is updated
     ##
@@ -76,21 +77,24 @@ learn.network <- function(nw, df, prior=jointprior(nw),
         else
             df <- old
         ##   cat("node:",node$name,"nrow(df)=",nrow(df),"\n")
-        reuse <- reuselearn(node,trylist)
-        if (reuse != 0) {
-            ##      cat("reusing,",reuse,"\n")
-            nw$nodes[[i]] <- trylist[[i]][[reuse]]
-            break
+        if (usetrylist) {
+            reuse <- reuselearn(node,trylist)
+            if (reuse != 0) {
+                ##      cat("reusing,",reuse,"\n")
+                nw$nodes[[i]] <- trylist[[i]][[reuse]]
+                break
+            }
         }
         
-        node <- cond(node,nw,prior) ## master prior procedure
+        node <- cond.node(node,nw,prior) ## master prior procedure
         
         node$condposterior <- node$condprior ## reset posterior
         node$loglik        <- 0
-        node <- learn(node,nw,df,timetrace=FALSE)## learn!
+        node <- learnnode(node,nw,df,timetrace=FALSE)## learn!
         
         ## update trylist
-        trylist[[i]][length(trylist[[i]])+1] <- list(node)
+        if (usetrylist)
+            trylist[[i]][length(trylist[[i]])+1] <- list(node)
         
         ## update network
         nw$nodes[[i]] <- node
@@ -107,7 +111,7 @@ learn.network <- function(nw, df, prior=jointprior(nw),
     list(nw=nw,trylist=trylist)
 }
 
-learn.node <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
+learnnode <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
     ## node: node to be learned. condprior must be present
     ## nw:   network
     ## df:   dataframe to learn from
@@ -144,6 +148,7 @@ learn.node <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
         node$condposterior[[1]]$alpha <- node$condprior[[1]]$alpha+
             as.array(table(df[,sort(c(node$idx,node$parents))]))
         node$loglik <- udisclik(node,nw,df) ## batch update likelihood term
+        node <- postdist.node(node,nw)
         if (timetrace) {
             t2 <- proc.time()
             cat((t2-t1)[1],"]")
@@ -176,6 +181,7 @@ learn.node <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
         node$condposterior[[1]]$rho <- res$rho
         node$condposterior[[1]]$phi <- res$phi
         node$loglik <- res$loglik
+        node <- postdist.node(node,nw)
         return(node)
     }
     parents <- node$parents     ## the parents, 
@@ -252,6 +258,7 @@ learn.node <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
         } ## for j
         ##        print(node)
         node$loglik <- mscore
+        node <- postdist.node(node,nw)
         return(node)
     }
     
@@ -281,6 +288,7 @@ learn.node <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
         node$condposterior[[1]]$rho <- res$rho
         node$condposterior[[1]]$phi <- res$phi
         node$loglik <- res$loglik
+        node <- postdist.node(node,nw)
         return(node)
     }
     
@@ -355,6 +363,7 @@ learn.node <- function(node,nw,df,prior=jointprior(nw),timetrace=FALSE) {
         } ## for j
         ##        print(node)
         node$loglik <- mscore
+        node <- postdist.node(node,nw)
         return(node)
         
     }

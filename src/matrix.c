@@ -3,8 +3,8 @@
  * Author          : Claus Dethlefsen
  * Created On      : Thu Mar 14 06:48:02 2002
  * Last Modified By: Claus Dethlefsen
- * Last Modified On: Tue May 07 09:40:27 2002
- * Update Count    : 33
+ * Last Modified On: Sun Nov 03 21:33:42 2002
+ * Update Count    : 34
  * Status          : Ready
  */
 
@@ -233,3 +233,5 @@ int invers(double **a, int n, double **b, int m)
 //   free_ivector(indxc,1,n);
    return(0);
 }
+
+

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:44 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 15:57:56 2002
-% Update Count    : 2
+% Last Modified On: Sun Nov 03 16:57:52 2002
+% Update Count    : 14
 % Status          : Unknown, Use with caution!
 % 
 
@@ -22,11 +22,12 @@
 
 \usage{
 drawnetwork(nw,df,prior,trylist=rep(list(NULL),nw$n),
-            scale=10,unitscale=1.3,cexscale=10,rotate=pi/4,
-            length=.25,nocalc=FALSE,smalldf=NA,...)
+            scale=10,unitscale=20,cexscale=8,
+            arrowlength=.25,nocalc=FALSE,smalldf=NA,
+            yr=c(0,350),xr=yr,...)
 
-inspectprob(nw,scale=10,unitscale=1.3,cexscale=10,rotate=pi/4,
-            length=.25,...) 
+inspectprob(nw,scale=10,unitscale=20,cexscale=8,
+            arrowlength=.25,xr=c(0,350),yr=xr,...) 
 
 }
 
@@ -37,13 +38,14 @@ inspectprob(nw,scale=10,unitscale=1.3,cexscale=10,rotate=pi/4,
   \item{prior}{A joint prior, see \code{\link{jointprior}}.}
   \item{trylist}{Used internally for reusing learning of nodes, see \code{\link{maketrylist}}.}
   \item{cexscale}{Passed to \code{\link{plot.network}}.}
-  \item{length}{Passed to \code{\link{plot.network}}.}
-  \item{rotate}{Passed to \code{\link{plot.network}}.}
+  \item{arrowlength}{Passed to \code{\link{plot.network}}.}
   \item{nocalc}{Used when no learning is wanted, see eg. \code{\link{simulation}}.}
   \item{smalldf}{Used for analysing networks with time-varying nodes,
     see \code{\link{timeslice}}.}
   \item{unitscale}{Passed to \code{\link{plot.network}}.}
   \item{scale}{Passed to \code{\link{plot.network}}.}
+  \item{xr}{Range on x-axis.}
+  \item{yr}{Range on y-axis.}
   \item{...}{Passed to \code{\link{plot.network}}.}
 }
 

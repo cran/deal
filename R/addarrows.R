@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:02:07 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Sep 16 18:42:52 2002
-## Update Count    : 186
+## Last Modified On: Wed Oct 23 20:32:23 2002
+## Update Count    : 187
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -116,7 +116,6 @@ insert <- function(nw,j,i,df,prior,nocalc=FALSE,trylist=rep(list(NULL),nw$n),sma
 
 ##  else { ## bingo
     ## update parents
-#  cat("bingo\n")
     nw$nodes[[i]]$parents <- sort(c(nw$nodes[[i]]$parents,j))
 ##  }
   if (!nocalc) {

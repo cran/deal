@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Mar 12 06:52:02 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:18:23 2002
-## Update Count    : 130
+## Last Modified On: Mon Nov 04 00:45:20 2002
+## Update Count    : 140
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -26,6 +26,7 @@
 
 postc <- function(mu,tau,rho,phi,y,z,timetrace=FALSE) {
     ## Posterior for continuous node with continuous parents
+    ## written as a for-loop in R (slow)
     if (timetrace) {t1 <- proc.time();cat("[postc ")}
     
     
@@ -95,6 +96,7 @@ postc <- function(mu,tau,rho,phi,y,z,timetrace=FALSE) {
 
 post <- function(mu,tau,rho,phi,y,z,timetrace=FALSE) {
     ## Posterior for continuous node with continuous parents
+    ## written as matrix notation in R
     if (timetrace) {t1 <- proc.time();cat("[post ")}
     
     if (FALSE) {
@@ -133,8 +135,50 @@ post <- function(mu,tau,rho,phi,y,z,timetrace=FALSE) {
     list(mu=mu.n,tau=tau.n,rho=rho.n,phi=phi.n,loglik=loglik)
 }
 
+postM <- function(mu,tau,rho,phi,y,z,timetrace=FALSE) {
+    ## Posterior for continuous node with continuous parents
+    ## written as Matrix notation in R (needs Matrix)
+    if (timetrace) {t1 <- proc.time();cat("[postM ")}
+    
+    if (FALSE) {
+        cat("mu=\n"); print(mu)
+        cat("tau=\n");print(tau)
+        cat("rho=\n");print(rho)
+        cat("phi=\n");print(phi)
+        cat("y=\n");print(y)
+        cat("z=\n");print(z)
+    }
+    z <- as.Matrix(z)
+    mu.n  <- solve(as.Matrix(tau+t(z)%*%z))%*%(tau%*%mu+t(z)%*%y)
+    tau.n <- tau + t(z)%*%z
+    rho.n <- rho + length(y)
+    phi.n <- phi + t(y - z%*%mu.n)%*%y + t(mu - mu.n)%*%tau%*%mu
+
+
+    loglik <- 0
+    s <- as.numeric(phi)/rho*(diag(nrow(z))+ z%*%solve(tau)%*%t(z))
+    k <- lgamma( (rho + length(y))/2 ) - lgamma(rho/2)-0.5*log(det(rho*s*pi))
+    ind <- log( 1 + (mahalanobis(y,center=z%*%mu,cov=s,inverted=FALSE))/rho)
+    loglik <- as.numeric(k) - (rho+length(y))/2 * ind
+
+        
+    if (FALSE) {
+        line()
+        print(sum(loglik))
+    }
+
+    if (timetrace) {
+        t2 <- proc.time()
+        cat((t2-t1)[1],"]")
+    }
+
+    list(mu=mu.n,tau=tau.n,rho=rho.n,phi=phi.n,loglik=loglik)
+}
+
+
 postcc <- function(mu,tau,rho,phi,y,z,timetrace=FALSE) {
     ## Posterior for continuous node with x parents
+    ## written as for-loop in C (fast)
     if (timetrace) {t1 <- proc.time();cat("[postcc ")}
     
     

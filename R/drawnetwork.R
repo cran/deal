@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 30 22:05:59 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Sep 16 18:43:34 2002
-## Update Count    : 216
+## Last Modified On: Thu Oct 31 21:21:18 2002
+## Update Count    : 276
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -31,21 +31,25 @@
 ## retunerer et netvaerk (med en prob)
 
 
-drawnetwork <-  function(nw,df,prior,trylist=rep(list(NULL),nw$n),scale=10,unitscale=1.3,cexscale=10,rotate=pi/4,length=.25,nocalc=FALSE,smalldf=NA,...) {
+drawnetwork <-  function(nw,df,prior,trylist=rep(list(NULL),nw$n),scale=10,unitscale=20,cexscale=8,arrowlength=.25,nocalc=FALSE,smalldf=NA,yr=c(0,350),xr=yr,...) {
 
   ## arguments are the same as for plot.network. Well, not
   ## anymore...
   ## nocalc=T: don't calculate scores (for use with 'specifynetwork')
   
   par(mfrow=c(1,1))  
-  plot(nw,scale,unitscale,cexscale,rotate,length,showban=TRUE,...)
+  plot(nw,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,showban=TRUE,xr=xr,yr=yr,...)
 
-  points(0,0,cex=cexscale+4,pch=5)
-  text(0,0,"Click here to stop")
+  xc <- mean(xr)
+  yc <- mean(yr)
+
+  points(xc,yc,cex=cexscale+4,pch=5)
+  text(xc,yc,"Click here to stop")
 
 
   mode <- "Add"
   banmode <- FALSE
+  movemode <- FALSE
   if (length(nw$banlist)>0)
       banlist <- nw$banlist
   else
@@ -56,17 +60,24 @@ drawnetwork <-  function(nw,df,prior,trylist=rep(list(NULL),nw$n),scale=10,units
   newnet <- nw
   quit   <- FALSE
   unit   <- 2*pi/nw$n
-  where  <- 0.7*scale* cbind(
-                             cos(unit*(1:nw$n)+rotate),
-                             sin(unit*(1:nw$n)+rotate))
-  where <- rbind(where,c(0,0))
-  where <- rbind(where,c(scale-1,scale-1))
-  where <- rbind(where,c(scale-1,scale-3))
-  where <- rbind(where,c(scale-1,scale-5))
+#  where  <- 0.7*scale* cbind(
+#                             cos(unit*(1:nw$n)+rotate),
+#                             sin(unit*(1:nw$n)+rotate))
+
   
   nlist  <- names(nw$nodes)
   while(!quit) {
 
+  where <- t(matrix(unlist(lapply(newnet$nodes,function(x) x$position)),nrow=2))
+  buttonx <- 20
+  buttony <- 30
+  where <- rbind(where,c(xc,yc))
+  where <- rbind(where,c(2*xc-buttonx,2*yc))
+  where <- rbind(where,c(2*xc-buttonx,2*yc-buttony))
+  where <- rbind(where,c(2*xc-buttonx,2*yc-2*buttony))
+  where <- rbind(where,c(2*xc-buttonx,2*yc-3*buttony))
+
+      
 ##      print(newnet$banlist)
       
     if (mode=="Add") {
@@ -77,6 +88,11 @@ drawnetwork <-  function(nw,df,prior,trylist=rep(list(NULL),nw$n),scale=10,units
       bgadd <- "white"; fgadd <- "black";
       bgrem <- "black"; fgrem <- "white";
     }
+    if (movemode) {
+      bgmove <- "black"; fgmove <- "white";
+    }
+    else {
+        bgmove <- "white"; fgmove <- "black"; }
 
     if (banmode) {
         bgban <- "black"; fgban <- "white";}
@@ -84,56 +100,67 @@ drawnetwork <-  function(nw,df,prior,trylist=rep(list(NULL),nw$n),scale=10,units
         bgban <- "white"; fgban <- "black"; }
         
     
-    symbols(scale-1,scale-1,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgadd)
-    text(scale-1,scale-1,"Add",col=fgadd)
-    symbols(scale-1,scale-3,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgrem)
-    text(scale-1,scale-3,"Remove",col=fgrem)
+    symbols(2*xc-buttonx,2*yc,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgadd)
+    text(2*xc-buttonx,2*yc,"Add",col=fgadd)
+    symbols(2*xc-buttonx,2*yc-buttony,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgrem)
+    text(2*xc-buttonx,2*yc-buttony,"Remove",col=fgrem)
 
-    symbols(scale-1,scale-5,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgban)
-    text(scale-1,scale-5,"Ban",col=fgban)
+    symbols(2*xc-buttonx,2*yc-2*buttony,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgban)
+    text(2*xc-buttonx,2*yc-2*buttony,"Ban",col=fgban)
 
-    from <- identify(where[,1],where[,2],rep("",nw$n+4),n=1)
+    symbols(2*xc-buttonx,2*yc-3*buttony,rectangles=matrix(c(2,1),1),add=TRUE,bg=bgmove)
+    text(2*xc-buttonx,2*yc-3*buttony,"Move",col=fgmove)
+    
+    from <- identify(where[,1],where[,2],rep("",nw$n+5),n=1)
 
     if (from==nw$n+1) break
     if (from==nw$n+2) { mode <- "Add"; next }
     if (from==nw$n+3) { mode <- "Remove"; next }
     if (from==nw$n+4) { banmode <- !banmode;next }
+    if (from==nw$n+5) { movemode <- !movemode;next }
 
-    cat(mode, "arrow from",nlist[from],"to ")
-    to <- identify(where[,1],where[,2],rep("",nw$n+4),n=1)
+  if (!movemode) cat(mode, "arrow from",nlist[from],"to ")
+    if (movemode) 
+        to <- unlist(locator(1))
+    else
+        to <- identify(where[,1],where[,2],rep("",nw$n+5),n=1)
     
     if (to==nw$n+1) break
     if (to==nw$n+2) { mode <- "Add"; next }
     if (to==nw$n+3) { mode <- "Remove"; next }
     if (to==nw$n+4) { banmode <- !banmode;next }
-    
-    cat(nlist[to],"\n")
+    if (to==nw$n+5) { movemode <- !movemode;next }
 
-    if (!banmode) {
-        if (mode=="Add") {
-            tempnet <-
-        insert(newnet,from,to,df,prior,nocalc,trylist=trylist,smalldf=smalldf)
-        }
-        else if(mode=="Remove")
-            tempnet <- remover(newnet,from,to,df,prior,nocalc,trylist=trylist,smalldf=smalldf)
-        
-        
-        if (length(tempnet$nw)>0) {
+#    cat("TO: ", to,"\n")
+    if (!movemode)
+        cat(nlist[to],"\n")
+
+    if (!movemode) {
+        if (!banmode) {
+            if (mode=="Add") {
+                tempnet <-
+                    insert(newnet,from,to,df,prior,nocalc,trylist=trylist,smalldf=smalldf)
+            }
+            else if(mode=="Remove")
+                tempnet <- remover(newnet,from,to,df,prior,nocalc,trylist=trylist,smalldf=smalldf)
+            
+            
+            if (length(tempnet$nw)>0) {
 #            cat("going to test for cycles:",cycletest(tempnet$nw),"\n")
-            if (!cycletest(tempnet$nw)) {
-                newnet <- tempnet
-                trylist <- newnet$trylist
-                newnet <- newnet$nw
-            }        
-            else
-                cat("Oh, no - you created a cycle. Try again\n")
+                if (!cycletest(tempnet$nw)) {
+                    newnet <- tempnet
+                    trylist <- newnet$trylist
+                    newnet <- newnet$nw
+                }        
+                else
+                    cat("Oh, no - you created a cycle. Try again\n")
+            }
+            else cat("something happened\n")
         }
-        else cat("something happened\n")
-    }
-    else {
-##        cat("banmode is on...\n")
-           if (mode=="Add") {
-#               cat("Trying to add",from,"->",to,"to banlist\n")
+        else {
+            ##        cat("banmode is on...\n")
+            if (mode=="Add") {
+                                        #               cat("Trying to add",from,"->",to,"to banlist\n")
                ## hvad skal der gælde nu?
                ## from!=to
                ## pil lovlig, dvs ej fra cont. til diskret
@@ -187,17 +214,22 @@ drawnetwork <-  function(nw,df,prior,trylist=rep(list(NULL),nw$n),scale=10,units
                    
 
            }
+        }
+    }
+    else {
+##        cat("changing (",nw$nodes[[from]]$position,") to (",to,")\n")
+        newnet$nodes[[from]]$position <- to
     }
 
     
     newnet$banlist <- banlist
-    plot(newnet,scale,unitscale,cexscale,rotate,length,showban=TRUE,...)
-    points(0,0,cex=cexscale+4,pch=5)
-    text(0,0,"Click here to stop")
+    plot(newnet,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,showban=TRUE,xr=xr,yr=yr,...)
+    points(xc,yc,cex=cexscale+4,pch=5)
+    text(xc,yc,"Click here to stop")
 
     ##    switch(menu(c("stop","continue?\n"))+1,quit<-T,quit<-T,quit<-F)
   }
-  plot(newnet,scale,unitscale,cexscale,rotate,length,showban=TRUE,...)
+  plot(newnet,scale=scale,unitscale=unitscale,cexscale=cexscale,arrowlength=arrowlength,showban=TRUE,xr=xr,yr=yr,...)
 
   list(nw=newnet,trylist=trylist)
 }

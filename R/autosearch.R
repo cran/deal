@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Jan 11 10:54:00 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:04:04 2002
-## Update Count    : 212
+## Last Modified On: Thu Oct 24 08:39:32 2002
+## Update Count    : 220
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -92,10 +92,23 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),maxiter=50,tr
         
         
         ## remove cycles and then choose the best
-        thisnwl <- thisnwl[!unlist(lapply(thisnwl,cycletest))]
-        nw <- thisnwl[[1]]
+        if (saveall)
+        {
+            thisnwl <- thisnwl[!unlist(lapply(thisnwl,cycletest))]
+            nw <- thisnwl[[1]]
         ## what if all of them contains cycles? They do not.
-        
+        }
+        else
+        {
+            ## new strategy: choose the 'best' and then check for cycle.
+            kk <- 1
+            while (TRUE) {
+                nw <- thisnwl[[kk]]
+                kk <- kk + 1
+                if (!cycletest(nw)) break
+                if (timetrace) cat(".")
+            }
+        }
         if (timetrace) {s6 <- proc.time()[1];
                         tcho <- tcho+s6-s5
                     }
@@ -105,7 +118,9 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),maxiter=50,tr
         
         if (nw$score > hiscore) {
             hiscore <- nw$score
-            if (trace) plot(nw,showban=showban)
+            if (trace) {plot(nw,showban=showban)
+                        print(nw)
+                    }
         }
         else
         {

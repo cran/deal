@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Sep 18 08:46:28 2002
-% Update Count    : 8
+% Last Modified On: Thu Oct 31 21:12:56 2002
+% Update Count    : 10
 % Status          : Unknown, Use with caution!
 % 
 
@@ -29,7 +29,7 @@ networkfamily(data,nw=network(data), prior=jointprior(nw),
 \method{print}{networkfamily}(x,...)
 \method{plot}{networkfamily}(x,
         layout=rep(min(1+floor(sqrt(length(nwf))),5),2),
-        cexscale=5,length=0.1,scale=10,sscale=.7*scale,...) 
+        cexscale=5,arrowlength=0.1,scale=10,sscale=.7*scale,...) 
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -45,7 +45,7 @@ networkfamily(data,nw=network(data), prior=jointprior(nw),
   \item{layout}{2-dimensional vector of the number of plots in the rows
     and columns of each plotting page.}
   \item{cexscale}{See \code{\link{plot.network}}}
-  \item{length}{See \code{\link{plot.network}}}
+  \item{arrowlength}{See \code{\link{plot.network}}}
   \item{scale}{See \code{\link{plot.network}}}
   \item{sscale}{See \code{\link{plot.network}}}
   \item{...}{Other plot parameters passed to \code{\link{plot.network}}.}

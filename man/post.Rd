@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Mon May 06 10:35:00 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 18:48:38 2002
-% Update Count    : 27
+% Last Modified On: Mon Nov 04 10:56:28 2002
+% Update Count    : 30
 % Status          : Unknown, Use with caution!
 % 
 
@@ -14,6 +14,7 @@
 \alias{postc}
 \alias{postc0c}
 \alias{postcc}
+\alias{postM}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 
@@ -24,6 +25,7 @@
 
 \usage{
 post   (mu,tau,rho,phi,y,z,timetrace=FALSE) 
+postM   (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 postc  (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 postcc (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 post0  (mu,tau,rho,phi,y,timetrace=FALSE) 
@@ -45,7 +47,7 @@ postc0c(mu,tau,rho,phi,y,timetrace=FALSE)
 }
 
 \details{These functions are called by the learning routines
-  (learn.network, learn.node).
+  (learn, learnnode).
 
   post0: Posterior for continuous node with 0 parents as batch learning.
 
@@ -56,6 +58,8 @@ postc0c(mu,tau,rho,phi,y,timetrace=FALSE)
 
  post: as postc, but as batch learning.
 
+ postM: as post, but using the Matrix library.
+
  postcc: as postc, but using C.
 
 }
@@ -63,7 +67,7 @@ postc0c(mu,tau,rho,phi,y,timetrace=FALSE)
 \value{Updated parameters and log-network score contribution of current node.
 }
 
-\seealso{\code{\link{learn.node}}}
+\seealso{\code{\link{learnnode}}}
 
 \references{
   Further information about \bold{Deal} can be found at:\cr
@@ -85,7 +89,7 @@ postc0c(mu,tau,rho,phi,y,timetrace=FALSE)
   fit       <- network(rats,specifygraph=FALSE,inspect=FALSE)
   fit.prior <- jointprior(fit,12) 
   W1        <- fit$nodes$W1
-  W1        <- cond(W1,fit,fit.prior)
+  W1        <- cond.node(W1,fit,fit.prior)
   W1.post   <-  postc0c(W1$condprior[[1]]$mu,
                        W1$condprior[[1]]$tau,
                        W1$condprior[[1]]$rho,

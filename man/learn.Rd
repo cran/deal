@@ -3,16 +3,15 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Sep 18 08:44:03 2002
-% Update Count    : 11
+% Last Modified On: Sun Nov 03 20:38:19 2002
+% Update Count    : 20
 % Status          : Unknown, Use with caution!
 % 
 
 \name{learn}
-\alias{learn.network}
 \alias{learn}
 \alias{reuselearn}
-\alias{learn.node}
+\alias{learnnode}
 \alias{udisclik}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
@@ -24,12 +23,13 @@
 }
 
 \usage{
-\method{learn}{network} (nw, df, prior=jointprior(nw),
+learn (nw, df, prior=jointprior(nw),
                        nodelist=1:nw$n,trylist=
                        rep(list(NULL),nw$n),
-                       timetrace=FALSE,smalldf=NA
+                       timetrace=FALSE,smalldf=NA,
+                       usetrylist = nw$n<=6
                        ) 
-\method{learn}{node}(node,nw,df,prior=jointprior(nw),timetrace=FALSE)
+learnnode(node,nw,df,prior=jointprior(nw),timetrace=FALSE)
 
 udisclik(node,nw,df)
 
@@ -47,6 +47,8 @@ reuselearn(node,trylist)
     see \code{\link{timeslice}}.}
   \item{timetrace}{If TRUE, prints some timing information on the screen.}
   \item{node}{Node to be learned.}
+  \item{usetrylist}{Use trylist or not. If the number of nodes is large,
+    the lookup in the trylist is slower than re-learning the node.}
 }
 
 \details{

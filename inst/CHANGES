@@ -1,3 +1,18 @@
+1.1-1:  A few fixes before CRAN release
+1.1-0:  Second CRAN release
+1.0-31: Fixed package tests codoc() and generic. (changes in learn,prob,cond)
+1.0-30: readnet added. Move functionality. changes in plot functions.
+1.0-29: usetrylist introduced in learn.network. Defaults to TRUE if nw$n<=6
+1.0-28: put print() in autosearch if trace=T, removed trylist in learn
+1.0-27: speed-up in autosearch when saveall==F
+1.0-26: fixed bug in savenet (+ -)
+1.0-25: fixed bug in jointcont due to different behavior of unique in R 1.6
+1.0-24: postdist added and learn.node changed
+1.0-23: minor doc-fix, inclusion of ksl data, savenet added
+1.0-22: fixed bug in jointcont
+1.0-21: minimum N changed in jointprior, splash-screen removed,
+        relscores now exp()
+1.0-20: Final fixes for CRAN release using codoc and checkTnF
 1.0-19: Final fixes for CRAN release
 1.0-18: adapting to R 1.6.0 (F=FALSE,T=TRUE,index for demo)
 1.0-17: autosearch option saveall introduced to reduce memory problems.

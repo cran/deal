@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 15:58:34 2002
-% Update Count    : 24
+% Last Modified On: Wed Sep 25 17:39:49 2002
+% Update Count    : 26
 % Status          : Unknown, Use with caution!
 % 
 
@@ -22,7 +22,7 @@
 }
 
 \usage{
-jointprior(nw,N=1,phiprior="bottcher",timetrace=FALSE,smalldf=NA) 
+jointprior(nw,N=NA,phiprior="bottcher",timetrace=FALSE,smalldf=NA) 
 jointdisc(nw,timetrace=FALSE)
 jointcont(nw,timetrace=FALSE)
 }
@@ -34,7 +34,7 @@ jointcont(nw,timetrace=FALSE)
     \code{\link{network}}.}
   \item{N}{The size of the imaginary database. If this is too small,
     errors might occur. If no \code{N} is given, the procedure tries to
-    set a value as low as possible and prints this on the screen.}
+    set a value as low as possible.}
   \item{phiprior}{The way of specifying the prior for phi. Either
     \code{phiprior="bottcher"} or \code{phiprior="heckerman"} can be used.}
   \item{timetrace}{If \code{TRUE}, prints some timing information on the

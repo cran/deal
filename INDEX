@@ -13,6 +13,7 @@ heuristic               Heuristic greedy search with random restart
 insert                  Insert/remove an arrow in network
 jointprior              Setup a joint prior distribution for the
                         parameters
+ksl                     Health and social characteristics
 learn                   Learning networks and nodes
 line                    Prints a line of symbols
 localmaster             Local master
@@ -28,8 +29,12 @@ nwfunique               Thin a list of networks
 perturb                 Perturb a network
 post                    Calculation of parameter posteriors for
                         continuous node
+postdist                Calculate mean of posterior parameters and
+                        create probability distribution
 rats                    Weightloss of rats
-simulation              Simulation of datasets with a given
-                        (in)dependency structure
+readnet                 Read .net file
+savenet                 Save Bayesian network as .net file
+simulation              Simulation of datasets with a given dependency
+                        structure
 splash                  Show a splash screen
 timeslice               Prepare time series data for analysis with Deal

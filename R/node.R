@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Nov 02 21:18:50 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Sep 15 08:17:03 2002
-## Update Count    : 368
+## Last Modified On: Wed Oct 30 14:27:52 2002
+## Update Count    : 377
 ## Status          : OK
 ###############################################################################
 ##
@@ -25,7 +25,7 @@
 ######################################################################
 
 node <- function(idx,parents,type,name=paste(idx),
-                 levels=2,levelnames=paste(1:levels)) {
+                 levels=2,levelnames=paste(1:levels), position=c(0,0)) {
     ## creator for class 'node'
     
     ## idx:       The unique index of the node
@@ -40,6 +40,7 @@ node <- function(idx,parents,type,name=paste(idx),
     nd$parents <- parents
     nd$type    <- type
     nd$name    <- name
+    nd$position<- position
     if (type=="discrete") {
         nd$levels     <- levels
         nd$levelnames <- levelnames
@@ -102,14 +103,13 @@ print.node <- function(x,filename=NA,master=FALSE,condposterior=TRUE,condprior=T
     invisible(nd)
 }
 
-plot.node <- function(x,where=c(0,0),cexscale=10,notext=FALSE,...) {
+plot.node <- function(x,cexscale=10,notext=FALSE,scale=10,...) {
     
-    nd <- x
-    if (nd$type=="discrete") {tt <- 19;col <- "white"} 
+    if (x$type=="discrete") {tt <- 19;col <- "white"} 
     else {tt <- 21;col <- "black"}
     
-    points(where[1],where[2],cex=cexscale,pch=tt,...)
-    if (!notext) text(where[1],where[2],nd$name,col=col,...)
+    points(x$position[1],x$position[2],cex=cexscale,pch=tt,...)
+    if (!notext) text(x$position[1],x$position[2],x$name,col=col,...)
 }
 
 

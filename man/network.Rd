@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Mon Sep 16 15:59:34 2002
-% Update Count    : 13
+% Last Modified On: Mon Nov 04 00:20:29 2002
+% Update Count    : 19
 % Status          : Unknown, Use with caution!
 % 
 
@@ -25,14 +25,15 @@
 
 \usage{
 network(df,specifygraph=FALSE,inspectprob=FALSE,equalcases=FALSE,vif=1.0,
-        doprob=TRUE,tvar=NA,smalldf=NA) 
+        doprob=TRUE,tvar=NA,smalldf=NA,yr=c(0,350),xr=yr) 
 \method{print}{network}(x,filename=NA,master=FALSE,condposterior=FALSE,
                           condprior=FALSE,...) 
-\method{plot}{network} (x,scale=10,unitscale=1.3,cexscale=10,
-                        rotate=pi/4,length=.25,notext=FALSE,
-                        sscale=.7*scale,showban=TRUE,...)
+\method{plot}{network} (x,scale=10,arrowlength=.25,
+                        notext=FALSE,
+                        sscale=.7*scale,showban=TRUE,yr=c(0,350),xr=yr,
+                        unitscale=20,cexscale=8,...)
 
-\method{prob}{network} (x,df,equalcases=FALSE,vif=1.0,smalldf=NA) 
+prob.network (x,df,equalcases=FALSE,vif=1.0,smalldf=NA) 
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -67,7 +68,9 @@ network(df,specifygraph=FALSE,inspectprob=FALSE,equalcases=FALSE,vif=1.0,
   \item{sscale}{The nodes are placed on a circle with radius \code{sscale}.}
   \item{unitscale}{Scale parameter for chopping off arrow heads.}
   \item{cexscale}{The size of the nodes.}
-  \item{length}{The length of the arrow heads.}
+  \item{arrowlength}{The length of the arrow heads.}
+  \item{xr}{Range of x-axis.}
+  \item{yr}{Range of y-axis.}
   \item{notext}{No (or little) text is displayed on the plot if \code{notext==TRUE}.}
   \item{rotate}{The nodes are placed on a circle and this may be rotated
   by this number (in radians).}

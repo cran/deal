@@ -14,6 +14,19 @@ In genpicfiles, the pictex() does not use colors of nodes.
 
 ----------------------------------------------------------------------
 
+The position of the nodes should be stored in the node. In the
+graphical interface, you should be able to move nodes around and
+adjust the position.
+
+
+When creating a network from a dataframe and arrows are specified so
+that the data actually is sparse in the configuration of the discrete
+parents, then an error like 
+"Error in lsfit(X, y) : 2 responses, but only 3 variables"
+or 
+"Error in cbind(...) : cannot create a matrix from these types"
+occur. (eg. in ksl data with arrows from all nodes pointing to FEV)
+
 The log-score may be positive!! Theoretically this is
 nonsense. Apparently, it is due to numeric instability and may be
 handled by scaling the observations.
