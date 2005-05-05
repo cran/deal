@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sun Nov 14 18:01:13 2004
-% Update Count    : 85
+% Last Modified On: Wed Mar 16 13:55:56 2005
+% Update Count    : 87
 % Status          : Unknown, Use with caution!
 % 
 
@@ -101,12 +101,12 @@ network(df,specifygraph=FALSE,inspectprob=FALSE,
 
 \references{
   Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.aau.dk/novo/deal}.
+  \url{http://www.math.aau.dk/~dethlef/novo/deal}.
 }
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.aau.dk}.
+  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
 }
 
 %\note{ ~~further notes~~ }

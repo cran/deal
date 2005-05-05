@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Mar 11 15:22:48 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Fri Jan 09 10:13:53 2004
-## Update Count    : 50
+## Last Modified On: Tue Apr 19 07:25:25 2005
+## Update Count    : 51
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -49,7 +49,7 @@ banlist(rats.empty) <- banlist(rats)
 ## transfer node positions
 for (i in 1:size(rats)) nodes(rats.empty)[[i]]$position <- nodes(rats)[[i]]$position
 
-line()
+printline()
 cat("Now, draw your favorite network. Notice how the\n",
     "network score changes. When bored, click stop\n",
     "and see how the search tries to find the network\n",

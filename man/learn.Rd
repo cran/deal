@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sun Nov 14 18:01:13 2004
-% Update Count    : 83
+% Last Modified On: Wed Mar 16 13:55:56 2005
+% Update Count    : 85
 % Status          : Unknown, Use with caution!
 % 
 
@@ -103,12 +103,12 @@ learn (nw, df, prior=jointprior(nw),
  Bøttcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, {\em Artificial Intelligence and Statistics 2001}, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
 
   Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.aau.dk/novo/deal}.
+  \url{http://www.math.aau.dk/~dethlef/novo/deal}.
 }
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.aau.dk}.
+  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
 }
 
 

@@ -1,71 +1,0 @@
-
-autosearch.Rd,35
-% Status          : Unknown,8,258
-
-deal-internal.Rd,35
-% Status          : Unknown,8,261
-
-drawnetwork.Rd,35
-% Status          : Unknown,8,259
-
-genlatex.Rd,35
-% Status          : Unknown,8,256
-
-insert.Rd,35
-% Status          : Unknown,8,254
-
-jointprior.Rd,35
-% Status          : Unknown,8,258
-
-ksl.Rd,0
-
-learn.Rd,35
-% Status          : Unknown,8,253
-
-makesimprob.Rd,28
-    function of of51,1821
-
-maketrylist.Rd,35
-% Status          : Unknown,8,259
-
-network.Rd,55
-% Status          : Unknown,8,255
-  \code{ode22,558
-
-networkfamily.Rd,35
-% Status          : Unknown,8,261
-
-networktools.Rd,35
-% Status          : Unknown,8,260
-
-node.Rd,35
-% Status          : Unknown,8,252
-
-numbermixed.Rd,35
-% Status          : Unknown,8,258
-
-nwfsort.Rd,85
-% Status          : Unknown,8,254
-  \item{nwf}{an object of class \code{ode31,796
-
-nwfunique.Rd,35
-% Status          : Unknown,8,257
-
-perturb.Rd,35
-% Status          : Unknown,8,255
-
-prob.Rd,35
-% Status          : Unknown,8,252
-
-rats.Rd,35
-% Status          : Unknown,8,252
-
-readnet.Rd,26
-  function as as46,1421
-
-rnetwork.Rd,35
-% Status          : Unknown,8,258
-
-score.Rd,83
-% Status          : Unknown,8,252
-  \item{x}{an object of class \code{ode33,635

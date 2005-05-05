@@ -35,11 +35,11 @@ savenet(nw, con=file("default.net"))
 }
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.aau.dk}.
+  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
 }
 \references{
   Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.aau.dk/novo/deal}.
+  \url{http://www.math.aau.dk/~dethlef/novo/deal}.
 }
 
 \note{The call to \code{readnet(savenet(network))} is \emph{not} the identity

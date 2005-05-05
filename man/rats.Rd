@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:04:20 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sun Nov 14 18:01:12 2004
-% Update Count    : 11
+% Last Modified On: Wed Mar 16 13:54:36 2005
+% Update Count    : 12
 % Status          : Unknown, Use with caution!
 % 
 
@@ -33,7 +33,7 @@
   Springer-Verlag. New York.
 
   Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.aau.dk/novo/deal}.
+  \url{http://www.math.aau.dk/~dethlef/novo/deal}.
 
   
 }

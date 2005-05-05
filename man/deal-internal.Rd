@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Wed Jan 07 10:32:46 2004
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Sun Nov 14 18:01:13 2004
-% Update Count    : 34
+% Last Modified On: Wed Mar 16 13:55:56 2005
+% Update Count    : 35
 % Status          : Unknown, Use with caution!
 % 
 \name{deal-internal}
@@ -140,7 +140,7 @@ inspectprob(nw,unitscale=20,cexscale=8,
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{dethlef@math.aau.dk}.
+  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
 }
 
 
