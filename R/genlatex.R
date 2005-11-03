@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue May 07 10:10:39 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Jul 28 10:41:22 2003
-## Update Count    : 47
+## Last Modified On: Thu Nov 03 13:34:12 2005
+## Update Count    : 48
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -102,11 +102,11 @@ genlatex <-  function(nwl,
     
     cat("%% generated automatically",date(),"- Don't edit by hand\n",file=ff)
     cat("%% A master file:\n",file=ff)
-    cat("%% \documentclass{article}\n",file=ff)
-    cat("%% \usepackage{array,pictex}\n",file=ff)
-    cat("%% \begin{document}\n",file=ff)
-    cat("%% \input{scoretable}\n",file=ff)
-    cat("%% \end{document}\n",file=ff)
+    cat("%% \\documentclass{article}\n",file=ff)
+    cat("%% \\usepackage{array,pictex}\n",file=ff)
+    cat("%% \\begin{document}\n",file=ff)
+    cat("%% \\input{scoretable}\n",file=ff)
+    cat("%% \\end{document}\n",file=ff)
     fig <- 1
     
     while (!finished) {

@@ -19,7 +19,7 @@ perturb                 Perturbs a network
 prob                    Local probability distributions
 rats                    Weightloss of rats
 readnet                 Reads/saves .net file
-rnetwork                Simulation of data sets with a given
-                        dependency structure
+rnetwork                Simulation of data sets with a given dependency
+                        structure
 score                   Network score
 unique.networkfamily    Makes a network family unique.
