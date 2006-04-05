@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:07 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Mar 16 13:55:56 2005
-% Update Count    : 14
+% Last Modified On: Wed Mar 22 10:00:24 2006
+% Update Count    : 17
 % Status          : Unknown, Use with caution!
 % 
 
@@ -55,7 +55,7 @@ genpicfile (nwl,outdir="pic/",prefix="pic",w=1.6,h=1.6,bigscale=3)
   \item{\{outdir\}\{picpre\}nice.tex}{pictex file with the best network.}
 }
 
-\seealso{\code{\link{networkfamily}}}
+\seealso{\code{\link{networkfamily}}, \code{\link{pictex}}}
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
@@ -82,6 +82,21 @@ allrats <- nwfsort(allrats)
 #\input{scoretable}
 #\input{picnice}
 #\end{document}
+
+data(ksl)
+ksl.nw  <- network(ksl)
+ksl.prior <- jointprior(ksl.nw,64)
+mybanlist <- matrix(c(5,5,6,6,7,7,9,
+                    8,9,8,9,8,9,8),ncol=2)
+banlist(ksl.nw) <- mybanlist                  
+ksl.nw <- getnetwork(learn(ksl.nw,ksl,ksl.prior))
+ksl.search <- autosearch(ksl.nw,ksl,ksl.prior,
+                      trace=TRUE)
+ksl.searchlist <- makenw(ksl.search$table,ksl.search$nw)
+ksl.searchlist <- nwfsort(ksl.searchlist)
+\dontrun{genpicfile(ksl.searchlist)}
+\dontrun{genlatex(ksl.searchlist)}
+
 }
 
 \keyword{iplot}

@@ -28,4 +28,6 @@ ksl.heuristic <- heuristic(getnetwork(ksl.search),ksl,
 
 thebest2 <- getnetwork(ksl.heuristic)
 
-savenet(thebest2, file("ksl.net"))
+## Run this to transfer network to .net format
+## (read by e.g. Hugin, www.hugin.com)
+# savenet(thebest2, file("ksl.net"))
