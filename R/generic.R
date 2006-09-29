@@ -2,12 +2,12 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Sun Nov 07 20:11:26 2004
-## Update Count    : 106
+## Last Modified On: Thu Sep 28 13:33:43 2006
+## Update Count    : 107
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
-##    Copyright (C) 2002  Susanne Gammelgaard Bøttcher, Claus Dethlefsen
+##    Copyright (C) 2002  Susanne Gammelgaard Bottcher, Claus Dethlefsen
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
     built<- packageDescription("deal", lib = lib, field="Built")
     URL  <- packageDescription("deal", lib = lib, field="URL")
     cat(paste("deal, version", ver,  "is now loaded\n"))
-    cat("Copyright (C) 2002-2004, Susanne G. Bøttcher and Claus Dethlefsen\n")
+    cat("Copyright (C) 2002-2006, Susanne G. Bottcher and Claus Dethlefsen\n")
     cat("Maintained by",maint,"\n")
     cat("Webpage:",URL,"\n")
     cat("\nBuilt:",built,"\n")

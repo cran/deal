@@ -2,12 +2,12 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Thu Sep 26 15:19:02 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Tue Aug 03 10:55:08 2004
-## Update Count    : 96
+## Last Modified On: Thu Sep 28 13:34:12 2006
+## Update Count    : 97
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
-##    Copyright (C) 2002  Susanne Gammelgaard Bøttcher, Claus Dethlefsen
+##    Copyright (C) 2002  Susanne Gammelgaard Bottcher, Claus Dethlefsen
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ savenet <- function(nw,con=file("default.net")) {
 
     open(con,"w")
     cat("%Created by deal,",date(),"\n",file=con) # create empty file
-    cat("%deal is Copyright (C) 2002-2004  Susanne Gammelgaard Bøttcher, Claus Dethlefsen\n",file=con)
+    cat("%deal is Copyright (C) 2002-2006  Susanne Gammelgaard Bottcher, Claus Dethlefsen\n",file=con)
     cat(rep("%",60),"\n\n",sep="",file=con)
     ## ########################################
     ## Global information
@@ -125,7 +125,7 @@ savenet <- function(nw,con=file("default.net")) {
                 }
                 TD <- prod(Dim)
                 
-                ## dan alle teksterne i den rigtige rækkefølge
+                ## dan alle teksterne i den rigtige rækkefolge
                 lablist <- c()
                 for (i in 1:TD) {
                     cf <- findex( i, Dim, FALSE)
@@ -215,7 +215,7 @@ savenet <- function(nw,con=file("default.net")) {
                     }
                 TD <- prod(Dim)
                 
-                ## dan alle teksterne i den rigtige rækkefølge
+                ## dan alle teksterne i den rigtige rækkefolge
                 lablist <- c()
                 for (i in 1:TD) {
                     cf <- findex( i, Dim, FALSE)
