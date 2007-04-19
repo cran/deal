@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Wed Jan 07 10:32:46 2004
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Apr 19 12:54:56 2007
-% Update Count    : 37
+% Last Modified On: Fri Apr 20 09:44:24 2007
+% Update Count    : 39
 % Status          : Unknown, Use with caution!
 % 
 \name{deal-internal}
@@ -16,7 +16,6 @@
 \alias{postc}
 \alias{postc0c}
 \alias{postcc}
-\alias{postM}
 \alias{learnnode}
 \alias{udisclik}
 \alias{addrandomarrow}
@@ -74,7 +73,6 @@
 printline(s="-",n=60)
 
 post   (mu,tau,rho,phi,y,z,timetrace=FALSE) 
-postM  (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 postc  (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 postcc (mu,tau,rho,phi,y,z,timetrace=FALSE) 
 post0  (mu,tau,rho,phi,y,timetrace=FALSE) 
