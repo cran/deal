@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:52 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Mar 16 13:55:56 2005
-% Update Count    : 23
+% Last Modified On: Fri Dec 22 10:56:11 2006
+% Update Count    : 24
 % Status          : Unknown, Use with caution!
 % 
 
@@ -64,7 +64,7 @@ maketrylist(initnw,data,prior=jointprior(network(data)),timetrace=FALSE)
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
+  Claus Dethlefsen \email{cld@rn.dk}.
 }
 
 \seealso{ 

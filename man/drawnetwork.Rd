@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:44 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Mar 16 13:55:56 2005
-% Update Count    : 48
+% Last Modified On: Fri Dec 22 10:56:12 2006
+% Update Count    : 49
 % Status          : Unknown, Use with caution!
 % 
 
@@ -85,7 +85,7 @@ whenever a change is made (unless \code{nocalc} is \code{TRUE}).
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
+  Claus Dethlefsen \email{cld@rn.dk}.
 }
 
 

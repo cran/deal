@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Wed Jan 07 10:32:46 2004
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Mar 16 13:55:56 2005
-% Update Count    : 35
+% Last Modified On: Thu Apr 19 12:54:56 2007
+% Update Count    : 37
 % Status          : Unknown, Use with caution!
 % 
 \name{deal-internal}
@@ -43,21 +43,6 @@
 \alias{nwequal}
 \alias{inspectprob}
 
-\alias{Autosearch}
-\alias{dealEdges}
-\alias{DealLabelAllEdges}
-\alias{dealVariableDescription}
-\alias{Menus}
-\alias{newDealTestObject}
-\alias{newnetwork}
-\alias{recovernetwork}
-\alias{dynamic.Graph}
-\alias{testEdge}
-\alias{fun}
-\alias{modifyModel}
-
-\alias{label}
-\alias{width}
 
 \alias{DealTestClass-class}
 \alias{networkclass-class}
@@ -140,7 +125,7 @@ inspectprob(nw,unitscale=20,cexscale=8,
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
+  Claus Dethlefsen \email{cld@rn.dk}.
 }
 
 

@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Tue Feb 26 13:25:44 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Jul 23 13:25:29 2003
-## Update Count    : 143
+## Last Modified On: Thu Dec 07 08:59:15 2006
+## Update Count    : 144
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -98,7 +98,7 @@ makesimprob <- function(nw,
                 M[it,2] <- m0(nid,cf)
                 if (length(cparents)>0) {
                     for (itt in 1:length(cparents))
-                        M[it,2+itt] <- m1(nid,cf)
+                        M[it,3:(2+itt)] <- m1(nid,cf)
                 }
             }
             

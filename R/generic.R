@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Sep 28 13:33:43 2006
-## Update Count    : 107
+## Last Modified On: Thu Apr 19 13:27:58 2007
+## Update Count    : 108
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -31,7 +31,7 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 .First.lib <- function(lib, pkg)
 {
 #    require(methods)
-    require(dynamicGraph)
+#    require(dynamicGraph)
     library.dynam("deal", package = pkg, lib.loc = lib)
 
       if((R.version$major == 1) && (as.numeric(R.version$minor) < 9))
@@ -46,14 +46,14 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
     built<- packageDescription("deal", lib = lib, field="Built")
     URL  <- packageDescription("deal", lib = lib, field="URL")
     cat(paste("deal, version", ver,  "is now loaded\n"))
-    cat("Copyright (C) 2002-2006, Susanne G. Bottcher and Claus Dethlefsen\n")
+    cat("Copyright (C) 2002-2007, Susanne G. Bottcher and Claus Dethlefsen\n")
     cat("Maintained by",maint,"\n")
     cat("Webpage:",URL,"\n")
     cat("\nBuilt:",built,"\n")
     cat("-------------------------------------------------------------\n")
     cat("\n")
 
-    require(methods)
+#    require(methods)
 #    .load.deal.networkclass()
 #    .load.dynamicgraph()
   return(invisible(0))
@@ -61,13 +61,13 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 
 .onAttach <- function (lib, pkg) 
 {
-    require(methods)
+#    require(methods)
 #    .load.deal.networkclass()
   }
 
 .onLoad <- function (lib, pkg) 
 {
-    require(methods)
+#    require(methods)
 #    .load.deal.networkclass()
 }
 

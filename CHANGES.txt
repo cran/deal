@@ -1,0 +1,50 @@
+Removed support for the package "dynamicGraph", i.e.
+
+- removed  from DESCRIPTION and R/
+
+anetworkclass.R dealObjects.R usermenus.R
+
+,methods,dynamicGraph
+
+- removed from NAMESPACE:
+import(methods,dynamicGraph)
+
+       "dynamic.Graph",
+
+
+exportClasses("integerOrNULL",
+              "networkclass","DealTestClass")
+
+exportMethods("label", "width",
+              "testEdge", "modifyModel", "dynamic.Graph",
+              "setGraphComponents", "graphComponents")
+
+- removed from man/deal-internal.Rd
+
+\alias{Autosearch}
+\alias{dealEdges}
+\alias{DealLabelAllEdges}
+\alias{dealVariableDescription}
+\alias{Menus}
+\alias{newDealTestObject}
+\alias{newnetwork}
+\alias{recovernetwork}
+\alias{dynamic.Graph}
+\alias{testEdge}
+\alias{fun}
+\alias{modifyModel}
+
+\alias{label}
+\alias{width}
+
+- removed from demo/00Index
+
+dd			Demonstrates "dynamic deal"
+reinis			Demonstrates "dynamic deal"
+mathmark		Demonstrates "dynamic deal"
+
+- removed from demo/
+
+dd.R
+reinis.R
+mathmark.R

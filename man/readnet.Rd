@@ -35,7 +35,7 @@ savenet(nw, con=file("default.net"))
 }
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
+  Claus Dethlefsen \email{cld@rn.dk}.
 }
 \references{
   Further information about \bold{deal} can be found at:\cr

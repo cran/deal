@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:38 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Mar 16 13:55:55 2005
-% Update Count    : 11
+% Last Modified On: Fri Dec 22 10:56:11 2006
+% Update Count    : 12
 % Status          : Unknown, Use with caution!
 % 
 
@@ -56,7 +56,7 @@ numbermixed(nd,nc)
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
+  Claus Dethlefsen \email{cld@rn.dk}.
 }
 
 %\note{ ~~further notes~~ }

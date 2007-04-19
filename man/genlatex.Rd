@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:07 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Wed Mar 22 10:00:24 2006
-% Update Count    : 17
+% Last Modified On: Fri Dec 22 10:56:12 2006
+% Update Count    : 18
 % Status          : Unknown, Use with caution!
 % 
 
@@ -59,7 +59,7 @@ genpicfile (nwl,outdir="pic/",prefix="pic",w=1.6,h=1.6,bigscale=3)
 
 \author{
   Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{aas.claus.dethlefsen@nja.dk}.
+  Claus Dethlefsen \email{cld@rn.dk}.
 }
 
 %\note{ ~~further notes~~ }
