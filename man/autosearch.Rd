@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:29 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:12 2006
-% Update Count    : 85
+% Last Modified On: Thu Dec 04 13:15:04 2008
+% Update Count    : 86
 % Status          : Unknown, Use with caution!
 % 
 
@@ -16,6 +16,8 @@
 %- Also NEED an `\alias' for EACH other topic documented here.
 
 \title{Greedy search}
+
+\encoding{latin1}
 
 \description{
   From initial network, does local perturbations to increase network score.
@@ -106,7 +108,7 @@ gettable(x)
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

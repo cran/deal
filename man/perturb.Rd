@@ -3,11 +3,11 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:54 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 30
+% Last Modified On: Thu Dec 04 13:17:30 2008
+% Update Count    : 31
 % Status          : Unknown, Use with caution!
 % 
-
+\encoding{latin1}
 \name{perturb}
 \alias{perturb}
 
@@ -59,7 +59,7 @@ perturb(nw,data,prior,degree=size(nw),trylist=vector("list",size(nw)),
 
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

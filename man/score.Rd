@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:31 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:08 2006
-% Update Count    : 6
+% Last Modified On: Thu Dec 04 13:08:17 2008
+% Update Count    : 10
 % Status          : Unknown, Use with caution!
 % 
 
@@ -17,8 +17,11 @@
 
 \title{Network score}
 
-\description{
+\encoding{latin1}
+
+\description{Accessor for the score from a node or network
 }
+
 
 \usage{
 score(x,...)
@@ -43,7 +46,7 @@ score(x,...)
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

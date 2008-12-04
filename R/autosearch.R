@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Fri Jan 11 10:54:00 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Jan 12 14:39:28 2004
-## Update Count    : 305
+## Last Modified On: Thu Dec 04 12:43:15 2008
+## Update Count    : 307
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -146,7 +146,7 @@ autosearch <- function(initnw,data,prior=jointprior(network(data)),maxiter=50,
     }
     
     table <- cbind(model,score)
-    table <- table[sort.list(table[,2]),]
+    table <- table[sort.list(-as.numeric(table[,2])),]
     list(nw=learn(nw,data,prior)$nw,table=table,trylist=trylist)
 }
 

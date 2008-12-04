@@ -3,14 +3,14 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 63
+% Last Modified On: Thu Dec 04 13:15:45 2008
+% Update Count    : 64
 % Status          : Unknown, Use with caution!
 % 
 
 \name{jointprior}
 \alias{jointprior}
-
+\encoding{latin1}
 %- Also NEED an `\alias' for EACH other topic documented here.
 
 \title{Calculates the joint prior distribution}
@@ -67,7 +67,7 @@ deriving local parameter priors.
   For each configuration \code{i} of the discrete variables,
   \deqn{\nu_i=\rho_i=\alpha_i}{nu[i]=rho[i]=jointalpha[i]} and
   \deqn{\phi_i = (\nu_i -1)\Sigma_i}{phi[i] = (nu[i] -1)Sigma[i]}
-  if \code{phiprior="bottcher"}, see Bøttcher(2001) and
+  if \code{phiprior="bottcher"}, see Bottcher(2001) and
   \deqn{\phi_i = \nu_i(\rho_i -2)\Sigma_i/(\nu_i+1)}{phi[i] = nu[i](rho[i] -2)Sigma[i]/(nu[i]+1) }
   if \code{phiprior="heckerman"}, see Heckerman, Geiger and Chickering (1995).
 
@@ -87,7 +87,7 @@ deriving local parameter priors.
   }
 
   \references{
-    Bøttcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, {\em Artificial Intelligence and Statistics 2001}, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
+    Bottcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, {\em Artificial Intelligence and Statistics 2001}, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
 
     Heckerman, D., Geiger, D. and Chickering, D. (1995). Learning Bayesian
     networks: The combination of knowledge and statistical data. Machine
@@ -101,7 +101,7 @@ Shachter, R.D. and Kenley, C.R. (1989), Gaussian influence diagrams. Management
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

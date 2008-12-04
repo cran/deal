@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 88
+% Last Modified On: Thu Dec 04 13:16:33 2008
+% Update Count    : 89
 % Status          : Unknown, Use with caution!
 % 
 
@@ -21,7 +21,7 @@
   A Bayesian network is represented as an object of class
   \code{network}. Methods for printing and plotting are defined. 
 }
-
+\encoding{latin1}
 \usage{
 network(df,specifygraph=FALSE,inspectprob=FALSE,
         doprob=TRUE,yr=c(0,350),xr=yr) 
@@ -105,7 +105,7 @@ network(df,specifygraph=FALSE,inspectprob=FALSE,
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

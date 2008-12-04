@@ -1,0 +1,6 @@
+1.2-31: Changed a bug in jointprior thanks to Jean-Baptiste DENIS. A
+non-uniform prior would be multiplied together in a wrong fashion. 
+
+1.2-31: Changed a bug in autosearch and heuristic thanks to Peter van de
+Ven. The output network was not necessarily the one with highest
+loglikelihood due to a wrong sorting of the scores.

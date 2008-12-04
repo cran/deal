@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Wed Mar 06 12:52:57 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Wed Jul 23 11:22:58 2003
-## Update Count    : 28
+## Last Modified On: Mon Jun 25 11:54:04 2007
+## Update Count    : 30
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -68,7 +68,10 @@ jointdisc <- function(nw,timetrace=FALSE) {
         
         ## blow up
         ## first, permute Dim appropriately
-        ivek <- c(pidx,setdiff(jidx,pidx))
+#        ivek <- c(pidx,setdiff(jidx,pidx))
+        ivek <- c(idx,setdiff(jidx,idx)) # changed 25/6-2007 due to
+        ## Jean-Baptiste DENIS 
+
         jDim <- Dim[ivek]
         bigPn <- array(Pn,jDim)
         ## permute indices appropriately

@@ -3,11 +3,11 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:38 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 12
+% Last Modified On: Thu Dec 04 13:17:00 2008
+% Update Count    : 14
 % Status          : Unknown, Use with caution!
 % 
-
+\encoding{latin1}
 \name{numbermixed}
 \alias{numbermixed}
 
@@ -31,7 +31,7 @@ numbermixed(nd,nc)
 \details{
   No arrows are allowed from continuous nodes to discrete nodes. Cycles
   are not allowed. The
-  number of networks is given by Bøttcher (2003), using the result in
+  number of networks is given by Bottcher (2003), using the result in
   Robinson (1977).
 
   When nd+nc>15, the procedure is quite slow.
@@ -43,7 +43,7 @@ numbermixed(nd,nc)
 }
 
 \references{
-  Bøttcher, S.G. (2003). Learning Conditional Gaussian
+  Bottcher, S.G. (2003). Learning Conditional Gaussian
   Networks. \url{http://www.math.aau.dk/~alma}. Aalborg University, 2003.
 
   Robinson, R.W. (1977). Counting unlabeled acyclic digraphs, {\em Lecture
@@ -55,7 +55,7 @@ numbermixed(nd,nc)
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

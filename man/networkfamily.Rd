@@ -3,11 +3,11 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 46
+% Last Modified On: Thu Dec 04 13:16:42 2008
+% Update Count    : 47
 % Status          : Unknown, Use with caution!
 % 
-
+\encoding{latin1}
 \name{networkfamily}
 \alias{networkfamily}
 \alias{print.networkfamily}
@@ -81,7 +81,7 @@ networkfamily(data,nw=network(data), prior=jointprior(nw),
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

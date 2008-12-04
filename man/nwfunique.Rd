@@ -3,14 +3,14 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:51 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 19
+% Last Modified On: Thu Dec 04 13:17:22 2008
+% Update Count    : 20
 % Status          : Unknown, Use with caution!
 % 
 
 \name{unique.networkfamily}
 \alias{unique.networkfamily}
-
+\encoding{latin1}
 %- Also NEED an `\alias' for EACH other topic documented here.
 
 \title{Makes a network family unique.}
@@ -40,7 +40,7 @@
 
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 \references{

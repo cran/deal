@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{readnet}
 \alias{readnet}
 \alias{savenet}
@@ -34,7 +35,7 @@ savenet(nw, con=file("default.net"))
   \code{savenet} writes the object to the connection.
 }
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 \references{

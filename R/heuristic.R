@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Sun Jan 13 11:23:16 2002
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Mon Jan 12 14:29:04 2004
-## Update Count    : 147
+## Last Modified On: Thu Dec 04 12:43:46 2008
+## Update Count    : 149
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -95,7 +95,7 @@ heuristic <-
             }
             if (timetrace) s7 <- proc.time()[3]
             table <- table[!duplicated(table[,1]),]
-            table <- table[sort.list(table[,2]),]
+            table <- table[sort.list(-as.numeric(table[,2])),]
             if (timetrace) {
                 s8 <- proc.time()[3]
                 suniq <- suniq + s8 - s7

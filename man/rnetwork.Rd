@@ -3,11 +3,11 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:04:28 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 25
+% Last Modified On: Thu Dec 04 13:17:59 2008
+% Update Count    : 26
 % Status          : Unknown, Use with caution!
 % 
-
+\encoding{latin1}
 \name{rnetwork}
 \alias{rnetwork}
 
@@ -52,7 +52,7 @@ rnetwork(nw, n=24, file="")
 
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

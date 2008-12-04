@@ -3,15 +3,15 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:07 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:12 2006
-% Update Count    : 18
+% Last Modified On: Thu Dec 04 13:39:54 2008
+% Update Count    : 20
 % Status          : Unknown, Use with caution!
 % 
 
 \name{genlatex}
 \alias{genlatex}
 \alias{genpicfile}
-
+\encoding{latin1}
 %- Also NEED an `\alias' for EACH other topic documented here.
 
 \title{From a network family, generate LaTeX output}
@@ -58,7 +58,7 @@ genpicfile (nwl,outdir="pic/",prefix="pic",w=1.6,h=1.6,bigscale=3)
 \seealso{\code{\link{networkfamily}}, \code{\link{pictex}}}
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 
@@ -83,17 +83,17 @@ allrats <- nwfsort(allrats)
 #\input{picnice}
 #\end{document}
 
-data(ksl)
-ksl.nw  <- network(ksl)
-ksl.prior <- jointprior(ksl.nw,64)
-mybanlist <- matrix(c(5,5,6,6,7,7,9,
-                    8,9,8,9,8,9,8),ncol=2)
-banlist(ksl.nw) <- mybanlist                  
-ksl.nw <- getnetwork(learn(ksl.nw,ksl,ksl.prior))
-ksl.search <- autosearch(ksl.nw,ksl,ksl.prior,
-                      trace=TRUE)
-ksl.searchlist <- makenw(ksl.search$table,ksl.search$nw)
-ksl.searchlist <- nwfsort(ksl.searchlist)
+#data(ksl)
+#ksl.nw  <- network(ksl)
+#ksl.prior <- jointprior(ksl.nw,64)
+#mybanlist <- matrix(c(5,5,6,6,7,7,9,
+#                    8,9,8,9,8,9,8),ncol=2)
+#banlist(ksl.nw) <- mybanlist                  
+#ksl.nw <- getnetwork(learn(ksl.nw,ksl,ksl.prior))
+#ksl.search <- autosearch(ksl.nw,ksl,ksl.prior,
+#                      trace=TRUE)
+#ksl.searchlist <- makenw(ksl.search$table,ksl.search$nw)
+#ksl.searchlist <- nwfsort(ksl.searchlist)
 \dontrun{genpicfile(ksl.searchlist)}
 \dontrun{genlatex(ksl.searchlist)}
 

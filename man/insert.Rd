@@ -3,15 +3,15 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:17 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 26
+% Last Modified On: Thu Dec 04 13:15:33 2008
+% Update Count    : 27
 % Status          : Unknown, Use with caution!
 % 
 
 \name{insert}
 \alias{insert}
 \alias{remover}
-
+\encoding{latin1}
 %- Also NEED an `\alias' for EACH other topic documented here.
 
 \title{Insert/remove an arrow in network}
@@ -64,7 +64,7 @@ remover(nw,j,i,df,prior,nocalc=FALSE,trylist=vector("list",size(nw)))
 
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:01:44 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:12 2006
-% Update Count    : 49
+% Last Modified On: Thu Dec 04 13:15:16 2008
+% Update Count    : 50
 % Status          : Unknown, Use with caution!
 % 
 
@@ -18,6 +18,8 @@
 
 \description{\code{drawnetwork} allows the user to specify a Bayesian network through a point and click interface.
 }
+
+\encoding{latin1}
 
 \usage{
 drawnetwork(nw,df,prior,trylist=vector("list",size(nw)),
@@ -84,7 +86,7 @@ whenever a change is made (unless \code{nocalc} is \code{TRUE}).
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

@@ -3,14 +3,14 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 86
+% Last Modified On: Thu Dec 04 13:15:59 2008
+% Update Count    : 87
 % Status          : Unknown, Use with caution!
 % 
 
 \name{learn}
 \alias{learn}
-
+\encoding{latin1}
 %- Also NEED an `\alias' for EACH other topic documented here.
 
 \title{Estimation of parameters in the local probability
@@ -44,7 +44,7 @@ learn (nw, df, prior=jointprior(nw),
 
 \details{
   The procedure \code{learn} determines the master prior, local parameter
-  priors and local parameter posteriors, see Bøttcher (2001). It may be called on all nodes
+  priors and local parameter posteriors, see Bottcher (2001). It may be called on all nodes
   (default) or just a single node. 
   
   From the joint prior distribution, the marginal distribution of
@@ -100,14 +100,14 @@ learn (nw, df, prior=jointprior(nw),
 }
 
 \references{
- Bøttcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, {\em Artificial Intelligence and Statistics 2001}, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
+ Bottcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, {\em Artificial Intelligence and Statistics 2001}, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
 
   Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.aau.dk/~dethlef/novo/deal}.
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 

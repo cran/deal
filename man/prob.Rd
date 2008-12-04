@@ -3,11 +3,11 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:31 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Fri Dec 22 10:56:11 2006
-% Update Count    : 17
+% Last Modified On: Thu Dec 04 13:17:38 2008
+% Update Count    : 18
 % Status          : Unknown, Use with caution!
 % 
-
+\encoding{latin1}
 \name{prob}
 \alias{prob}
 \alias{prob.network}
@@ -78,7 +78,7 @@ localposterior(node)
 }
 
 \author{
-  Susanne Gammelgaard Bøttcher \email{alma@math.aau.dk}, \cr
+  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
   Claus Dethlefsen \email{cld@rn.dk}.
 }
 
