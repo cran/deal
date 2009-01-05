@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:26 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Dec 04 13:15:59 2008
-% Update Count    : 87
+% Last Modified On: Mon Jan 05 14:37:16 2009
+% Update Count    : 88
 % Status          : Unknown, Use with caution!
 % 
 
@@ -100,7 +100,7 @@ learn (nw, df, prior=jointprior(nw),
 }
 
 \references{
- Bottcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, {\em Artificial Intelligence and Statistics 2001}, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
+ Bottcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, Artificial Intelligence and Statistics 2001, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
 
   Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.aau.dk/~dethlef/novo/deal}.

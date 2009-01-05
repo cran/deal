@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:21 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Dec 04 13:15:45 2008
-% Update Count    : 64
+% Last Modified On: Mon Jan 05 14:36:51 2009
+% Update Count    : 65
 % Status          : Unknown, Use with caution!
 % 
 
@@ -87,14 +87,14 @@ deriving local parameter priors.
   }
 
   \references{
-    Bottcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, {\em Artificial Intelligence and Statistics 2001}, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
+    Bottcher, S.G. (2001). Learning Bayesian Networks with Mixed Variables, Artificial Intelligence and Statistics 2001, Morgan Kaufmann, San Francisco, CA, USA, 149-156.
 
     Heckerman, D., Geiger, D. and Chickering, D. (1995). Learning Bayesian
     networks: The combination of knowledge and statistical data. Machine
-    Learning {\bf 20}: 197-243.  
+    Learning, 20: 197-243.  
 
 Shachter, R.D. and Kenley, C.R. (1989), Gaussian influence diagrams. Management
-    Science {\bf 35}:527-550.
+    Science, 35:527-550.
     
   Further information about \bold{deal} can be found at:\cr
   \url{http://www.math.aau.dk/~dethlef/novo/deal}.

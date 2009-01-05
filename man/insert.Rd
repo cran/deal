@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:02:17 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Dec 04 13:15:33 2008
-% Update Count    : 27
+% Last Modified On: Mon Jan 05 14:35:15 2009
+% Update Count    : 28
 % Status          : Unknown, Use with caution!
 % 
 
@@ -40,10 +40,14 @@ remover(nw,j,i,df,prior,nocalc=FALSE,trylist=vector("list",size(nw)))
 \details{
   Examines if the arrow from \code{j} to \code{i} is legal according to
   the following criteria
-  \item{1.}{Arrows from/to the same node are not legal.}
-  \item{2.}{Arrows from continous nodes to discrete nodes are not legal.}
-  \item{3.}{Arrows banned in ban list are not legal, see \code{\link{drawnetwork}}.}
-  \item{4.}{Arrows already existing in the network are not legal.}
+
+  Arrows from/to the same node are not legal.
+
+  Arrows from continous nodes to discrete nodes are not legal.
+  
+  Arrows banned in ban list are not legal, see \code{\link{drawnetwork}}.
+  
+  Arrows already existing in the network are not legal.
 
   If the arrow is not legal, a \code{NULL} network is returned. Otherwise, the
   arrow is inserted/removed, the network is re-learned (if

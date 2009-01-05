@@ -4,3 +4,6 @@ non-uniform prior would be multiplied together in a wrong fashion.
 1.2-31: Changed a bug in autosearch and heuristic thanks to Peter van de
 Ven. The output network was not necessarily the one with highest
 loglikelihood due to a wrong sorting of the scores.
+
+1.2-32: The bug in jointprior was reverted. Apparently not a bug and it
+would make the demo(ksl) go down.	
