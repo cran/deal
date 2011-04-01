@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:31 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Dec 04 13:17:38 2008
-% Update Count    : 18
+% Last Modified On: Tue Nov 01 14:19:23 2011
+% Update Count    : 21
 % Status          : Unknown, Use with caution!
 % 
 \encoding{latin1}
@@ -32,7 +32,7 @@ prob(x,df,...)
 \method{prob}{network} (x,df,...)
 
 localprob(nw)
-value <- localprob(nw,name)
+localprob(nw,name) <- value
 
 localprior(node)
 localposterior(node)
@@ -49,6 +49,14 @@ localposterior(node)
   \item{node}{an object of class \code{\link{node}}.}
   \item{name}{a string, which gives the node name.}
   \item{\dots}{additional arguments for specific methods.}
+  \item{value}{If the node is continuous, this is a
+  numeric vector with the conditional variance and the conditional
+  regression coefficients arising from a regression on the continuous
+  parents, using data. If the node has discrete parents, it is a matrix
+  with a row for each configuration of the discrete parents. If the node is
+  discrete, it is a multiway array which gives the conditional
+  probability distribution for each configuration of the discrete
+  parents.}
 }
 
 \details{

@@ -3,8 +3,8 @@
 % Author          : Claus Dethlefsen
 % Created On      : Sat May 25 23:03:31 2002
 % Last Modified By: Claus Dethlefsen
-% Last Modified On: Thu Dec 04 13:16:49 2008
-% Update Count    : 84
+% Last Modified On: Tue Nov 01 13:58:35 2011
+% Update Count    : 85
 % Status          : Unknown, Use with caution!
 % 
 \encoding{latin1}
@@ -30,7 +30,7 @@ node (idx,parents,type="discrete",name=paste(idx),
 \method{print}{node} (x,filename=NA,condposterior=TRUE,condprior=TRUE,...) 
 \method{plot}{node} (x,cexscale=10,notext=FALSE,...)
 nodes(nw)
-value <- nodes(nw)
+nodes(nw) <- value
 }
 
 %- maybe also `usage' for other objects documented here.

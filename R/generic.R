@@ -2,8 +2,8 @@
 ## Author          : Claus Dethlefsen
 ## Created On      : Mon Nov 19 20:48:24 2001
 ## Last Modified By: Claus Dethlefsen
-## Last Modified On: Thu Apr 19 13:27:58 2007
-## Update Count    : 108
+## Last Modified On: Tue Nov 01 13:46:57 2011
+## Update Count    : 109
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
@@ -34,8 +34,8 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 #    require(dynamicGraph)
     library.dynam("deal", package = pkg, lib.loc = lib)
 
-      if((R.version$major == 1) && (as.numeric(R.version$minor) < 9))
-        packageDescription <- package.description
+#      if((R.version$major == 1) && (as.numeric(R.version$minor) < 9))
+#        packageDescription <- package.description
 
     cat("\n")
     cat("-------------------------------------------------------------\n")

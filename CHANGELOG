@@ -7,3 +7,5 @@ loglikelihood due to a wrong sorting of the scores.
 
 1.2-32: The bug in jointprior was reverted. Apparently not a bug and it
 would make the demo(ksl) go down.	
+
+1.2-34: Minor changes due to new R version
