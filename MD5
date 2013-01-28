@@ -1,5 +1,5 @@
 7d3112227e41f20f1338fd21020ff2c3 *CHANGELOG
-452104b71c0dd79ab1d5f610a6119f31 *DESCRIPTION
+7bfd11ae1d9bc78500c4961f51f8f3eb *DESCRIPTION
 e3c9a3e7728ecbdbce15668facfe6ea8 *INDEX
 dc016b5d0591446f2e8d659f6dbed056 *NAMESPACE
 ec73ca71c70ee01a1abee5a2a5a6c520 *R/addarrows.R
@@ -9,7 +9,7 @@ f4bfb20495232e7daefa619fd8bfae37 *R/cycletest.R
 10160883661cef28eaa9da08f45587ca *R/drawnetwork.R
 508a9daf005424b39210441ad90d505c *R/findex.R
 d64640cd267dd14803d9653b76471271 *R/fullsimprob.R
-92757587f6a1e6dd87d35a860e3d1f4e *R/generic.R
+c437642302ab0d880e96e33415652be0 *R/generic.R
 98f35548482a6bb38419851a04728272 *R/genlatex.R
 9e328f440736fedc84f565d65b9ab50f *R/heuristic.R
 9c1f4b5f62dc647c7c2ba7232a614646 *R/inspectprob.R
@@ -32,10 +32,10 @@ aac8cd2ca424d7288bab1d901376450e *R/perturb.R
 86d91f993b4926ffa3f41d0e7228a9bd *R/rnetwork.R
 7c210e718a89f58d5fcacc643b36be3c *R/savenet.R
 b3a772aef53e13345df62b504261d12f *R/unique.R
-eb77adc0634bca98b536ec1c515c30d1 *data/ksl.rda
+7c69cc4367c705ff377112d44faeb4fc *data/ksl.rda
 0131851397897ab1f91b44948554a119 *data/ksl.txt.gz
 b45eb0e11f127e02ceef6545be0d2396 *data/rats.txt.gz
-d5906688ed41a31f88ccbba58f1417af *data/reinis.rda
+93e9bc264812393e4f79a5041e4be563 *data/reinis.rda
 7abb4f2fd77c7445cc4e24a146bb4228 *demo/00Index
 41083dbe49d0549b9340ef5fbf835a3c *demo/ksl.R
 a295cc012b904c54966e2cc55b01c8d0 *demo/rats.R

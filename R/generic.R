@@ -28,11 +28,11 @@
 
 printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 
-.First.lib <- function(lib, pkg)
-{
+#.First.lib <- function(lib, pkg)
+#{
 #    require(methods)
 #    require(dynamicGraph)
-    library.dynam("deal", package = pkg, lib.loc = lib)
+#    library.dynam("deal", package = pkg, lib.loc = lib)
 
 #      if((R.version$major == 1) && (as.numeric(R.version$minor) < 9))
 #        packageDescription <- package.description
@@ -56,24 +56,26 @@ printline <- function(s="-",n=60) cat(rep(s,n),"\n",sep="")
 #    require(methods)
 #    .load.deal.networkclass()
 #    .load.dynamicgraph()
-  return(invisible(0))
-}
+#  return(invisible(0))
+#}
 
 .onAttach <- function (lib, pkg) 
 {
 #    require(methods)
 #    .load.deal.networkclass()
+# library.dynam("deal", package = pkg, lib.loc = lib)
   }
 
 .onLoad <- function (lib, pkg) 
 {
 #    require(methods)
 #    .load.deal.networkclass()
+library.dynam("deal", package = pkg, lib.loc = lib)
 }
 
 
-.Last.lib <- function(lib) {
-  cat("Thank you for using deal\n")
-  return(invisible(0))
-}
+#.Last.lib <- function(lib) {
+#  cat("Thank you for using deal\n")
+#  return(invisible(0))
+#}
 
