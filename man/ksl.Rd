@@ -22,16 +22,5 @@
     \item{Year}{Survey year (1967/1984)}
     }
  }
-\references{
-%  Morrison, D.F. (1976). Multivariate Statistical Methods. McGraw-Hill, USA.
-
-%  Edwards, D. (1995). Introduction to Graphical Modelling,
-%  Springer-Verlag. New York.
-
-  Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.aau.dk/~dethlef/novo/deal}.
-
-  
-}
 \keyword{datasets}
 

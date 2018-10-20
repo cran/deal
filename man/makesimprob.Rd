@@ -66,17 +66,19 @@ makesimprob(nw,
 \value{The network object \code{nw}, where each node has attached the
   property  \code{simprob}.}
 
-\references{
-  Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.aau.dk/~dethlef/novo/deal}.
-}
 
 \seealso{\code{\link{rnetwork}}}
 
+% \references{
+%   Further information about \bold{deal} can be found at:\cr
+%   \url{http://www.math.aau.dk/~dethlef/novo/deal}.
+% }
+
 \author{
-  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{cld@rn.dk}.
+  Susanne Gammelgaard Bottcher, \cr
+  Claus Dethlefsen \email{rpackage.deal@gmail.com}.
 }
+
 
 %\note{ ~~further notes~~ }
 

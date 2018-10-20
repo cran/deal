@@ -125,7 +125,7 @@ savenet <- function(nw,con=file("default.net")) {
                 }
                 TD <- prod(Dim)
                 
-                ## dan alle teksterne i den rigtige rækkefolge
+                ## dan alle teksterne i den rigtige raekkefolge
                 lablist <- c()
                 for (i in 1:TD) {
                     cf <- findex( i, Dim, FALSE)
@@ -201,8 +201,8 @@ savenet <- function(nw,con=file("default.net")) {
         cat("\tdata=(\n\t",file=con)
         
         
-        ## skal skelne mellem kont. og disk. forældre
-        ## hvis rene kont. forældre er prob en vektor
+        ## skal skelne mellem kont. og disk. foraeldre
+        ## hvis rene kont. foraeldre er prob en vektor
         if (length(nd$parents)>0) { # we have parents!
             if (length(intersect(nd$parents,nw$discrete))>0) {
                 ## we have discrete parents
@@ -215,7 +215,7 @@ savenet <- function(nw,con=file("default.net")) {
                     }
                 TD <- prod(Dim)
                 
-                ## dan alle teksterne i den rigtige rækkefolge
+                ## dan alle teksterne i den rigtige raekkefolge
                 lablist <- c()
                 for (i in 1:TD) {
                     cf <- findex( i, Dim, FALSE)

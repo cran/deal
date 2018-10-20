@@ -81,6 +81,24 @@ export("addarrow",
 
 useDynLib(deal)
 
+importFrom("grDevices", "dev.off", "pictex")
+importFrom("graphics", "arrows", "identify", "locator", "par", "plot",
+           "points", "symbols", "text", "title")
+importFrom("stats", "coef", "lsfit", "mahalanobis", "resid", "rgamma",
+           "rnorm", "runif", "var")
+importFrom("utils", "write.table")
+
+S3method(plot,network)
+S3method(plot,networkfamily)
+S3method(plot,node)
+S3method(print,network)
+S3method(print,networkfamily)
+S3method(print,node)
+S3method(prob,network)
+S3method(prob,node)
+S3method(score,node)
+S3method(score,network)
+S3method(unique,networkfamily)
 
 
 #export(       "newCoCoTestObject",

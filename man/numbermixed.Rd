@@ -44,19 +44,17 @@ numbermixed(nd,nc)
 
 \references{
   Bottcher, S.G. (2003). Learning Conditional Gaussian
-  Networks. \url{http://www.math.aau.dk/~alma}. Aalborg University, 2003.
+  Networks. Aalborg University, 2003.
 
   Robinson, R.W. (1977). Counting unlabeled acyclic digraphs, Lecture
   Notes in Mathematics, 622: Combinatorial Mathematics.
 
-  Further information about \bold{deal} can be found at:\cr
-  \url{http://www.math.aau.dk/~dethlef/novo/deal}.
-
 }
 
+
 \author{
-  Susanne Gammelgaard Bottcher \email{alma@math.aau.dk}, \cr
-  Claus Dethlefsen \email{cld@rn.dk}.
+  Susanne Gammelgaard Bottcher, \cr
+  Claus Dethlefsen \email{rpackage.deal@gmail.com}.
 }
 
 %\note{ ~~further notes~~ }

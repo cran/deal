@@ -7,7 +7,7 @@
 ## Status          : Unknown, Use with caution!
 ###############################################################################
 ##
-##    Copyright (C) 2002  Susanne Gammelgaard Bøttcher, Claus Dethlefsen
+##    Copyright (C) 2002  Susanne Gammelgaard Bottcher, Claus Dethlefsen
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 
 numbermixed <- function(nd,nc) {
   ## number of mixed networks with nd discrete and nc continuous nodes
-  ## (see Bøttcher (2002))
+  ## (see Bottcher (2002))
 
     robinson <- function(n) {
         ## The Robinson (1977) recursive formula for the number of possible
