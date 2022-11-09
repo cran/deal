@@ -1,4 +1,4 @@
-/*                               -*- Mode: C -*- 
+/*                               -*- Mode: C -*-
  * postc0.c --- Posterior for continuous node with 0 parents
  * Author          : Claus Dethlefsen
  * Created On      : Tue Mar 12 06:44:35 2002
@@ -10,7 +10,7 @@
 
 /*
   ##
-##    Copyright (C) 2002  Susanne Gammelgaard Bøttcher, Claus Dethlefsen
+##    Copyright (C) 2002  Susanne Gammelgaard Bottcher, Claus Dethlefsen
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ void postc0(double *mu, double *tau, double *rho, double *phi, double
 */
 
 	for(i = 0; i < *n; i++) {
-		
+
 		logscale = log(*phi)+log1p(1.0/(*tau));
 		logk = lgammafn( 0.5*(1.0+*rho) ) - lgammafn(*rho*0.5);
 		logk -= 0.5*(logscale + log(M_PI));
@@ -70,7 +70,7 @@ void postc0(double *mu, double *tau, double *rho, double *phi, double
 		Rprintf("logk=%f\n",logk);
 		Rprintf("mscore=%f\n",mscore);
 		Rprintf("loglik=%f\n",*loglik);
-		
+
 	Rprintf("her er mu=%f\n",*mu);
 	Rprintf("her er tau=%f\n",*tau);
 	Rprintf("her er rho=%f\n",*rho);

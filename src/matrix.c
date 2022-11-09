@@ -1,4 +1,4 @@
-/*                               -*- Mode: C -*- 
+/*                               -*- Mode: C -*-
  * matrix.c --- Simple matrix functions for use with postc.c
  * Author          : Claus Dethlefsen
  * Created On      : Thu Mar 14 06:48:02 2002
@@ -10,7 +10,7 @@
 
 /*
   ##
-##    Copyright (C) 2002  Susanne Gammelgaard Bøttcher, Claus Dethlefsen
+##    Copyright (C) 2002  Susanne Gammelgaard Bottcher, Claus Dethlefsen
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -113,7 +113,7 @@ double** matmult(double **a, double **b, int nra, int nca, int ncb) {
 		for (j=1; j<=ncb; j++)
 			c[i][j] = 0.0;
 
-	for (i=1; i<=nra; i++) 
+	for (i=1; i<=nra; i++)
 		for (k=1; k<=ncb; k++)
 			for (j=1; j<=nca; j++)
 				c[i][k] += a[i][j]*b[j][k];

@@ -1,4 +1,4 @@
-/*                               -*- Mode: C -*- 
+/*                               -*- Mode: C -*-
  * init.c --- Registration of C functions
  * Author          : Claus Dethlefsen
  * Created On      : Fri Oct 16 16:44:35 2018
@@ -10,7 +10,7 @@
 
 /*
   ##
-##    Copyright (C) 2018  Susanne Gammelgaard B?ttcher, Claus Dethlefsen
+##    Copyright (C) 2018  Susanne Gammelgaard Bottcher, Claus Dethlefsen
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by

@@ -1,5 +1,5 @@
 7d3112227e41f20f1338fd21020ff2c3 *CHANGELOG
-e2d95443422b048c52b9d26fe309b868 *DESCRIPTION
+8547b365d91720501927d692d755a685 *DESCRIPTION
 e3c9a3e7728ecbdbce15668facfe6ea8 *INDEX
 33e06f9f1ea5566550352453a7ca7443 *NAMESPACE
 bf766ad9a6fd6b0260adee747d97f357 *R/addarrows.R
@@ -32,6 +32,7 @@ d0080ede75ff980c5d63454cb5df7bdb *R/perturb.R
 be12cbe97d59896daa36bce56722de6c *R/rnetwork.R
 ac4aad0f6cbd0cb1782b9e6327616e1f *R/savenet.R
 cb7b1eb76429f8c5ff6b2885d828371f *R/unique.R
+d56eafe24e05dbf070dd1b30231496c3 *README.md
 7c69cc4367c705ff377112d44faeb4fc *data/ksl.rda
 0131851397897ab1f91b44948554a119 *data/ksl.txt.gz
 b45eb0e11f127e02ceef6545be0d2396 *data/rats.txt.gz
@@ -64,8 +65,8 @@ cff876dcb1ce9dccfe85e1b37c935053 *man/nwfsort.Rd
 0fbe19a8762fc83241ccbe254277d4a2 *man/readnet.Rd
 b2d5e98dd928562fc8c67ae058b9de8f *man/rnetwork.Rd
 e1173a5eeda18952744c9706a1461d69 *man/score.Rd
-4f255d3ea3963e33875cc9da1425f6ca *src/init.c
-0e21cb62dab4280cfe0e917edcddca3b *src/matrix.c
-7e80aef25b56e71290ce8dd9aa52ea16 *src/matrix.h
-61bd062946606b0c2a2b6246cd4fc8f7 *src/postc.c
-ed6849b9711b1f4205bd9943834ba5c9 *src/postc0.c
+2265f63d0fe640e9c16bc69faa64391d *src/init.c
+368a75df2e8b7e4cbe81429af2079cec *src/matrix.c
+d3ca5e0052ee288ee954f143b2c22bb9 *src/matrix.h
+f2329cec320e38b00117558d0843fd81 *src/postc.c
+84a209372c0d906fd1ca0bfb009340d6 *src/postc0.c

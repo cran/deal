@@ -1,5 +1,5 @@
-/*                               -*- Mode: C -*- 
- * matrix.h --- 
+/*                               -*- Mode: C -*-
+ * matrix.h ---
  * Author          : Claus Dethlefsen
  * Created On      : Thu Mar 14 06:47:52 2002
  * Last Modified By: Claus Dethlefsen
@@ -10,7 +10,7 @@
 
 /*
   ##
-##    Copyright (C) 2002  Susanne Gammelgaard Bøttcher, Claus Dethlefsen
+##    Copyright (C) 2002  Susanne Gammelgaard Bottcher, Claus Dethlefsen
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -39,4 +39,4 @@ extern double**    matcopy(double **, int, int);
 extern double**    matmult(double **,double **, int, int, int);
 extern double**    matsum(double **a, double **b, int nr, int nc);
 extern double**    matminus(double **a, double **b, int nr, int nc);
-extern double**    transp (double **a, int n, int m); 
+extern double**    transp (double **a, int n, int m);

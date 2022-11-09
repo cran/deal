@@ -1,4 +1,4 @@
-/*                               -*- Mode: C -*- 
+/*                               -*- Mode: C -*-
  * postc.c --- Posterior for continuous node with continuous parents
  * Author          : Claus Dethlefsen
  * Created On      : Tue Mar 12 06:44:35 2002
@@ -10,7 +10,7 @@
 
 /*
   ##
-##    Copyright (C) 2002  Susanne Gammelgaard B?ttcher, Claus Dethlefsen
+##    Copyright (C) 2002  Susanne Gammelgaard Bottcher, Claus Dethlefsen
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@
 void postc(double *mu, double *tau, double *rho, double *phi, double
 	    *loglik, double *y, double *z, int *n, int *d)
 {
-	/* 
+	/*
 	   mu:  dx1 matrix
 	   tau: dxd matrix
 	   rho: real
@@ -65,7 +65,7 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 	/* copy arguments into the matrices */
 	asmatrix(mu,mmu,*d,1);
 	asmatrix(tau,mtau,*d,*d);
-	
+
 	/* show input */
 /*
 	Rprintf("Mu=(%d x 1)\n",*d);
@@ -73,11 +73,11 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 
 	Rprintf("Tau=\n");
 	printmat(mtau,*d,*d);
-	
+
 	Rprintf("Rho=%f\n",*rho);
 	Rprintf("Phi=%f\n",*phi);
 	Rprintf("loglik=%f\n",*loglik);
-	
+
 
 
 	Rprintf("Entering loop\n");
@@ -103,7 +103,7 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 		for (j=1; j<=*d; j++) {
 			zi[j][1] = z[j-1+(i-1)*(*d)];
 		}
-		
+
 		logscale = log(*phi) +
 			log1p(
 				matmult(
@@ -112,10 +112,10 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 					1,*d,1
 					)[1][1]
 				);
-		
+
 		logk = lgammafn( 0.5*(1.0+*rho) ) - lgammafn(*rho*0.5);
 		logk -= 0.5*(logscale + log(M_PI));
-		
+
 		mscore =  logk - 0.5*(*rho+1)*
 			log1p(
 				(y[i-1] - matmult(
@@ -130,7 +130,7 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 					)[1][1])
 				/exp(logscale)
 				);
-		
+
 		*loglik += mscore;
 		/*
 			Rprintf("logscale=%f\n",logscale);
@@ -140,7 +140,7 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 		*/
 		oldtau = matcopy(mtau,*d,*d);
 		oldmu  = matcopy(mmu,*d,1);
-		
+
 		/*
 			Rprintf("mtau=\n");
 			printmat(mtau,*d,*d);
@@ -150,17 +150,17 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 			printmat(transp(zi,*d,1),1,*d);
 			Rprintf("matmult(zi,transp(zi,*d,1),*d,1,*d)\n");
 			printmat(matmult(zi,transp(zi,*d,1),*d,1,*d),*d,*d);
-			Rprintf("matsum(mtau, 
+			Rprintf("matsum(mtau,
 			      matmult(zi,transp(zi,*d,1),*d,1,*d)
 			      , *d, *d
 			)\n");
-			printmat(matsum(mtau, 
+			printmat(matsum(mtau,
 			      matmult(zi,transp(zi,*d,1),*d,1,*d)
 			      , *d, *d
 					 ),*d,*d);
 		*/
 
-		mtau = matsum(mtau, 
+		mtau = matsum(mtau,
 			      matmult(zi,transp(zi,*d,1),*d,1,*d)
 			      , *d, *d
 			);
@@ -215,8 +215,8 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 		/*
 			Rprintf("Phi=%f\n",*phi);
 		*/
-	} 
-	
+	}
+
 /* RESULTS */
 	/*
 		Rprintf("Mu=\n");
@@ -227,14 +227,14 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 		Rprintf("Phi=%f\n",*phi);
 		Rprintf("loglik=%f\n",*loglik);
 	*/
-	
-	
+
+
 	for (i=1; i<=*d;i++)
 		mu[i-1] = mmu[i][1];
 	for (i=1; i<=*d; i++)
 		for (j=1; j<=*d; j++)
 			tau[(*d)*(j-1)+i-1] = mtau[i][j];
-	
+
 	/*
 		Rprintf("Returned mu=\n");
 		for (i=0; i<*d; i++)
@@ -260,4 +260,4 @@ void postc(double *mu, double *tau, double *rho, double *phi, double
 	free_dmatrix(oldmu,1,*d,1,1);
 */
 
-} 
+}
